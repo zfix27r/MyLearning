@@ -1,0 +1,3 @@
+Сделать словарик для подсветки терминов:
+фреймворк, изолированность, слабая связанность, абстракция, Entities, Use Cases,
+Interface Adapters, Frameworks and Drivers, MVC, SQL
