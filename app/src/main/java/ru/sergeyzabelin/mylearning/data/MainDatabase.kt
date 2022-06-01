@@ -1,4 +1,4 @@
-package ru.sergeyzabelin.data
+package ru.sergeyzabelin.mylearning.data
 
 import android.content.Context
 import androidx.room.Database
@@ -7,12 +7,12 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import ru.sergeyzabelin.data.entities.LessonContent
-import ru.sergeyzabelin.data.entities.LessonTopic
+import ru.sergeyzabelin.mylearning.data.entities.LessonContent
+import ru.sergeyzabelin.mylearning.data.entities.LessonTopic
 
 @Database(
     entities = [LessonTopic::class, LessonContent::class],
-    version = 1,
+    version = 3,
     exportSchema = false
 )
 abstract class MainDatabase : RoomDatabase() {

@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.sergeyzabelin.data.entities.LessonTopic
+import ru.sergeyzabelin.mylearning.data.entities.LessonTopic
 import ru.sergeyzabelin.mylearning.databinding.LessonTopicItemMainBinding
 
 
@@ -41,7 +41,7 @@ class LessonTopicAdapter(
 
         private val binding = lessonTopicItemMainBinding
 
-        fun bind(lessonTopic: ru.sergeyzabelin.data.entities.LessonTopic) {
+        fun bind(lessonTopic: LessonTopic) {
             binding.lessonTopicMtvTitle.text = lessonTopic.title
             binding.lessonTopicMtvDescription.text = lessonTopic.description
 
@@ -59,12 +59,12 @@ class LessonTopicAdapter(
         }
     }
 
-    private class DiffCallback : DiffUtil.ItemCallback<ru.sergeyzabelin.data.entities.LessonTopic>() {
-        override fun areItemsTheSame(oldItem: ru.sergeyzabelin.data.entities.LessonTopic, newItem: ru.sergeyzabelin.data.entities.LessonTopic): Boolean {
+    private class DiffCallback : DiffUtil.ItemCallback<LessonTopic>() {
+        override fun areItemsTheSame(oldItem: LessonTopic, newItem: LessonTopic): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: ru.sergeyzabelin.data.entities.LessonTopic, newItem: ru.sergeyzabelin.data.entities.LessonTopic): Boolean {
+        override fun areContentsTheSame(oldItem: LessonTopic, newItem: LessonTopic): Boolean {
             return oldItem == newItem
         }
     }

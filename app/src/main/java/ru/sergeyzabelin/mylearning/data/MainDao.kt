@@ -1,4 +1,4 @@
-package ru.sergeyzabelin.data
+package ru.sergeyzabelin.mylearning.data
 
 import androidx.room.*
 

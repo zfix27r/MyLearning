@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import ru.sergeyzabelin.domain.MainViewModel
+import ru.sergeyzabelin.mylearning.domain.MainViewModel
 import ru.sergeyzabelin.mylearning.adapters.LessonTopicAdapter
 import ru.sergeyzabelin.mylearning.databinding.MainFragmentBinding
 
@@ -28,6 +28,7 @@ class MainFragment : Fragment() {
 
         val lessonTopicAdapter = LessonTopicAdapter(activity)
         binding.mainLessonRv.adapter = lessonTopicAdapter
+        viewModel
         //Log.e("ds", viewModel.getLessonTopicGroup().toString())
         //lessonTopicAdapter.submitList(viewModel.getLessonTopicGroup())
 
