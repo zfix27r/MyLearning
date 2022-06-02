@@ -1,22 +1,46 @@
 package ru.sergeyzabelin.mylearning
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.JsonReader
 import android.util.Log
-import com.google.firebase.ktx.Firebase
-import com.google.firebase.ktx.app
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
-import ru.sergeyzabelin.mylearning.data.entities.LessonTopic
-import ru.sergeyzabelin.mylearning.data.entities.SerializerLessonTopic
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.QuerySnapshot
+
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val db = Firebase.app
+        val db = FirebaseFirestore.getInstance()
+
+        val user: MutableMap<String, Any> = HashMap()
+        user["first"] = "Ada"
+        user["last"] = "Lovelace"
+        user["born"] = 1815
+
+        db.collection("lesson_topic")
+            .add(user)
+            .addOnSuccessListener { documentReference ->
+                Log.d(
+                    "sd",
+                    "DocumentSnapshot added with ID: " + documentReference.id
+                )
+            }
+            .addOnFailureListener { e -> Log.w("TAG", "Error adding document", e) }
+
+        db.collection("lesson_topic")
+            .get()
+            .addOnCompleteListener{ task ->
+                if (task.isSuccessful) {
+                    for (document in task.result) {
+                        Log.d("TAG", document.id + " => " + document.data)
+                    }
+                } else {
+                    Log.w("TAG", "Error getting documents.", task.exception)
+                }
+            }
+
 /*        this.assets.open("lesson_topic.json").use { inputStream ->
             JsonReader(inputStream.reader()).use { jsonReader ->
                 Log.e("asdad", Json.decodeFromString<SerializerLessonTopic>(jsonReader.toString()).toString())
@@ -27,4 +51,5 @@ class MainActivity : AppCompatActivity() {
         }
     }*/
 
+    }
 }

@@ -2,4 +2,22 @@
     <string name="app_name">MyLearning</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="menu_settings">Настройки</string>
+    <string name="menu_done">Сделано</string>
+
+
+    <string name="button_add">Добавить</string>
+
+    <string name="lesson_topic_add_title">Название</string>
+    <string name="lesson_topic_add_title_tint">введите название</string>
+    <string name="lesson_topic_add_description">Описание</string>
+    <string name="lesson_topic_add_description_tint">введите описание</string>
+    <string name="lesson_topic_add_resource_link">Ссылка</string>
+    <string name="lesson_topic_add_resource_link_tint">введите ссылку на источник</string>
+    <string name="lesson_topic_add_button_add">добавить</string>
+
+    <string name="lesson_topic_add_error_field_empty">Заполните все поля</string>
+    <string name="lesson_topic_add_action_done_toast">Тема урока успешно добавлена</string>
+
 </resources>

@@ -16,4 +16,10 @@ class MainViewModel(application: Application) : AndroidViewModel(Application()) 
     init {
 
     }
+
+    fun setLessonTopicToFirestore() {
+        val lessonTopic = LessonTopic("")
+
+        repo.setLessonTopicToFirebase()
+    }
 }

@@ -9,5 +9,15 @@
         android:id="@+id/navMainFragment"
         android:name="ru.sergeyzabelin.mylearning.MainFragment"
         android:label="main_fragment"
-        tools:layout="@layout/main_fragment" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_navMainFragment_to_navLessonTopicAddFragment"
+            app:destination="@id/navLessonTopicAddFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/navLessonTopicAddFragment"
+        android:name="ru.sergeyzabelin.mylearning.LessonTopicAddFragment"
+        android:label="fragment_lesson_topic_add"
+        tools:layout="@layout/fragment_lesson_topic_add" />
 </navigation>
