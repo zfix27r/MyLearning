@@ -4,14 +4,13 @@ import android.os.Bundle
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.activityViewModels
-import ru.sergeyzabelin.mylearning.databinding.FragmentLessonTopicAddBinding
+import ru.sergeyzabelin.mylearning.data.entities.Lesson
+import ru.sergeyzabelin.mylearning.databinding.FragmentLessonAddBinding
 import ru.sergeyzabelin.mylearning.domain.MainViewModel
 
-
 class LessonTopicAddFragment : Fragment() {
-    private lateinit var binding: FragmentLessonTopicAddBinding
+    private lateinit var binding: FragmentLessonAddBinding
 
     private val viewModel: MainViewModel by activityViewModels()
 
@@ -25,7 +24,18 @@ class LessonTopicAddFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         binding =
-            DataBindingUtil.inflate(inflater, R.layout.fragment_lesson_topic_add, container, false)
+            FragmentLessonAddBinding.inflate(inflater, container, false)
+
+/*        viewModel.getException()?.observe(viewLifecycleOwner) { finalData ->
+            when (finalData.status) {
+                Resource.Status.SUCCESS -> {
+                    viewMessageUI(R.string.lesson_topic_add_exception_done)
+                    findNavController().popBackStack()
+                }
+                Resource.Status.LOADING -> {}
+                Resource.Status.ERROR -> viewMessageUI(R.string.lesson_topic_add_exception_no_internet)
+            }
+        }*/
 
         return binding.root
     }
@@ -54,23 +64,21 @@ class LessonTopicAddFragment : Fragment() {
 
     private fun checkAllInputAndDone() {
         val isInputLessonTitleCorrect =
-            isInputCorrect(binding.lessonTopicAddMetTitle.text.toString())
+            isInputCorrect(binding.lessonAddMetTitle.text.toString())
         val isInputLessonDescriptionCorrect =
-            isInputCorrect(binding.lessonTopicAddMetDescription.text.toString())
-        val isInputLessonResourceLinkCorrect =
-            isInputCorrect(binding.lessonTopicAddMetResourceLink.text.toString())
+            isInputCorrect(binding.lessonAddMetDescription.text.toString())
 
         if (isInputLessonTitleCorrect &&
-            isInputLessonDescriptionCorrect &&
-            isInputLessonResourceLinkCorrect
+            isInputLessonDescriptionCorrect
         ) {
-            viewModel.setLessonTopicToFirestore()
+            val lesson = Lesson(
+                binding.lessonAddMetTitle.text.toString(),
+                binding.lessonAddMetDescription.text.toString()
+            )
+
+            viewModel.setLesson(lesson)
         } else {
-            Toast.makeText(
-                requireContext(),
-                requireActivity().resources.getString(R.string.lesson_topic_add_error_field_empty),
-                Toast.LENGTH_SHORT
-            ).show()
+            viewMessageUI(R.string.lesson_topic_add_exception_field_empty)
         }
     }
 
@@ -80,5 +88,13 @@ class LessonTopicAddFragment : Fragment() {
         }
 
         return false
+    }
+
+    private fun viewMessageUI(resourceStringId: Int) {
+        Toast.makeText(
+            requireContext(),
+            requireActivity().resources.getString(resourceStringId),
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

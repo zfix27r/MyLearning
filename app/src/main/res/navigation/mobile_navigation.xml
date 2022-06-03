@@ -9,15 +9,36 @@
         android:id="@+id/navMainFragment"
         android:name="ru.sergeyzabelin.mylearning.MainFragment"
         android:label="main_fragment"
-        tools:layout="@layout/fragment_main" >
+        tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_navMainFragment_to_navLessonTopicAddFragment"
             app:destination="@id/navLessonTopicAddFragment" />
+        <action
+            android:id="@+id/action_navMainFragment_to_navLessonDetailFragment"
+            app:destination="@id/navLessonDetailFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/navLessonTopicAddFragment"
         android:name="ru.sergeyzabelin.mylearning.LessonTopicAddFragment"
         android:label="fragment_lesson_topic_add"
-        tools:layout="@layout/fragment_lesson_topic_add" />
+        tools:layout="@layout/fragment_lesson_add" />
+
+    <fragment
+        android:id="@+id/navLessonDetailFragment"
+        android:name="ru.sergeyzabelin.mylearning.LessonDetailFragment"
+        android:label="fragment_lesson_detail"
+        tools:layout="@layout/fragment_lesson_detail">
+        <argument
+            android:name="lessonId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/navDictionaryFragment"
+        android:name="ru.sergeyzabelin.mylearning.DictionaryFragment"
+        android:label="fragment_dictionary"
+        tools:layout="@layout/fragment_dictionary" />
+    <action
+        android:id="@+id/action_global_navDictionaryFragment"
+        app:destination="@id/navDictionaryFragment" />
 </navigation>

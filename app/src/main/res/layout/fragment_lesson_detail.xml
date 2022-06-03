@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/lesson_rv"
+        android:id="@+id/lesson_detail_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginStart="8dp"
@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/lesson_fab"
+        android:id="@+id/lesson_detail_fab"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <LinearLayout
-        android:id="@+id/lesson_empty"
+        android:id="@+id/lesson_detail_empty"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -49,14 +49,14 @@
     </LinearLayout>
 
     <ProgressBar
-        android:id="@+id/lesson_loading"
+        android:id="@+id/lesson_detail_loading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="@+id/lesson_rv"
+        app:layout_constraintBottom_toBottomOf="@+id/lesson_detail_rv"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/lesson_rv" />
+        app:layout_constraintTop_toTopOf="@+id/lesson_detail_rv" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

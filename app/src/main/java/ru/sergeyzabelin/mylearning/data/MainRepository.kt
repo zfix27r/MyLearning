@@ -4,18 +4,26 @@ import android.app.Application
 import android.util.Log
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
-import ru.sergeyzabelin.mylearning.data.entities.LessonTopic
-import java.lang.Exception
+import com.google.firebase.firestore.Query
+import ru.sergeyzabelin.mylearning.data.entities.Lesson
+
 
 class MainRepository(application: Application) {
     private val firebaseFirestore = FirebaseFirestore.getInstance()
 
-    fun getAllLessonTopic() {
+    fun getLessonFromFirebase(): Query {
+        return firebaseFirestore.collection(FIREBASE_LESSON_PATH)
+            .limit(LIMIT.toLong())
     }
 
-    fun setLessonTopicToFirebase(lessonTopic: LessonTopic) {
-        firebaseFirestore.collection("lesson_topic")
-            .add(lessonTopic)
+    fun getLessonDetailFromFirebase(): Query {
+        return firebaseFirestore.collection(FIREBASE_LESSON_DETAIL_PATH)
+            .limit(LIMIT.toLong())
+    }
+
+    fun setLessonToFirebase(lesson: Lesson) {
+        firebaseFirestore.collection(FIREBASE_LESSON_PATH)
+            .add(lesson)
             .addOnSuccessListener { documentReference ->
                 loggedSuccessRequestToFirestore(documentReference)
             }
@@ -23,13 +31,40 @@ class MainRepository(application: Application) {
     }
 
     private fun loggedSuccessRequestToFirestore(documentReference: DocumentReference) {
-        Log.d(
+        Log.e(
             "sd",
-            "DocumentSnapshot added with ID: " + documentReference.id
+             documentReference.id
         )
     }
 
     private fun loggedFailureRequestToFirestore(exception: Exception) {
-        Log.w("TAG", "Error adding document", exception)
+        Log.e("TAG", "Error adding document", exception)
+    }
+
+
+/*    fun getDetail(movieId: String?): LiveData<Resource<MyBeanClass>>? {
+        val myBeanClass: MutableLiveData<Resource<MyBeanClass>> =
+            MutableLiveData<Resource<MyBeanClass>>()
+        val apiInterface: ApiInterface = ApiClient().getClient().create(ApiInterface::class.java)
+        val call: Call<MyBeanClass> = apiInterface.getData(id)
+        call.enqueue(object : Callback<MyBeanClass?>() {
+            fun onResponse(call: Call<MyBeanClass?>?, response: Response<MyBeanClass?>) {
+                if (response.body() != null) {
+                    val body: MyBeanClass = response.body()
+                    myBeanClass.setValue(Resource.success(body))
+                }
+            }
+
+            fun onFailure(call: Call<MyBeanClass?>?, t: Throwable) {
+                myBeanClass.setValue(Resource.error(t.message, null))
+            }
+        })
+        return myBeanClass
+    }*/
+
+    companion object {
+        const val FIREBASE_LESSON_PATH = "lesson"
+        const val FIREBASE_LESSON_DETAIL_PATH = "lesson_detail"
+        const val LIMIT = 50
     }
 }

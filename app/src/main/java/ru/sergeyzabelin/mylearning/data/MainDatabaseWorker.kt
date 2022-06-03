@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
-import ru.sergeyzabelin.mylearning.data.entities.LessonTopic
+import ru.sergeyzabelin.mylearning.data.entities.Lesson
 
 class MainDatabaseWorker(
     context: Context,
@@ -21,7 +21,7 @@ class MainDatabaseWorker(
         try {
             applicationContext.assets.open("lesson_topic.json").use { inputStream ->
                 JsonReader(inputStream.reader()).use { jsonReader ->
-                    Log.e("asdad", Json.decodeFromString<LessonTopic>(jsonReader.toString()).toString())
+                    Log.e("asdad", Json.decodeFromString<Lesson>(jsonReader.toString()).toString())
 /*                    val type = object : TypeToken<List<LessonTopic>>() {}.type
                     val list: List<LessonTopic> = Gson().fromJson(jsonReader, type)
                     dao.setAllStoryTitle(list)*/

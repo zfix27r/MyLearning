@@ -7,11 +7,9 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import ru.sergeyzabelin.mylearning.data.entities.LessonContent
-import ru.sergeyzabelin.mylearning.data.entities.LessonTopic
 
 @Database(
-    entities = [LessonTopic::class, LessonContent::class],
+    entities = [],
     version = 3,
     exportSchema = false
 )

@@ -1,25 +1,22 @@
 package ru.sergeyzabelin.mylearning.domain
 
 import android.app.Application
-import android.util.JsonReader
-import android.util.Log
 import androidx.lifecycle.AndroidViewModel
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.Json
 import ru.sergeyzabelin.mylearning.data.MainRepository
-import ru.sergeyzabelin.mylearning.data.entities.LessonTopic
+import ru.sergeyzabelin.mylearning.data.entities.Lesson
+
 
 class MainViewModel(application: Application) : AndroidViewModel(Application()) {
     private val repo = MainRepository(application)
-    private val context = application
 
     init {
 
     }
 
-    fun setLessonTopicToFirestore() {
-        val lessonTopic = LessonTopic("")
+    fun getLesson() = repo.getLessonFromFirebase()
+    fun getLessonDetail() = repo.getLessonDetailFromFirebase()
 
-        repo.setLessonTopicToFirebase()
+    fun setLesson(lesson: Lesson) {
+        repo.setLessonToFirebase(lesson)
     }
 }
