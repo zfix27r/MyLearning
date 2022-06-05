@@ -10,18 +10,18 @@
 
     <string name="button_add">Добавить</string>
 
+    <string name="lesson_add_eng_title">Название на английском</string>
     <string name="lesson_add_title">Название</string>
-    <string name="lesson_add_title_tint">введите название</string>
     <string name="lesson_add_description">Описание</string>
-    <string name="lesson_add_description_tint">введите описание</string>
     <string name="lesson_add_resource_link">Ссылка</string>
-    <string name="lesson_add_resource_link_tint">введите ссылку на источник</string>
-    <string name="lesson_add_button_add">добавить</string>
 
     <string name="lesson_topic_add_exception_field_empty">Заполните все поля</string>
     <string name="lesson_topic_add_exception_no_internet">Проверьте подключние к интернету</string>
     <string name="lesson_topic_add_exception_done">Тема урока успешно добавлена</string>
 
-    <string name="message_no_result">ни ответа, ни привета</string>
+    <string name="tint_input_field">заполните поле</string>
+    <string name="message_no_result">не удалось получить информацию</string>
+    <string name="message_field_empty">заполните поле</string>
+
 
 </resources>

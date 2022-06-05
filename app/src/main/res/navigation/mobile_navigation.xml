@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_navMainFragment_to_navLessonDetailFragment"
             app:destination="@id/navLessonDetailFragment" />
+        <action
+            android:id="@+id/action_navMainFragment_self"
+            app:destination="@id/navMainFragment" />
     </fragment>
 
     <fragment
@@ -37,8 +40,17 @@
         android:id="@+id/navDictionaryFragment"
         android:name="ru.sergeyzabelin.mylearning.DictionaryFragment"
         android:label="fragment_dictionary"
-        tools:layout="@layout/fragment_dictionary" />
+        tools:layout="@layout/fragment_dictionary" >
+        <action
+            android:id="@+id/action_navDictionaryFragment_to_navDictionaryAddFragment"
+            app:destination="@id/navDictionaryAddFragment" />
+    </fragment>
     <action
         android:id="@+id/action_global_navDictionaryFragment"
         app:destination="@id/navDictionaryFragment" />
+    <fragment
+        android:id="@+id/navDictionaryAddFragment"
+        android:name="ru.sergeyzabelin.mylearning.DictionaryAddFragment"
+        android:label="fragment_dictionary_add"
+        tools:layout="@layout/fragment_dictionary_add" />
 </navigation>

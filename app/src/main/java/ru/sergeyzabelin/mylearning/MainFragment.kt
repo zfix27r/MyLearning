@@ -8,15 +8,15 @@ import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestoreException
-import ru.sergeyzabelin.mylearning.adapters.LessonAdapter
+import ru.sergeyzabelin.mylearning.adapters.CollectionAdapter
 import ru.sergeyzabelin.mylearning.databinding.FragmentMainBinding
 import ru.sergeyzabelin.mylearning.domain.MainViewModel
 
 class MainFragment : Fragment(),
-    LessonAdapter.OnLessonTopicSelectedListener {
+    CollectionAdapter.OnSelectedListener {
 
     private lateinit var binding: FragmentMainBinding
-    private lateinit var adapter: LessonAdapter
+    private lateinit var adapter: CollectionAdapter
 
     private val viewModel: MainViewModel by activityViewModels()
 
@@ -30,6 +30,7 @@ class MainFragment : Fragment(),
         binding = FragmentMainBinding.inflate(
             inflater, container, false
         )
+        binding.viewmodel = viewModel
 
         return binding.root
     }
@@ -41,14 +42,12 @@ class MainFragment : Fragment(),
             findNavController().navigate(R.id.action_navMainFragment_to_navLessonTopicAddFragment)
         }
 
-        adapter = object : LessonAdapter(viewModel.getLesson(), this@MainFragment) {
+        adapter = object : CollectionAdapter(viewModel.getNextCollection(), this@MainFragment) {
             override fun onDataChanged() {
                 if (itemCount == 0) {
-                    binding.lessonRv.visibility = View.GONE
-                    binding.lessonEmpty.visibility = View.VISIBLE
+                    viewModel.noResultVisibility.set(View.VISIBLE)
                 } else {
-                    binding.lessonRv.visibility = View.VISIBLE
-                    binding.lessonEmpty.visibility = View.GONE
+                    viewModel.noResultVisibility.set(View.GONE)
                 }
             }
 
@@ -91,11 +90,16 @@ class MainFragment : Fragment(),
         }
     }
 
-    override fun onLessonTopicSelected(document: DocumentSnapshot) {
-        val action =
-            MainFragmentDirections.actionNavMainFragmentToNavLessonDetailFragment(document.id)
+    override fun onSelected(document: DocumentSnapshot) {
+        if (document.data.isNullOrEmpty()) {
+            viewModel.collectionId = document.id
+            findNavController().navigate(R.id.action_navMainFragment_self)
+        } else {
+            val action =
+                MainFragmentDirections.actionNavMainFragmentToNavLessonDetailFragment(document.id)
 
-        findNavController().navigate(action)
+            findNavController().navigate(action)
+        }
     }
 
     override fun onStart() {

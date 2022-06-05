@@ -1,59 +1,81 @@
 package ru.sergeyzabelin.mylearning
 
 import android.os.Bundle
+import android.view.*
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.firestore.DocumentSnapshot
+import com.google.firebase.firestore.FirebaseFirestoreException
+import ru.sergeyzabelin.mylearning.adapters.DictionaryAdapter
+import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryBinding
+import ru.sergeyzabelin.mylearning.domain.MainViewModel
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class DictionaryFragment : Fragment(), DictionaryAdapter.OnSelectedListener {
+    private lateinit var binding: FragmentDictionaryBinding
+    private lateinit var adapter: DictionaryAdapter
 
-/**
- * A simple [Fragment] subclass.
- * Use the [DictionaryFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class DictionaryFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private val viewModel: MainViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_dictionary, container, false)
+    ): View {
+        setHasOptionsMenu(true)
+        binding = FragmentDictionaryBinding.inflate(inflater, container, false)
+
+        return binding.root
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment DictionaryFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            DictionaryFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.dictionaryFab.setOnClickListener {
+            findNavController().navigate(R.id.action_navDictionaryFragment_to_navDictionaryAddFragment)
+        }
+
+        adapter = object : DictionaryAdapter(viewModel.getDictionary(), this@DictionaryFragment) {
+            override fun onDataChanged() {
+
             }
+
+            override fun onError(e: FirebaseFirestoreException) {
+                Snackbar.make(binding.root, "error", Snackbar.LENGTH_SHORT).show()
+            }
+        }
+
+        binding.dictionaryRecycler.adapter = adapter
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.main_menu, menu)
+
+        menu.findItem(R.id.action_dictionary).isVisible = false
+        menu.findItem(R.id.action_done).isVisible = false
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.action_settings -> {
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onSelected(document: DocumentSnapshot) {
+        TODO("Not yet implemented")
+    }
+
+    override fun onStart() {
+        super.onStart()
+
+        adapter.startListening()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        adapter.stopListening()
     }
 }

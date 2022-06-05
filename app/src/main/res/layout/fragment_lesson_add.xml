@@ -13,68 +13,69 @@
             android:id="@+id/lesson_add_eng_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/lesson_add_title"
+            android:text="@string/lesson_add_eng_title"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/lesson_add_met_eng_title"
+            android:id="@+id/lesson_add_edit_eng_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:hint="@string/lesson_add_title_tint"
+            android:hint="@string/tint_input_field"
             android:inputType="textMultiLine"
             android:maxHeight="96dp"
             android:minHeight="48dp"
             android:textColorHint="#757575"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lesson_add_mtv_title" />
+            app:layout_constraintTop_toBottomOf="@+id/lesson_add_eng_title" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/lesson_add_mtv_title"
+            android:id="@+id/lesson_add_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
             android:text="@string/lesson_add_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/lesson_add_edit_eng_title" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/lesson_add_met_title"
+            android:id="@+id/lesson_add_edit_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:hint="@string/lesson_add_title_tint"
+            android:hint="@string/tint_input_field"
             android:inputType="textMultiLine"
             android:maxHeight="96dp"
             android:minHeight="48dp"
             android:textColorHint="#757575"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lesson_add_mtv_title" />
+            app:layout_constraintTop_toBottomOf="@+id/lesson_add_title" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/lesson_add_mtv_description"
+            android:id="@+id/lesson_add_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:text="@string/lesson_add_description"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lesson_add_met_title" />
+            app:layout_constraintTop_toBottomOf="@+id/lesson_add_edit_title" />
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/lesson_add_met_description"
+            android:id="@+id/lesson_add_edit_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:ems="10"
-            android:hint="@string/lesson_add_description_tint"
+            android:hint="@string/tint_input_field"
             android:inputType="textMultiLine"
             android:maxHeight="96dp"
             android:minHeight="48dp"
             android:textColorHint="#757575"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/lesson_add_mtv_description" />
+            app:layout_constraintTop_toBottomOf="@+id/lesson_add_description" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

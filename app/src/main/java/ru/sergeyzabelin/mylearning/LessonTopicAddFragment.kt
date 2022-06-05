@@ -64,16 +64,16 @@ class LessonTopicAddFragment : Fragment() {
 
     private fun checkAllInputAndDone() {
         val isInputLessonTitleCorrect =
-            isInputCorrect(binding.lessonAddMetTitle.text.toString())
+            isInputCorrect(binding.lessonAddTitle.text.toString())
         val isInputLessonDescriptionCorrect =
-            isInputCorrect(binding.lessonAddMetDescription.text.toString())
+            isInputCorrect(binding.lessonAddDescription.text.toString())
 
         if (isInputLessonTitleCorrect &&
             isInputLessonDescriptionCorrect
         ) {
             val lesson = Lesson(
-                binding.lessonAddMetTitle.text.toString(),
-                binding.lessonAddMetDescription.text.toString()
+                binding.lessonAddTitle.text.toString(),
+                binding.lessonAddDescription.text.toString()
             )
 
             viewModel.setLesson(lesson)

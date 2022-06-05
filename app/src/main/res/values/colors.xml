@@ -8,4 +8,7 @@
     <color name="secondary_text">#000000</color>
     <color name="secondary_light">#e2f1f8</color>
     <color name="secondary_dark">#808e95</color>
+
+    <color name="colorOnSurface">#263238</color>
+    <color name="colorOnSurfaceText">#000000</color>
 </resources>

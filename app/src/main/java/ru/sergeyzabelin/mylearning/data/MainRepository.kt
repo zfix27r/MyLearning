@@ -1,28 +1,54 @@
 package ru.sergeyzabelin.mylearning.data
 
 import android.app.Application
+import android.content.Context
 import android.util.Log
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import ru.sergeyzabelin.mylearning.data.entities.Dictionary
 import ru.sergeyzabelin.mylearning.data.entities.Lesson
 
 
 class MainRepository(application: Application) {
     private val firebaseFirestore = FirebaseFirestore.getInstance()
+    private val settings = application.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
+
+    fun getPatternFromFirebase(): Query {
+        return firebaseFirestore.collection(FIREBASE_PATTERN_COLLECTION)
+            .limit(LIMIT.toLong())
+    }
+
+    fun getNextFirebaseCollectionById(id: String?): Query {
+        return firebaseFirestore.collection(FIREBASE_COLLECTION_MAIN)
+            .limit(LIMIT.toLong())
+    }
 
     fun getLessonFromFirebase(): Query {
-        return firebaseFirestore.collection(FIREBASE_LESSON_PATH)
+        return firebaseFirestore.collection(FIREBASE_COLLECTION)
+            .document(FIREBASE_LESSON_DOCUMENT)
+            .collection(FIREBASE_LESSON_COLLECTION)
             .limit(LIMIT.toLong())
     }
 
     fun getLessonDetailFromFirebase(): Query {
-        return firebaseFirestore.collection(FIREBASE_LESSON_DETAIL_PATH)
+        return firebaseFirestore.collection(FIREBASE_COLLECTION)
+            .document(FIREBASE_LESSON_DETAIL_DOCUMENT)
+            .collection(FIREBASE_LESSON_DETAIL_COLLECTION)
+            .limit(LIMIT.toLong())
+    }
+
+    fun getDictionaryFromFirebase(): Query {
+        return firebaseFirestore.collection(FIREBASE_COLLECTION)
+            .document(FIREBASE_DICTIONARY_DOCUMENT)
+            .collection(FIREBASE_DICTIONARY_COLLECTION)
             .limit(LIMIT.toLong())
     }
 
     fun setLessonToFirebase(lesson: Lesson) {
-        firebaseFirestore.collection(FIREBASE_LESSON_PATH)
+        firebaseFirestore.collection(FIREBASE_COLLECTION)
+            .document(FIREBASE_LESSON_DOCUMENT)
+            .collection(FIREBASE_LESSON_COLLECTION)
             .add(lesson)
             .addOnSuccessListener { documentReference ->
                 loggedSuccessRequestToFirestore(documentReference)
@@ -30,10 +56,26 @@ class MainRepository(application: Application) {
             .addOnFailureListener { exception -> loggedFailureRequestToFirestore(exception) }
     }
 
+    fun setDictionaryToFirebase(dictionary: Dictionary) {
+        firebaseFirestore.collection(FIREBASE_COLLECTION)
+            .document(FIREBASE_DICTIONARY_DOCUMENT)
+            .collection(FIREBASE_DICTIONARY_COLLECTION)
+            .document(dictionary.titleOriginal!!)
+            .set(dictionary)
+/*
+            .doc()
+            .set(dictionary)
+*/
+/*            .addOnSuccessListener { documentReference ->
+                loggedSuccessRequestToFirestore(documentReference)
+            }
+            .addOnFailureListener { exception -> loggedFailureRequestToFirestore(exception) }*/
+    }
+
     private fun loggedSuccessRequestToFirestore(documentReference: DocumentReference) {
         Log.e(
             "sd",
-             documentReference.id
+            documentReference.id
         )
     }
 
@@ -42,29 +84,23 @@ class MainRepository(application: Application) {
     }
 
 
-/*    fun getDetail(movieId: String?): LiveData<Resource<MyBeanClass>>? {
-        val myBeanClass: MutableLiveData<Resource<MyBeanClass>> =
-            MutableLiveData<Resource<MyBeanClass>>()
-        val apiInterface: ApiInterface = ApiClient().getClient().create(ApiInterface::class.java)
-        val call: Call<MyBeanClass> = apiInterface.getData(id)
-        call.enqueue(object : Callback<MyBeanClass?>() {
-            fun onResponse(call: Call<MyBeanClass?>?, response: Response<MyBeanClass?>) {
-                if (response.body() != null) {
-                    val body: MyBeanClass = response.body()
-                    myBeanClass.setValue(Resource.success(body))
-                }
-            }
-
-            fun onFailure(call: Call<MyBeanClass?>?, t: Throwable) {
-                myBeanClass.setValue(Resource.error(t.message, null))
-            }
-        })
-        return myBeanClass
-    }*/
 
     companion object {
-        const val FIREBASE_LESSON_PATH = "lesson"
-        const val FIREBASE_LESSON_DETAIL_PATH = "lesson_detail"
+        const val FIREBASE_COLLECTION_MAIN = "myLearningApp"
+
+
+        const val FIREBASE_PATTERN_COLLECTION = "pattern"
+        const val FIREBASE_DICTIONARY_COLLECTION = "dictionary"
+
+        const val FIREBASE_COLLECTION = "my_learning_app"
+        const val FIREBASE_LESSON_DOCUMENT = "lesson"
+        const val FIREBASE_LESSON_COLLECTION = "list"
+        const val FIREBASE_LESSON_DETAIL_DOCUMENT = "lesson_detail"
+        const val FIREBASE_LESSON_DETAIL_COLLECTION = "list"
+        const val FIREBASE_DICTIONARY_DOCUMENT = "dictionary"
+        //const val FIREBASE_DICTIONARY_COLLECTION = "list"
         const val LIMIT = 50
+
+        const val PREFERENCES = "settings"
     }
 }
