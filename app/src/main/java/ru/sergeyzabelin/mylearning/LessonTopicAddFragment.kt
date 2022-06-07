@@ -76,7 +76,7 @@ class LessonTopicAddFragment : Fragment() {
                 binding.lessonAddDescription.text.toString()
             )
 
-            viewModel.setLesson(lesson)
+            //viewModel.setLesson(lesson)
         } else {
             viewMessageUI(R.string.lesson_topic_add_exception_field_empty)
         }

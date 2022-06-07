@@ -8,9 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
-import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestoreException
 import ru.sergeyzabelin.mylearning.adapters.LessonDetailAdapter
 import ru.sergeyzabelin.mylearning.databinding.FragmentLessonDetailBinding
 import ru.sergeyzabelin.mylearning.domain.MainViewModel
@@ -37,7 +35,7 @@ class LessonDetailFragment : Fragment(), LessonDetailAdapter.OnDetailSelectedLis
 
         Log.e("sad", safeArgs.lessonId)
 
-        adapter =
+  /*      adapter =
             object : LessonDetailAdapter(viewModel.getLessonDetail(), this@LessonDetailFragment) {
                 override fun onDataChanged() {
                     if (itemCount == 0) {
@@ -52,7 +50,7 @@ class LessonDetailFragment : Fragment(), LessonDetailAdapter.OnDetailSelectedLis
                 override fun onError(e: FirebaseFirestoreException) {
                     Snackbar.make(binding.root, "Error", Snackbar.LENGTH_SHORT).show()
                 }
-            }
+            }*/
 
     }
 

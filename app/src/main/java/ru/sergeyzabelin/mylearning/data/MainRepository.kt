@@ -1,20 +1,17 @@
 package ru.sergeyzabelin.mylearning.data
 
 import android.app.Application
-import android.content.Context
-import android.util.Log
-import com.google.firebase.firestore.DocumentReference
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import ru.sergeyzabelin.mylearning.data.entities.Dictionary
-import ru.sergeyzabelin.mylearning.data.entities.Lesson
 
 
 class MainRepository(application: Application) {
-    private val firebaseFirestore = FirebaseFirestore.getInstance()
-    private val settings = application.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
+    private val dao = MainDatabase.getInstance(application).mainDao()
 
-    fun getPatternFromFirebase(): Query {
+    //private val firebaseFirestore = FirebaseFirestore.getInstance()
+    //private val settings = application.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)
+
+    fun getAllDictionary() = dao.getAllDictionary()
+
+/*    fun getPatternFromFirebase(): Query {
         return firebaseFirestore.collection(FIREBASE_PATTERN_COLLECTION)
             .limit(LIMIT.toLong())
     }
@@ -54,25 +51,25 @@ class MainRepository(application: Application) {
                 loggedSuccessRequestToFirestore(documentReference)
             }
             .addOnFailureListener { exception -> loggedFailureRequestToFirestore(exception) }
-    }
+    }*/
 
-    fun setDictionaryToFirebase(dictionary: Dictionary) {
+/*    fun setDictionaryToFirebase(dictionary: Dictionary) {
         firebaseFirestore.collection(FIREBASE_COLLECTION)
             .document(FIREBASE_DICTIONARY_DOCUMENT)
             .collection(FIREBASE_DICTIONARY_COLLECTION)
             .document(dictionary.titleOriginal!!)
             .set(dictionary)
-/*
+*//*
             .doc()
             .set(dictionary)
-*/
-/*            .addOnSuccessListener { documentReference ->
+*//*
+*//*            .addOnSuccessListener { documentReference ->
                 loggedSuccessRequestToFirestore(documentReference)
             }
-            .addOnFailureListener { exception -> loggedFailureRequestToFirestore(exception) }*/
-    }
+            .addOnFailureListener { exception -> loggedFailureRequestToFirestore(exception) }*//*
+    }*/
 
-    private fun loggedSuccessRequestToFirestore(documentReference: DocumentReference) {
+/*    private fun loggedSuccessRequestToFirestore(documentReference: DocumentReference) {
         Log.e(
             "sd",
             documentReference.id
@@ -81,7 +78,7 @@ class MainRepository(application: Application) {
 
     private fun loggedFailureRequestToFirestore(exception: Exception) {
         Log.e("TAG", "Error adding document", exception)
-    }
+    }*/
 
 
 

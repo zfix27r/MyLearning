@@ -5,14 +5,14 @@ import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.FirebaseFirestoreException
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.RecyclerView
 import ru.sergeyzabelin.mylearning.adapters.DictionaryAdapter
 import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryBinding
 import ru.sergeyzabelin.mylearning.domain.MainViewModel
 
-class DictionaryFragment : Fragment(), DictionaryAdapter.OnSelectedListener {
+
+class DictionaryFragment : Fragment() {
     private lateinit var binding: FragmentDictionaryBinding
     private lateinit var adapter: DictionaryAdapter
 
@@ -35,47 +35,48 @@ class DictionaryFragment : Fragment(), DictionaryAdapter.OnSelectedListener {
             findNavController().navigate(R.id.action_navDictionaryFragment_to_navDictionaryAddFragment)
         }
 
-        adapter = object : DictionaryAdapter(viewModel.getDictionary(), this@DictionaryFragment) {
-            override fun onDataChanged() {
-
-            }
-
-            override fun onError(e: FirebaseFirestoreException) {
-                Snackbar.make(binding.root, "error", Snackbar.LENGTH_SHORT).show()
-            }
-        }
-
+        adapter = DictionaryAdapter { position -> onSelectedListener(position) }
         binding.dictionaryRecycler.adapter = adapter
+
+        val itemTouchHelperCallback =
+            object : ItemTouchHelper.Callback() {
+                private var swipeBack = false
+
+                override fun getMovementFlags(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder
+                ): Int {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    TODO("Not yet implemented")
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    TODO("Not yet implemented")
+                }
+
+            }
+
+        ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(binding.dictionaryRecycler)
+
+        viewModel.dictionaryList.observe(viewLifecycleOwner) {
+            adapter.submitList(it)
+        }
+    }
+
+    private fun onSelectedListener(position: Int) {
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
 
-        menu.findItem(R.id.action_dictionary).isVisible = false
         menu.findItem(R.id.action_done).isVisible = false
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_settings -> {
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onSelected(document: DocumentSnapshot) {
-        TODO("Not yet implemented")
-    }
-
-    override fun onStart() {
-        super.onStart()
-
-        adapter.startListening()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        adapter.stopListening()
     }
 }

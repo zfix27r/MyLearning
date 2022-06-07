@@ -10,5 +10,5 @@ data class Dictionary(
     val title: String,
     val name: String,
     val description: String,
-    val source: List<String>
+    val source: String
 )

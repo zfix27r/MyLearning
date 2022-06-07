@@ -2,26 +2,20 @@ package ru.sergeyzabelin.mylearning.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.ktx.toObject
 import ru.sergeyzabelin.mylearning.data.entities.Dictionary
-import ru.sergeyzabelin.mylearning.databinding.DictionaryRecyclerItemBinding
+import ru.sergeyzabelin.mylearning.databinding.RecyclerDictionaryItemBinding
 
-open class DictionaryAdapter(query: Query, private val listener: OnSelectedListener) :
-    FirestoreAdapter<DictionaryAdapter.ViewHolder>(query) {
+class DictionaryAdapter(
+    private val onSelectedListener: ((Int) -> Unit)
+) :
+    ListAdapter<Dictionary, RecyclerView.ViewHolder>(DiffCallback()) {
 
-    interface OnSelectedListener {
-        fun onSelected(document: DocumentSnapshot)
-    }
-
-    override fun onCreateViewHolder(
-        parent: ViewGroup,
-        viewType: Int
-    ): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(
-            DictionaryRecyclerItemBinding.inflate(
+            RecyclerDictionaryItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -29,25 +23,32 @@ open class DictionaryAdapter(query: Query, private val listener: OnSelectedListe
         )
     }
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getSnapshot(position), listener)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        val viewHolder = holder as ViewHolder
+        viewHolder.bind(currentList[position])
     }
 
-    class ViewHolder(private val binding: DictionaryRecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    override fun getItemCount(): Int {
+        return currentList.size
+    }
 
-        fun bind(
-            snapshot: DocumentSnapshot,
-            listener: OnSelectedListener?
-        ) {
-            val dictionary = snapshot.toObject<Dictionary>() ?: return
+    inner class ViewHolder(recyclerDictionaryItemBinding: RecyclerDictionaryItemBinding) :
+        RecyclerView.ViewHolder(recyclerDictionaryItemBinding.root) {
 
-            binding.dictionaryAddTitle.text = dictionary.title
-            binding.dictionaryAddTitleOriginal.text = dictionary.titleOriginal
-            binding.dictionaryAddDescription.text = dictionary.description
+        private val binding = recyclerDictionaryItemBinding
 
-            binding.root.setOnClickListener {
-                listener?.onSelected(snapshot)
-            }
+        fun bind(dictionary: Dictionary) {
+            binding.dictionary = dictionary
+        }
+    }
+
+    private class DiffCallback : DiffUtil.ItemCallback<Dictionary>() {
+        override fun areItemsTheSame(oldItem: Dictionary, newItem: Dictionary): Boolean {
+            return oldItem.id == newItem.id
+        }
+
+        override fun areContentsTheSame(oldItem: Dictionary, newItem: Dictionary): Boolean {
+            return oldItem == newItem
         }
     }
 }

@@ -7,10 +7,11 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import ru.sergeyzabelin.mylearning.data.entities.Dictionary
 
 @Database(
-    entities = [],
-    version = 3,
+    entities = [Dictionary::class],
+    version = 1,
     exportSchema = false
 )
 abstract class MainDatabase : RoomDatabase() {

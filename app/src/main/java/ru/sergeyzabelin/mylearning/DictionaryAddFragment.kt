@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import ru.sergeyzabelin.mylearning.data.entities.Dictionary
 import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryAddBinding
 import ru.sergeyzabelin.mylearning.domain.MainViewModel
 
@@ -29,7 +28,6 @@ class DictionaryAddFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_menu, menu)
-        menu.findItem(R.id.action_dictionary).isVisible = false
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -75,9 +73,9 @@ class DictionaryAddFragment : Fragment() {
         }
         binding.dictionaryAddDescription.error = null
 
-        val dictionary = Dictionary(titleOriginal, title, description)
+        //val dictionary = Dictionary(titleOriginal, title, description)
 
-        viewModel.setDictionary(dictionary)
+        //viewModel.setDictionary(dictionary)
     }
 
 }
