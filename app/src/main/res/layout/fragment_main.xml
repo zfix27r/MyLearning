@@ -7,7 +7,7 @@
 
         <variable
             name="viewmodel"
-            type="ru.sergeyzabelin.mylearning.domain.MainViewModel" />
+            type="ru.sergeyzabelin.mylearning.ui.main.MainViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

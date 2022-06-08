@@ -1,0 +1,8 @@
+
+<resources>
+    <attr name="colorColor58" format="color" />
+    <attr name="colorOnColor58" format="color" />
+    <attr name="colorColor58Container" format="color" />
+    <attr name="colorOnColor58Container" format="color" />
+    <attr name="harmonizeColor58" format="boolean" />
+</resources>
