@@ -28,18 +28,15 @@ class DictionaryAddFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main_menu, menu)
+        inflater.inflate(R.menu.top_app_bar, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.action_settings -> {
-                true
-            }
-            R.id.action_done -> {
+/*            R.id.action_done -> {
                 checkAllInputAndDone()
                 true
-            }
+            }*/
             else -> super.onOptionsItemSelected(item)
         }
     }

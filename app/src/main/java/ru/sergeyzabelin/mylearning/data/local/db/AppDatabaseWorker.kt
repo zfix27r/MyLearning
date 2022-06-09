@@ -8,7 +8,8 @@ import com.google.gson.reflect.TypeToken
 import com.google.gson.stream.JsonReader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import ru.sergeyzabelin.mylearning.data.model.db.Dictionary
+import ru.sergeyzabelin.mylearning.data.model.db.Article
+import ru.sergeyzabelin.mylearning.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.utils.AppConstants
 
 class AppDatabaseWorker(
@@ -19,16 +20,25 @@ class AppDatabaseWorker(
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
-            applicationContext.assets.open(AppConstants.ASSETS_DICTIONARY_FILEPATH)
+            applicationContext.assets.open(AppConstants.ASSET_TOPIC_FILEPATH)
                 .use { inputStream ->
                     JsonReader(inputStream.reader()).use { jsonReader ->
-                        val type = object : TypeToken<List<Dictionary>>() {}.type
-                        val list: List<Dictionary> = Gson().fromJson(jsonReader, type)
-                        dao.setAllDictionary(list)
+                        val type = object : TypeToken<List<Topic>>() {}.type
+                        val list: List<Topic> = Gson().fromJson(jsonReader, type)
+                        dao.setAllTopic(list)
                         Result.success()
                     }
                 }
 
+            applicationContext.assets.open(AppConstants.ASSET_ARTICLE_FILEPATH)
+                .use { inputStream ->
+                    JsonReader(inputStream.reader()).use { jsonReader ->
+                        val type = object : TypeToken<List<Article>>() {}.type
+                        val list: List<Article> = Gson().fromJson(jsonReader, type)
+                        dao.setAllArticle(list)
+                        Result.success()
+                    }
+                }
 
         } catch (ex: Exception) {
             Result.failure()

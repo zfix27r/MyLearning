@@ -1,26 +1,36 @@
 package ru.sergeyzabelin.mylearning.ui.dictionary.detail
 
 import android.app.Application
-import androidx.databinding.ObservableBoolean
+import androidx.databinding.ObservableInt
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.sergeyzabelin.mylearning.data.local.db.dictionarydetail.DictionaryDetailRepository
-import ru.sergeyzabelin.mylearning.data.model.db.Dictionary
+import ru.sergeyzabelin.mylearning.data.local.db.AppDatabase
+import ru.sergeyzabelin.mylearning.data.local.db.TopicRepository
+import ru.sergeyzabelin.mylearning.data.model.db.TopicWithArticles
 
-class DictionaryDetailViewModel(application: Application): AndroidViewModel(Application()) {
-    private val repo = DictionaryDetailRepository(application)
+class DictionaryDetailViewModel(application: Application) : AndroidViewModel(Application()) {
+    private val repo = TopicRepository(AppDatabase.getInstance(application).topicDao())
 
-    val dictionaryDetail: LiveData<Dictionary> = repo.getDictionary()
+    val topicWithArticles: LiveData<TopicWithArticles> = repo.topicWithArticles
 
-    var dictionaryDetailId: Int = 0
+    var topicId: Int = 0
 
-    var isLoading: ObservableBoolean = ObservableBoolean(true)
+    var isLoadingCounter: ObservableInt = ObservableInt(0)
 
-    fun getDictionaryById() = viewModelScope.launch {
-        isLoading.set(true)
-        repo.getDictionaryDetailById(dictionaryDetailId)
-        isLoading.set(false)
+    fun getTopicWithArticlesById() = viewModelScope.launch {
+        upIsLoadingCounter()
+        repo.getTopicWithArticlesById(topicId)
+        downIsLoadingCounter()
     }
+
+    private fun upIsLoadingCounter() {
+        isLoadingCounter.set(isLoadingCounter.get() + 1)
+    }
+
+    private fun downIsLoadingCounter() {
+        isLoadingCounter.set(isLoadingCounter.get() - 1)
+    }
+
 }

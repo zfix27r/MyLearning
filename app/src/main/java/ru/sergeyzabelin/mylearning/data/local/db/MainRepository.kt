@@ -1,11 +1,7 @@
-package ru.sergeyzabelin.mylearning.data.local.db.main
-
-import android.app.Application
-import ru.sergeyzabelin.mylearning.data.local.db.AppDatabase
+package ru.sergeyzabelin.mylearning.data.local.db
 
 
-class MainRepository(application: Application) {
-    private val dao = AppDatabase.getInstance(application).mainDao()
+class MainRepository(private val dao: MainDao) {
 
     //private val firebaseFirestore = FirebaseFirestore.getInstance()
     //private val settings = application.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)

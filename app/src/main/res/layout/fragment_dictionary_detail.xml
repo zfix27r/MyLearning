@@ -16,14 +16,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp"
         tools:context=".ui.dictionary.detail.DictionaryDetailFragment">
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/dictionary_detail_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{ viewModel.dictionaryDetail.title }"
+            android:text="@{ viewModel.topicWithArticles.topic.title }"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -34,51 +33,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{ viewModel.dictionaryDetail.name }"
+            android:text="@{ viewModel.topicWithArticles.topic.label }"
             android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/dictionary_detail_title"
             tools:text="Functional design" />
 
-        <ScrollView
-            android:id="@+id/dictionary_detail_description_scroll"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dictionary_detail_name">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <TextView
-                    android:id="@+id/dictionary_detail_description"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{ viewModel.dictionaryDetail.description }"
-                    android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
-                    tools:text="Гарантирует, что каждый модуль компьютерной программы имеет только одну обязанность и исполняет её с минимумом побочных эффектов на другие части программы." />
-            </LinearLayout>
-        </ScrollView>
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dictionary_detail_recycler"
+            android:id="@+id/dictionary_detail_link_recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:minWidth="200dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dictionary_detail_description_scroll" />
+            app:layout_constraintTop_toBottomOf="@+id/dictionary_detail_name" />
 
         <ProgressBar
             android:id="@+id/dictionary_detail_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{ viewModel.isLoading ? View.VISIBLE : View.GONE }"
+            android:visibility="@{ viewModel.isLoadingCounter != 0 ? View.VISIBLE : View.GONE }"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

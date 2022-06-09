@@ -1,0 +1,30 @@
+[
+  {
+    "title": "Шаблон делегирования",
+    "label": "Delegation pattern"
+  },
+  {
+    "title": "Шаблон функционального дизайна",
+    "label": "Functional design"
+  },
+  {
+    "title": "Неизменяемый интерфейс",
+    "label": "Immutable interface"
+  },
+  {
+    "title": "Интерфейс",
+    "label": "Interface"
+  },
+  {
+    "title": "Интерфейс-маркер",
+    "label": "Marker interface"
+  },
+  {
+    "title": "Контейнер свойств",
+    "label": "Property container"
+  },
+  {
+    "title": "Канал событий",
+    "label": "Event channel"
+  }
+]

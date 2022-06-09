@@ -32,5 +32,6 @@
         <item name="colorColor58Container">#e1dfff</item>
         <item name="colorOnColor58Container">#08006c</item>
         <item name="harmonizeColor58">true</item>
+
     </style>
 </resources>

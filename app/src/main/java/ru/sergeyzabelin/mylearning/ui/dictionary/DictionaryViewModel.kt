@@ -6,19 +6,20 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.sergeyzabelin.mylearning.data.local.db.dictionary.DictionaryRepository
-import ru.sergeyzabelin.mylearning.data.model.db.Dictionary
+import ru.sergeyzabelin.mylearning.data.local.db.AppDatabase
+import ru.sergeyzabelin.mylearning.data.local.db.TopicRepository
+import ru.sergeyzabelin.mylearning.data.model.db.Topic
 
 class DictionaryViewModel(application: Application) : AndroidViewModel(Application()) {
 
-    private val repo = DictionaryRepository(application)
+    private val repo = TopicRepository(AppDatabase.getInstance(application).topicDao())
 
-    val dictionaryList: LiveData<List<Dictionary>> = repo.getDictionaryGroup()
+    val topics: LiveData<List<Topic>> = repo.topics
     val isLoading: ObservableBoolean = ObservableBoolean(true )
 
     fun getAllDictionaryGroup() = viewModelScope.launch {
         isLoading.set(true)
-        repo.getAllDictionary()
+        repo.getAllTopic()
         isLoading.set(false)
     }
 }

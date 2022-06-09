@@ -7,22 +7,19 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import ru.sergeyzabelin.mylearning.data.local.db.dictionary.DictionaryDao
-import ru.sergeyzabelin.mylearning.data.local.db.dictionarydetail.DictionaryDetailDao
-import ru.sergeyzabelin.mylearning.data.local.db.main.MainDao
-import ru.sergeyzabelin.mylearning.data.model.db.Dictionary
+import ru.sergeyzabelin.mylearning.data.model.db.Article
+import ru.sergeyzabelin.mylearning.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.utils.AppConstants
 
 @Database(
-    entities = [Dictionary::class],
+    entities = [Topic::class, Article::class],
     version = 1,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun databaseWorkerDao(): AppDatabaseWorkerDao
     abstract fun mainDao(): MainDao
-    abstract fun dictionaryDao(): DictionaryDao
-    abstract fun dictionaryDetailDao(): DictionaryDetailDao
+    abstract fun topicDao(): TopicDao
 
     companion object {
         @Volatile

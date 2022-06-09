@@ -6,11 +6,12 @@ import androidx.databinding.ObservableInt
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.sergeyzabelin.mylearning.data.local.db.main.MainRepository
+import ru.sergeyzabelin.mylearning.data.local.db.AppDatabase
+import ru.sergeyzabelin.mylearning.data.local.db.MainRepository
 
 
 class MainViewModel(application: Application) : AndroidViewModel(Application()) {
-    private val repo = MainRepository(application)
+    private val repo = MainRepository(AppDatabase.getInstance(application).mainDao())
 
     val loadingVisibility: ObservableInt = ObservableInt(8)
     val noResultVisibility: ObservableInt = ObservableInt(8)

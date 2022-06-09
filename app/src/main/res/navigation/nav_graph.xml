@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/mobile_navigation"
+    android:id="@+id/nav_graph"
     app:startDestination="@+id/navMainFragment">
 
     <fragment
@@ -65,7 +65,7 @@
             android:id="@+id/action_navDictionaryDetailFragment_to_navDictionaryEditFragment"
             app:destination="@id/navDictionaryEditFragment" />
         <argument
-            android:name="dictionaryId"
+            android:name="topicId"
             app:argType="integer" />
     </fragment>
 

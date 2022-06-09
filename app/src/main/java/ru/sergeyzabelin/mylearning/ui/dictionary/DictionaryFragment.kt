@@ -11,33 +11,33 @@ import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryBinding
 
 class DictionaryFragment : Fragment() {
     private lateinit var binding: FragmentDictionaryBinding
-    private lateinit var adapter: DictionaryAdapter
+    private lateinit var adapter: TopicAdapter
 
-    private val viewModel: DictionaryViewModel by viewModels()
+    private val viewModel by viewModels<DictionaryViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
         setHasOptionsMenu(true)
-
         binding = FragmentDictionaryBinding.inflate(inflater, container, false)
-        binding.viewModel = viewModel
-        binding.fragment = this
+
 
         viewModel.getAllDictionaryGroup()
 
+
+        binding.viewModel = viewModel
+        binding.fragment = this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = DictionaryAdapter { id -> onClickRecyclerItem(id) }
+        adapter = TopicAdapter { id -> onClickRecyclerItem(id) }
         binding.dictionaryRecycler.adapter = adapter
 
-        viewModel.dictionaryList.observe(viewLifecycleOwner) { list ->
+        viewModel.topics.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
         }
     }
@@ -55,8 +55,8 @@ class DictionaryFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main_menu, menu)
+        inflater.inflate(R.menu.top_app_bar, menu)
 
-        menu.findItem(R.id.action_done).isVisible = false
+        //menu.findItem(R.id.action_done).isVisible = false
     }
 }

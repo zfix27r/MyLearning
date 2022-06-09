@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="topic"
+            type="ru.sergeyzabelin.mylearning.data.model.db.Topic" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/dictionary_topic_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dictionary_topic_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{ topic.title }"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Шаблон функционального дизайна" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/dictionary_topic_label"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@{ topic.label }"
+            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+            app:layout_constraintEnd_toEndOf="@+id/dictionary_topic_title"
+            app:layout_constraintStart_toStartOf="@+id/dictionary_topic_title"
+            app:layout_constraintTop_toBottomOf="@+id/dictionary_topic_title"
+            tools:text="Functional design" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>
