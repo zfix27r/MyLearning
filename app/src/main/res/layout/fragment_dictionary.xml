@@ -47,7 +47,7 @@
             android:id="@+id/dictionary_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="@{ viewModel.isLoading ? View.VISIBLE : View.GONE }"
+            android:visibility="@{ viewModel.isLoadingCounter() != 0 ? View.VISIBLE : View.GONE }"
             app:layout_constraintBottom_toBottomOf="@+id/dictionary_fab"
             app:layout_constraintEnd_toEndOf="@+id/dictionary_fab"
             app:layout_constraintStart_toStartOf="@+id/dictionary_fab"

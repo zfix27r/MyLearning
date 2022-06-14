@@ -23,26 +23,22 @@ class DictionaryDetailViewModel(application: Application) : AndroidViewModel(App
     var topicWithArticles: LiveData<TopicWithArticles>? = null
 
     //  = 0 - false, > 0 - true
-    var isLoadingCounter: ObservableInt = ObservableInt(0)
+    private var loadingCounter: Int = 0
+        set(value) {
+            field = value
+            isLoadingCounter.set(field)
+        }
+    val isLoadingCounter: ObservableInt = ObservableInt(0)
 
 
     fun getTopicWithArticlesById() {
-        upIsLoadingCounter()
+        loadingCounter++
         topicWithArticles = repo.getTopicWithArticlesById(topicId)
-        downIsLoadingCounter()
+        loadingCounter--
     }
 
     fun refreshDescription(article: Article) = viewModelScope.launch {
         //val wikiDetail = repo.getDescriptionById(article.)
         //repo.setArticle(article.copy(description = wikiDetail.query.pages[0].extract))
     }
-
-    private fun upIsLoadingCounter() {
-        isLoadingCounter.set(isLoadingCounter.get() + 1)
-    }
-
-    private fun downIsLoadingCounter() {
-        isLoadingCounter.set(isLoadingCounter.get() - 1)
-    }
-
 }

@@ -37,7 +37,7 @@ class DictionaryFragment : Fragment() {
         adapter = TopicAdapter { id -> onClickRecyclerItem(id) }
         binding.dictionaryRecycler.adapter = adapter
 
-        viewModel.topics.observe(viewLifecycleOwner) { list ->
+        viewModel.topics?.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
         }
     }

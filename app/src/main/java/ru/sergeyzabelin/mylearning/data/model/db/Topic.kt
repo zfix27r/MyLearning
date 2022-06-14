@@ -12,7 +12,9 @@ data class Topic(
 
     val title: String,
 
-    val label: String
+    val label: String,
+
+    val wikiId: Long
     /*
     * счетчик просмотров \ популярность
     * Для формирования списков наиболеее просматриваемого и наименее

@@ -1,18 +1,28 @@
 [
   {
-    "articleId": 1,
-    "tagId": 1
-  },
-  {
-    "articleId": 2,
-    "tagId": 1
+    "articleId": 3,
+    "tagId": 2
   },
   {
     "articleId": 3,
-    "tagId": 1
+    "tagId": 3
   },
   {
     "articleId": 4,
-    "tagId": 1
+    "tagId": 2
+  },
+  {
+    "articleId": 4,
+    "tagId": 3
+  },
+  {
+    "articleId": 6,
+    "tagId": 2
+  },
+  {
+    "articleId": 6,
+    "tagId": 3
   }
 ]
+
+

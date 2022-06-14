@@ -12,8 +12,8 @@ import ru.sergeyzabelin.mylearning.data.model.db.TopicWithArticles
 @Dao
 interface TopicDao {
 
-    @Query("SELECT * FROM topic")
-    suspend fun getAllTopic(): List<Topic>
+    @Query("SELECT * FROM topic WHERE parentId = :parentId")
+    fun getTopicByParentId(parentId:Long): LiveData<List<Topic>>
 
     @Transaction
     @Query("SELECT * FROM topic WHERE id = :id LIMIT 1")
