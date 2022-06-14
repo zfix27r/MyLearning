@@ -6,23 +6,35 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
+import ru.sergeyzabelin.mylearning.data.DetailDictionaryRepository
 import ru.sergeyzabelin.mylearning.data.local.db.AppDatabase
-import ru.sergeyzabelin.mylearning.data.local.db.TopicRepository
+import ru.sergeyzabelin.mylearning.data.model.db.Article
 import ru.sergeyzabelin.mylearning.data.model.db.TopicWithArticles
+import ru.sergeyzabelin.mylearning.utils.ApiBuilder
 
 class DictionaryDetailViewModel(application: Application) : AndroidViewModel(Application()) {
-    private val repo = TopicRepository(AppDatabase.getInstance(application).topicDao())
+    private val repo = DetailDictionaryRepository(
+        ApiBuilder,
+        AppDatabase.getInstance(application).topicDao()
+    )
 
-    val topicWithArticles: LiveData<TopicWithArticles> = repo.topicWithArticles
+    var topicId: Long = 0
 
-    var topicId: Int = 0
+    var topicWithArticles: LiveData<TopicWithArticles>? = null
 
+    //  = 0 - false, > 0 - true
     var isLoadingCounter: ObservableInt = ObservableInt(0)
 
-    fun getTopicWithArticlesById() = viewModelScope.launch {
+
+    fun getTopicWithArticlesById() {
         upIsLoadingCounter()
-        repo.getTopicWithArticlesById(topicId)
+        topicWithArticles = repo.getTopicWithArticlesById(topicId)
         downIsLoadingCounter()
+    }
+
+    fun refreshDescription(article: Article) = viewModelScope.launch {
+        //val wikiDetail = repo.getDescriptionById(article.)
+        //repo.setArticle(article.copy(description = wikiDetail.query.pages[0].extract))
     }
 
     private fun upIsLoadingCounter() {

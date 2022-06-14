@@ -1,0 +1,33 @@
+Шаблон проектирования|design pattern||0
+Основные шаблоны|Fundamental||1
+Шаблон делегирования|Delegation pattern|162432|2
+Шаблон функционального дизайна|Functional design|268427|2
+Неизменяемый интерфейс|Immutable interface|6379317|2
+Интерфейс|Interface|164218|2
+Интерфейс-маркер|Marker interface|4787174|2
+Контейнер свойств|Property container|7181824|2
+Канал событий|Event channel|7501571|2
+Порождающие шаблоны|Creational||1
+Абстрактная фабрика|Abstract factory||10
+Строитель|Builder||10
+Фабричный метод|Factory method||10
+Отложенная инициализация|Lazy initialization||10
+Мультитон|Multiton||10
+Объектный пул|Object pool||10
+Прототип|Prototype||10
+Получение ресурса есть инициализация|Resource acquisition is initialization (RAII)||10
+Одиночка|Singleton||10
+
+
+
+
+
+
+
+Наблюдатель|||
+Стратегия|Strategy||
+
+
+
+
+

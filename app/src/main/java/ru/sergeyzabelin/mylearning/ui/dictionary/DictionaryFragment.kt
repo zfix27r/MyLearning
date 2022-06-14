@@ -46,7 +46,7 @@ class DictionaryFragment : Fragment() {
         findNavController().navigate(R.id.action_navDictionaryFragment_to_navDictionaryAddFragment)
     }
 
-    private fun onClickRecyclerItem(id: Int) {
+    private fun onClickRecyclerItem(id: Long) {
         findNavController().navigate(
             DictionaryFragmentDirections.actionNavDictionaryFragmentToNavDictionaryDetailFragment(
                 id

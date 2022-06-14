@@ -7,12 +7,11 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
-import ru.sergeyzabelin.mylearning.data.model.db.Article
-import ru.sergeyzabelin.mylearning.data.model.db.Topic
+import ru.sergeyzabelin.mylearning.data.model.db.*
 import ru.sergeyzabelin.mylearning.utils.AppConstants
 
 @Database(
-    entities = [Topic::class, Article::class],
+    entities = [Topic::class, Article::class, Tag::class, ArticleTagCrossRef::class, Book::class],
     version = 1,
     exportSchema = false
 )

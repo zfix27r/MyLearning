@@ -9,6 +9,8 @@ import com.google.gson.stream.JsonReader
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.sergeyzabelin.mylearning.data.model.db.Article
+import ru.sergeyzabelin.mylearning.data.model.db.ArticleTagCrossRef
+import ru.sergeyzabelin.mylearning.data.model.db.Tag
 import ru.sergeyzabelin.mylearning.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.utils.AppConstants
 
@@ -36,6 +38,26 @@ class AppDatabaseWorker(
                         val type = object : TypeToken<List<Article>>() {}.type
                         val list: List<Article> = Gson().fromJson(jsonReader, type)
                         dao.setAllArticle(list)
+                        Result.success()
+                    }
+                }
+
+            applicationContext.assets.open(AppConstants.ASSET_TAG_FILEPATH)
+                .use { inputStream ->
+                    JsonReader(inputStream.reader()).use { jsonReader ->
+                        val type = object : TypeToken<List<Tag>>() {}.type
+                        val list: List<Tag> = Gson().fromJson(jsonReader, type)
+                        dao.setAllTag(list)
+                        Result.success()
+                    }
+                }
+
+            applicationContext.assets.open(AppConstants.ASSET_ARTICLE_TAG_CROSS_REF_FILEPATH)
+                .use { inputStream ->
+                    JsonReader(inputStream.reader()).use { jsonReader ->
+                        val type = object : TypeToken<List<ArticleTagCrossRef>>() {}.type
+                        val list: List<ArticleTagCrossRef> = Gson().fromJson(jsonReader, type)
+                        dao.setAllArticleTagCrossRef(list)
                         Result.success()
                     }
                 }

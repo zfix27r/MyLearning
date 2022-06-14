@@ -18,35 +18,15 @@
         android:layout_height="match_parent"
         tools:context=".ui.dictionary.detail.DictionaryDetailFragment">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/dictionary_detail_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@{ viewModel.topicWithArticles.topic.title }"
-            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="Шаблон функционального дизайна" />
-
-        <TextView
-            android:id="@+id/dictionary_detail_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:text="@{ viewModel.topicWithArticles.topic.label }"
-            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dictionary_detail_title"
-            tools:text="Functional design" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dictionary_detail_link_recycler"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/dictionary_detail_name" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ProgressBar
             android:id="@+id/dictionary_detail_loading"

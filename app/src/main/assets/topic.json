@@ -1,30 +1,17 @@
 [
   {
-    "title": "Шаблон делегирования",
-    "label": "Delegation pattern"
+    "parentId": 0,
+    "title": "test1",
+    "label": "test1"
   },
   {
-    "title": "Шаблон функционального дизайна",
-    "label": "Functional design"
+    "parentId": 1,
+    "title": "test2",
+    "label": "test2"
   },
   {
-    "title": "Неизменяемый интерфейс",
-    "label": "Immutable interface"
-  },
-  {
-    "title": "Интерфейс",
-    "label": "Interface"
-  },
-  {
-    "title": "Интерфейс-маркер",
-    "label": "Marker interface"
-  },
-  {
-    "title": "Контейнер свойств",
-    "label": "Property container"
-  },
-  {
-    "title": "Канал событий",
-    "label": "Event channel"
+    "parentId": 2,
+    "title": "test3",
+    "label": "test3"
   }
 ]

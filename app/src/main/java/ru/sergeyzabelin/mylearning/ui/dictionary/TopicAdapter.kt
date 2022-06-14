@@ -9,7 +9,7 @@ import ru.sergeyzabelin.mylearning.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.databinding.ItemDictionaryTopicViewBinding
 
 class TopicAdapter(
-    private val onClickToDetail: ((Int) -> Unit)
+    private val onClickToDetail: ((Long) -> Unit)
 ) :
     ListAdapter<Topic, RecyclerView.ViewHolder>(DiffCallback()) {
 
