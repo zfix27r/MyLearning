@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <import type="android.view.View" />
-
-        <variable
-            name="fragment"
-            type="ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryFragment" />
 
         <variable
             name="viewModel"
@@ -32,26 +27,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/dictionary_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:contentDescription="@string/button_add"
-            android:onClick="@{ () -> fragment.onClickFab() }"
-            android:src="@drawable/ic_add"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
         <ProgressBar
             android:id="@+id/dictionary_loading"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="@{ viewModel.isLoadingCounter() != 0 ? View.VISIBLE : View.GONE }"
-            app:layout_constraintBottom_toBottomOf="@+id/dictionary_fab"
-            app:layout_constraintEnd_toEndOf="@+id/dictionary_fab"
-            app:layout_constraintStart_toStartOf="@+id/dictionary_fab"
-            app:layout_constraintTop_toTopOf="@+id/dictionary_fab" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

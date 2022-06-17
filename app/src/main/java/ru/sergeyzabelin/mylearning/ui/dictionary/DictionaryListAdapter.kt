@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import ru.sergeyzabelin.mylearning.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.databinding.ItemDictionaryTopicViewBinding
 
-class TopicAdapter(
-    private val onClickToDetail: ((Long) -> Unit)
+class DictionaryListAdapter(
+    private val onClickGoToNextChapter: ((Long) -> Unit)
 ) :
     ListAdapter<Topic, RecyclerView.ViewHolder>(DiffCallback()) {
 
@@ -39,7 +39,7 @@ class TopicAdapter(
 
         fun bind(topic: Topic) {
             binding.topic = topic
-            binding.dictionaryTopicItem.setOnClickListener { onClickToDetail(topic.id) }
+            binding.dictionaryTopicItem.setOnClickListener { onClickGoToNextChapter(topic.id) }
         }
     }
 

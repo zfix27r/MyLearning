@@ -1,17 +1,17 @@
 package ru.sergeyzabelin.mylearning.ui.main
 
-import android.app.Application
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableInt
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
-import ru.sergeyzabelin.mylearning.data.local.db.AppDatabase
+import androidx.lifecycle.ViewModel
 import ru.sergeyzabelin.mylearning.data.local.db.MainRepository
+import javax.inject.Inject
 
 
-class MainViewModel(application: Application) : AndroidViewModel(Application()) {
-    private val repo = MainRepository(AppDatabase.getInstance(application).mainDao())
+class MainViewModel @Inject constructor(repository: MainRepository) : ViewModel() {
+
+/*    val firstRun = {
+        repository.firstRun()
+    }*/
 
     val loadingVisibility: ObservableInt = ObservableInt(8)
     val noResultVisibility: ObservableInt = ObservableInt(8)
@@ -21,12 +21,6 @@ class MainViewModel(application: Application) : AndroidViewModel(Application()) 
     var collectionId: String? = null
 
     val isReady: ObservableBoolean = ObservableBoolean(false)
-
-    init {
-        viewModelScope.launch {
-            repo.firstRun()
-        }
-    }
 
 /*    fun getNextCollection() = repo.getNextFirebaseCollectionById(collectionId)
     fun getLesson() = repo.getLessonFromFirebase()

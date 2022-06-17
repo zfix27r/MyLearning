@@ -18,7 +18,7 @@ class AppDatabaseWorker(
     context: Context,
     workerParams: WorkerParameters
 ) : CoroutineWorker(context, workerParams) {
-    private val dao = AppDatabase.getInstance(applicationContext).databaseWorkerDao()
+    //private val dao = AppDatabase.getInstance(applicationContext).databaseWorkerDao()
 
     override suspend fun doWork(): Result = withContext(Dispatchers.IO) {
         try {
@@ -27,7 +27,7 @@ class AppDatabaseWorker(
                     JsonReader(inputStream.reader()).use { jsonReader ->
                         val type = object : TypeToken<List<Topic>>() {}.type
                         val list: List<Topic> = Gson().fromJson(jsonReader, type)
-                        dao.setAllTopic(list)
+                        //dao.setAllTopic(list)
                         Result.success()
                     }
                 }
@@ -37,7 +37,7 @@ class AppDatabaseWorker(
                     JsonReader(inputStream.reader()).use { jsonReader ->
                         val type = object : TypeToken<List<Article>>() {}.type
                         val list: List<Article> = Gson().fromJson(jsonReader, type)
-                        dao.setAllArticle(list)
+                        //dao.setAllArticle(list)
                         Result.success()
                     }
                 }
@@ -47,7 +47,7 @@ class AppDatabaseWorker(
                     JsonReader(inputStream.reader()).use { jsonReader ->
                         val type = object : TypeToken<List<Tag>>() {}.type
                         val list: List<Tag> = Gson().fromJson(jsonReader, type)
-                        dao.setAllTag(list)
+                       //dao.setAllTag(list)
                         Result.success()
                     }
                 }
@@ -57,7 +57,7 @@ class AppDatabaseWorker(
                     JsonReader(inputStream.reader()).use { jsonReader ->
                         val type = object : TypeToken<List<ArticleTagCrossRef>>() {}.type
                         val list: List<ArticleTagCrossRef> = Gson().fromJson(jsonReader, type)
-                        dao.setAllArticleTagCrossRef(list)
+                       // dao.setAllArticleTagCrossRef(list)
                         Result.success()
                     }
                 }

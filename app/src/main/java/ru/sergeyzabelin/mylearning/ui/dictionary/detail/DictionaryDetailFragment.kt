@@ -26,7 +26,7 @@ class DictionaryDetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         viewModel.topicId = args.topicId
-        viewModel.getTopicWithArticlesById()
+
         toolbar = requireActivity().findViewById(R.id.topAppbar)
     }
 
@@ -50,7 +50,7 @@ class DictionaryDetailFragment : Fragment() {
         binding.viewModel = viewModel
 
 
-        viewModel.topicWithArticles?.observe(viewLifecycleOwner) {
+        viewModel.topicWithArticles.observe(viewLifecycleOwner) {
             if (it != null) {
                 Log.e("asd", it.toString())
 

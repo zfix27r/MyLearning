@@ -3,11 +3,15 @@ package ru.sergeyzabelin.mylearning.data
 import ru.sergeyzabelin.mylearning.data.local.db.TopicDao
 import ru.sergeyzabelin.mylearning.data.model.api.WikiDetail
 import ru.sergeyzabelin.mylearning.data.model.db.Article
-import ru.sergeyzabelin.mylearning.data.remote.WikiApi
-import ru.sergeyzabelin.mylearning.utils.ApiBuilder
-import ru.sergeyzabelin.mylearning.utils.AppConstants.Companion.RETROFIT_WIKI_BASE_URL
+import ru.sergeyzabelin.mylearning.utils.AppExecutors
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class DetailDictionaryRepository(private val apiBuilder: ApiBuilder, private val dao: TopicDao) {
+@Singleton
+class DetailDictionaryRepository @Inject constructor(
+    private val appExecutors: AppExecutors,
+    private val dao: TopicDao
+) {
 
     fun getTopicWithArticlesById(id: Long) = dao.getTopicWithArticlesById(id)
 
@@ -22,9 +26,10 @@ class DetailDictionaryRepository(private val apiBuilder: ApiBuilder, private val
             Pair("pageids", id.toString())
         )
 
-        return apiBuilder.getClient(RETROFIT_WIKI_BASE_URL)
+        return WikiDetail()
+/*        return apiBuilder.getClient(RETROFIT_WIKI_BASE_URL)
             .create(WikiApi::class.java)
-            .getDetail(queryMap)
+            .getDetail(queryMap)*/
     }
     /*{
 

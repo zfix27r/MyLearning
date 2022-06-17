@@ -1,7 +1,13 @@
 package ru.sergeyzabelin.mylearning.data.local.db
 
+import ru.sergeyzabelin.mylearning.utils.AppExecutors
+import javax.inject.Inject
 
-class MainRepository(private val dao: MainDao) {
+
+class MainRepository @Inject constructor(
+    private val appExecutors: AppExecutors,
+    private val dao: MainDao
+) {
 
     //private val firebaseFirestore = FirebaseFirestore.getInstance()
     //private val settings = application.getSharedPreferences(PREFERENCES, Context.MODE_PRIVATE)

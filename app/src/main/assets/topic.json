@@ -1,243 +1,42 @@
 [
-  {
-    "parentId": 0,
-    "title": "Метапознание",
-    "label": "",
-    "wikiId": 0
-  },
-  {
-    "parentId": 1,
-    "title": "Из книги \"Паттерны проектирования\"",
-    "label": "",
-    "wikiId": 0
-  },
-  {
-    "parentId": 0,
-    "title": "Парадигмы программирования",
-    "label": "",
-    "wikiId": 0
-  },
-  {
-    "parentId": 1,
-    "title": "Императивная",
-    "label": "",
-    "wikiId": 0
-  },
-  {
-    "parentId": 2,
-    "title": "Объектно-ориентированная",
-    "label": "",
-    "wikiId": 0
-  },
-  {
-    "parentId": 3,
-    "title": "Абстракция",
-    "label": "",
-    "wikiId": 0
-  },
-  {
-    "parentId": 3,
-    "title": "Инкапсуляция",
-    "label": "",
-    "wikiId": 0
-  },
-  {
-    "parentId": 3,
-    "title": "Наследование",
-    "label": "",
-    "wikiId": 0
-  },
-  {
-    "parentId": 3,
-    "title": "Полиморфизм",
-    "label": "",
-    "wikiId": 0
-  },
-  {
-    "parentId": 3,
-    "title": "Ассоциация",
-    "label": "",
-    "wikiId": 0
-  },
-  {
-    "parentId": 3,
-    "title": "Композиция",
-    "label": "",
-    "wikiId": 0
-  },
-  {
-    "parentId": 3,
-    "title": "Агрегация",
-    "label": "",
-    "wikiId": 0
-  },
-  {
-    "parentId": 3,
-    "title": "Интерфейс",
-    "label": "",
-    "wikiId": 0
-  },
-  {
-    "parentId": 3,
-    "title": "Сила слабых связей",
-    "label": "",
-    "wikiId": 0
-  },
-  {
-    "parentId": 3,
-    "title": "Открытость/закрытость",
-    "label": "",
-    "wikiId": 0
-  },
-  {
-    "parentId": 0,
-    "title": "Шаблон проектирования",
-    "label": "design pattern",
-    "wikiId": 0
-  },
-  {
-    "parentId": 1,
-    "title": "Основные шаблоны",
-    "label": "Fundamental",
-    "wikiId": 0
-  },
-  {
-    "parentId": 2,
-    "title": "Шаблон делегирования",
-    "label": "Delegation pattern",
-    "wikiId": 162432
-  },
-  {
-    "parentId": 2,
-    "title": "Шаблон функционального дизайна",
-    "label": "Functional design",
-    "wikiId": 268427
-  },
-  {
-    "parentId": 2,
-    "title": "Неизменяемый интерфейс",
-    "label": "Immutable interface",
-    "wikiId": 6379317
-  },
-  {
-    "parentId": 2,
-    "title": "Интерфейс",
-    "label": "Interface",
-    "wikiId": 164218
-  },
-  {
-    "parentId": 2,
-    "title": "Интерфейс-маркер",
-    "label": "Marker interface",
-    "wikiId": 4787174
-  },
-  {
-    "parentId": 2,
-    "title": "Контейнер свойств",
-    "label": "Property container",
-    "wikiId": 7181824
-  },
-  {
-    "parentId": 2,
-    "title": "Канал событий",
-    "label": "Event channel",
-    "wikiId": 7501571
-  },
-  {
-    "parentId": 1,
-    "title": "Порождающие шаблоны",
-    "label": "Creational",
-    "wikiId": 0
-  },
-  {
-    "parentId": 2,
-    "title": "Абстрактная фабрика",
-    "label": "Abstract factory",
-    "wikiId": 0
-  },
-  {
-    "parentId": 2,
-    "title": "Строитель",
-    "label": "Builder",
-    "wikiId": 0
-  },
-  {
-    "parentId": 2,
-    "title": "Фабричный метод",
-    "label": "Factory method",
-    "wikiId": 0
-  },
-  {
-    "parentId": 2,
-    "title": "Отложенная инициализация",
-    "label": "Lazy initialization",
-    "wikiId": 0
-  },
-  {
-    "parentId": 2,
-    "title": "Мультитон",
-    "label": "Multiton",
-    "wikiId": 0
-  },
-  {
-    "parentId": 2,
-    "title": "Объектный пул",
-    "label": "Object pool",
-    "wikiId": 0
-  },
-  {
-    "parentId": 2,
-    "title": "Прототип",
-    "label": "Prototype",
-    "wikiId": 0
-  },
-  {
-    "parentId": 2,
-    "title": "Получение ресурса есть инициализация",
-    "label": "Resource acquisition is initialization (RAII)",
-    "wikiId": 0
-  },
-  {
-    "parentId": 2,
-    "title": "Одиночка",
-    "label": "Singleton",
-    "wikiId": 0
-  },
-  {
-    "parentId": 1,
-    "title": "Поведенческие шаблоны",
-    "label": "Behavioral",
-    "wikiId": 0
-  },
-  {
-    "parentId": 2,
-    "title": "Наблюдатель",
-    "label": "Observer",
-    "wikiId": 0
-  },
-  {
-    "parentId": 2,
-    "title": "Издатель-подписчик",
-    "label": "Observer",
-    "wikiId": 0
-  },
-  {
-    "parentId": 2,
-    "title": "Стратегия",
-    "label": "Strategy",
-    "wikiId": 0
-  },
-  {
-    "parentId: 0, "
-    title
-    ": "
-    Метапознание
-    ", "
-    label
-    ": "
-    ", "
-    wikiId: 0
-  }
+  {"parentId": 0, "title": "Метапознание", "label": "", "wikiId":0},
+  {"parentId": 1, "title": "Из книги \"Паттерны проектирования\"", "label": "", "wikiId":0},
+  {"parentId": 0, "title": "Парадигмы программирования", "label": "", "wikiId":0},
+  {"parentId": 3, "title": "Императивная", "label": "", "wikiId":0},
+  {"parentId": 4, "title": "Объектно-ориентированная", "label": "", "wikiId":0},
+  {"parentId": 5, "title": "Абстракция", "label": "", "wikiId":0},
+  {"parentId": 5, "title": "Инкапсуляция", "label": "", "wikiId":0},
+  {"parentId": 5, "title": "Наследование", "label": "", "wikiId":0},
+  {"parentId": 5, "title": "Полиморфизм", "label": "", "wikiId":0},
+  {"parentId": 5, "title": "Ассоциация", "label": "", "wikiId":0},
+  {"parentId": 5, "title": "Композиция", "label": "", "wikiId":0},
+  {"parentId": 5, "title": "Агрегация", "label": "", "wikiId":0},
+  {"parentId": 5, "title": "Интерфейс", "label": "", "wikiId":0},
+  {"parentId": 5, "title": "Сила слабых связей", "label": "", "wikiId":0},
+  {"parentId": 5, "title": "Открытость/закрытость", "label": "", "wikiId":0},
+  {"parentId": 0, "title": "Шаблон проектирования", "label": "design pattern", "wikiId":0},
+  {"parentId": 16, "title": "Основные шаблоны", "label": "Fundamental", "wikiId":0},
+  {"parentId": 17, "title": "Шаблон делегирования", "label": "Delegation pattern", "wikiId":162432},
+  {"parentId": 17, "title": "Шаблон функционального дизайна", "label": "Functional design", "wikiId":268427},
+  {"parentId": 17, "title": "Неизменяемый интерфейс", "label": "Immutable interface", "wikiId":6379317},
+  {"parentId": 17, "title": "Интерфейс", "label": "Interface", "wikiId":164218},
+  {"parentId": 17, "title": "Интерфейс-маркер", "label": "Marker interface", "wikiId":4787174},
+  {"parentId": 17, "title": "Контейнер свойств", "label": "Property container", "wikiId":7181824},
+  {"parentId": 17, "title": "Канал событий", "label": "Event channel", "wikiId":7501571},
+  {"parentId": 16, "title": "Порождающие шаблоны", "label": "Creational", "wikiId":0},
+  {"parentId": 25, "title": "Абстрактная фабрика", "label": "Abstract factory", "wikiId":0},
+  {"parentId": 25, "title": "Строитель", "label": "Builder", "wikiId":0},
+  {"parentId": 25, "title": "Фабричный метод", "label": "Factory method", "wikiId":0},
+  {"parentId": 25, "title": "Отложенная инициализация", "label": "Lazy initialization", "wikiId":0},
+  {"parentId": 25, "title": "Мультитон", "label": "Multiton", "wikiId":0},
+  {"parentId": 25, "title": "Объектный пул", "label": "Object pool", "wikiId":0},
+  {"parentId": 25, "title": "Прототип", "label": "Prototype", "wikiId":0},
+  {"parentId": 25, "title": "Получение ресурса есть инициализация", "label": "Resource acquisition is initialization (RAII)", "wikiId":0},
+  {"parentId": 25, "title": "Одиночка", "label": "Singleton", "wikiId":0},
+  {"parentId": 16, "title": "Поведенческие шаблоны", "label": "Behavioral", "wikiId":0},
+  {"parentId": 35, "title": "Наблюдатель", "label": "Observer", "wikiId":0},
+  {"parentId": 35, "title": "Издатель-подписчик", "label": "Observer", "wikiId":0},
+  {"parentId": 35, "title": "Стратегия", "label": "Strategy", "wikiId":0}
 ]
 
 

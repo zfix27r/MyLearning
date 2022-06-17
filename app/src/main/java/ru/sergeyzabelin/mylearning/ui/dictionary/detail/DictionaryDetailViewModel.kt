@@ -1,26 +1,19 @@
 package ru.sergeyzabelin.mylearning.ui.dictionary.detail
 
-import android.app.Application
 import androidx.databinding.ObservableInt
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import ru.sergeyzabelin.mylearning.data.DetailDictionaryRepository
-import ru.sergeyzabelin.mylearning.data.local.db.AppDatabase
 import ru.sergeyzabelin.mylearning.data.model.db.Article
 import ru.sergeyzabelin.mylearning.data.model.db.TopicWithArticles
-import ru.sergeyzabelin.mylearning.utils.ApiBuilder
+import javax.inject.Inject
 
-class DictionaryDetailViewModel(application: Application) : AndroidViewModel(Application()) {
-    private val repo = DetailDictionaryRepository(
-        ApiBuilder,
-        AppDatabase.getInstance(application).topicDao()
-    )
-
+class DictionaryDetailViewModel @Inject constructor(repository: DetailDictionaryRepository) : ViewModel() {
     var topicId: Long = 0
 
-    var topicWithArticles: LiveData<TopicWithArticles>? = null
+    var topicWithArticles: LiveData<TopicWithArticles> = repository.getTopicWithArticlesById(topicId)
 
     //  = 0 - false, > 0 - true
     private var loadingCounter: Int = 0
@@ -29,13 +22,6 @@ class DictionaryDetailViewModel(application: Application) : AndroidViewModel(App
             isLoadingCounter.set(field)
         }
     val isLoadingCounter: ObservableInt = ObservableInt(0)
-
-
-    fun getTopicWithArticlesById() {
-        loadingCounter++
-        topicWithArticles = repo.getTopicWithArticlesById(topicId)
-        loadingCounter--
-    }
 
     fun refreshDescription(article: Article) = viewModelScope.launch {
         //val wikiDetail = repo.getDescriptionById(article.)

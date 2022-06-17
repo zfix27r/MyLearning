@@ -1,34 +1,30 @@
 package ru.sergeyzabelin.mylearning.ui.dictionary
 
-import android.app.Application
 import androidx.databinding.ObservableInt
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
+import androidx.lifecycle.ViewModel
 import ru.sergeyzabelin.mylearning.data.DictionaryRepository
-import ru.sergeyzabelin.mylearning.data.local.db.AppDatabase
+import ru.sergeyzabelin.mylearning.data.Resource
 import ru.sergeyzabelin.mylearning.data.model.db.Topic
+import javax.inject.Inject
 
-class DictionaryViewModel(application: Application) : AndroidViewModel(Application()) {
-
-    private val repo = DictionaryRepository(AppDatabase.getInstance(application).topicDao())
+class DictionaryViewModel @Inject constructor(repository: DictionaryRepository) : ViewModel() {
 
     var topicId: Long = 0
 
-    var topics: LiveData<List<Topic>>? = null
+    val topics: LiveData<Resource<List<Topic>>> = repository.getTopicByParentId(topicId)
 
     //  = 0 - false, > 0 - true
-    private var loadingCounter: Int = 0
+/*    private var loadingCounter: Int = 0
         set(value) {
             field = value
             isLoadingCounter.set(field)
-        }
+        }*/
     val isLoadingCounter: ObservableInt = ObservableInt(0)
 
-    fun getNextDictionaryGroup() = viewModelScope.launch {
+/*    fun getNextDictionaryGroup() = viewModelScope.launch {
         loadingCounter++
-        topics = repo.getTopicByParentId(topicId)
+        _topics = repos.getTopicByParentId(topicId)
         loadingCounter--
-    }
+    }*/
 }

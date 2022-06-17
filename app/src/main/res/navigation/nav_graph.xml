@@ -48,6 +48,13 @@
         <action
             android:id="@+id/action_navDictionaryFragment_to_navDictionaryAddFragment"
             app:destination="@id/navDictionaryAddFragment" />
+        <action
+            android:id="@+id/action_navDictionaryFragment_self"
+            app:destination="@id/navDictionaryFragment" />
+        <argument
+            android:name="topicId"
+            app:argType="long"
+            android:defaultValue="0L" />
     </fragment>
 
     <fragment
@@ -61,17 +68,17 @@
         android:name="ru.sergeyzabelin.mylearning.ui.dictionary.detail.DictionaryDetailFragment"
         android:label="fragment_dictionary_detail"
         tools:layout="@layout/fragment_dictionary_detail" >
-        <action
+<!--        <action
             android:id="@+id/action_navDictionaryDetailFragment_to_navDictionaryEditFragment"
-            app:destination="@id/navDictionaryEditFragment" />
+            app:destination="@id/navDictionaryEditFragment" />-->
         <argument
             android:name="topicId"
             app:argType="long" />
     </fragment>
 
-    <fragment
+<!--    <fragment
         android:id="@+id/navDictionaryEditFragment"
         android:name="ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryEditFragment"
         android:label="fragment_dictionary_edit"
-        tools:layout="@layout/fragment_dictionary_edit" />
+        tools:layout="@layout/fragment_dictionary_edit" />-->
 </navigation>
