@@ -3,10 +3,12 @@ package ru.sergeyzabelin.mylearning.ui.main
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.sergeyzabelin.mylearning.data.local.db.MainRepository
 import javax.inject.Inject
 
 
+@HiltViewModel
 class MainViewModel @Inject constructor(repository: MainRepository) : ViewModel() {
 
 /*    val firstRun = {

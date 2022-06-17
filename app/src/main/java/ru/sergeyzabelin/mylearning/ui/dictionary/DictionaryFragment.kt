@@ -5,33 +5,32 @@ import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sergeyzabelin.mylearning.R
 import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryBinding
-import ru.sergeyzabelin.mylearning.di.Injectable
-import ru.sergeyzabelin.mylearning.utils.AppExecutors
 import ru.sergeyzabelin.mylearning.utils.autoCleared
 import javax.inject.Inject
 
-
-class DictionaryFragment : Fragment(), Injectable {
+@AndroidEntryPoint
+class DictionaryFragment : Fragment() {
 
     private val navArgs by navArgs<DictionaryFragmentArgs>()
+    private var binding by autoCleared<FragmentDictionaryBinding>()
+    private var adapter by autoCleared<DictionaryListAdapter>()
 
     @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
+    lateinit var dictionaryViewModelFactory: DictionaryViewModel.DictionaryViewModelFactory
 
-    val viewModel by viewModels<DictionaryViewModel> {
-        viewModelFactory
+    private val viewModel by viewModels<DictionaryViewModel> {
+        DictionaryViewModel.provideFactory(
+            dictionaryViewModelFactory,
+            this,
+            arguments,
+            navArgs.topicId
+        )
     }
-
-    @Inject
-    lateinit var appExecutors: AppExecutors
-
-    var binding by autoCleared<FragmentDictionaryBinding>()
-    var adapter by autoCleared<DictionaryListAdapter>()
 
 
     override fun onCreateView(
@@ -41,7 +40,8 @@ class DictionaryFragment : Fragment(), Injectable {
         val dataBinding = FragmentDictionaryBinding.inflate(inflater, container, false)
         binding = dataBinding
 
-        viewModel.topicId = navArgs.topicId
+        //viewModel.topicId = navArgs.topicId
+
         return dataBinding.root
     }
 

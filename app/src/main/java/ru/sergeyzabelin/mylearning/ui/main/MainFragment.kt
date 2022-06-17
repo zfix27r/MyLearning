@@ -6,26 +6,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sergeyzabelin.mylearning.R
 import ru.sergeyzabelin.mylearning.databinding.FragmentMainBinding
-import ru.sergeyzabelin.mylearning.di.Injectable
-import ru.sergeyzabelin.mylearning.utils.AppExecutors
 import ru.sergeyzabelin.mylearning.utils.autoCleared
-import javax.inject.Inject
 
-class MainFragment : Fragment(), Injectable {
+@AndroidEntryPoint
+class MainFragment : Fragment() {
 
-    @Inject
-    lateinit var viewModelFactory: ViewModelProvider.Factory
-
-    private val viewModel by viewModels<MainViewModel> {
-        viewModelFactory
-    }
-
-    @Inject
-    lateinit var appExecutors: AppExecutors
+    private val viewModel by viewModels<MainViewModel>()
 
     var binding by autoCleared<FragmentMainBinding>()
 

@@ -2,14 +2,12 @@ package ru.sergeyzabelin.mylearning
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.support.HasSupportFragmentInjector
-import javax.inject.Inject
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
+/*    @Inject
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>*/
 
     //private lateinit var appBarConfiguration: AppBarConfiguration
 
@@ -29,6 +27,4 @@ class MainActivity : AppCompatActivity(), HasSupportFragmentInjector {
         return navController.navigateUp(appBarConfiguration)
                 || super.onSupportNavigateUp()
     }*/
-
-    override fun supportFragmentInjector() = dispatchingAndroidInjector
 }
