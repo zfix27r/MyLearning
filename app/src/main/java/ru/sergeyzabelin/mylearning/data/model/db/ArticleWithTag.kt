@@ -1,10 +1,6 @@
 package ru.sergeyzabelin.mylearning.data.model.db
 
-import androidx.room.Embedded
-import androidx.room.Junction
-import androidx.room.Relation
-
-data class ArticleWithTag(
+/*data class ArticleWithTag(
     @Embedded
     val article: Article,
 
@@ -19,4 +15,4 @@ data class ArticleWithTag(
         )
     )
     val tags: List<Tag>
-)
+)*/

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ru.sergeyzabelin.mylearning.data
+package ru.sergeyzabelin.mylearning.data.common
 
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData

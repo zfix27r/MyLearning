@@ -13,7 +13,7 @@ class DetailDictionaryRepository @Inject constructor(
     private val dao: TopicDao
 ) {
 
-    fun getTopicWithArticlesById(id: Long) = dao.getTopicWithArticlesById(id)
+    //fun getTopicWithArticlesById(id: Long) = dao.getTopicWithArticlesById(id)
 
     suspend fun getDescriptionById(id: Int): WikiDetail {
         val queryMap: Map<String, String> = mapOf(

@@ -4,11 +4,27 @@
 
     <data>
 
-        <import type="android.view.View" />
+        <import type="ru.sergeyzabelin.mylearning.data.common.Status" />
+
+        <import type="ru.sergeyzabelin.mylearning.data.common.Resource" />
+
+        <import type="androidx.lifecycle.LiveData" />
+
+        <import type="java.util.List" />
+
+        <import type="ru.sergeyzabelin.mylearning.data.model.db.Topic" />
 
         <variable
-            name="viewModel"
-            type="ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryViewModel" />
+            name="topics"
+            type="LiveData&lt;Resource&lt;List&lt;Topic>>>" />
+
+        <variable
+            name="contributorStatus"
+            type="Status" />
+
+        <variable
+            name="retryCallback"
+            type="ru.sergeyzabelin.mylearning.ui.common.RetryCallback" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,26 +32,45 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/dictionary_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/dictionaryRecyclerTopic"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="visible"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/dictionaryNavigationBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ProgressBar
-            android:id="@+id/dictionary_loading"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="@{ viewModel.isLoadingCounter() != 0 ? View.VISIBLE : View.GONE }"
-            app:layout_constraintBottom_toBottomOf="parent"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/dictionaryRecyclerArticle"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:visibility="gone"
+            app:layoutManager="LinearLayoutManager"
+            app:layout_constraintBottom_toTopOf="@+id/dictionaryNavigationBar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/dictionaryNavigationBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/bottom_bar_dictionary" />
+
+        <include
+            layout="@layout/loading_state"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:callback="@{() -> retryCallback.retry()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:resource="@{(Resource) topics}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

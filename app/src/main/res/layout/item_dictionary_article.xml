@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="article"
+            type="ru.sergeyzabelin.mylearning.data.model.db.Article" />
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/itemDictionaryArticle"
+        style="?attr/materialCardViewFilledStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/itemDictionaryArticleKotlin"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/kotlin"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_kotlin"
+                app:tint="@color/md_theme_dark_surface"
+                tools:visibility="visible" />
+
+            <ImageView
+                android:id="@+id/itemDictionaryArticleJava"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:contentDescription="@string/java"
+                android:visibility="gone"
+                app:layout_constraintStart_toEndOf="@+id/itemDictionaryArticleKotlin"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_java"
+                app:tint="@color/md_theme_dark_surface"
+                tools:visibility="visible" />
+
+            <RatingBar
+                android:id="@+id/itemDictionaryArticleRating"
+                style="@android:style/Widget.Material.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:numStars="5"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/itemDictionaryArticleDescription"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{ article.description }"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+                android:textColor="?android:attr/textColorSecondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Объект внешне выражает некоторое поведение, но в реальности передаёт ответственность за выполнение этого поведения связанному объекту." />
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/itemDictionaryArticleTags"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/itemDictionaryArticleDescription" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/itemDictionaryArticleLink"
+                style="?attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_weight="1"
+                app:icon="@drawable/ic_baseline_web_24"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/itemDictionaryArticleTags"
+                tools:text="Ссылка какя то там " />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>

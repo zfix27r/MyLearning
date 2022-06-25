@@ -1,10 +1,6 @@
 package ru.sergeyzabelin.mylearning.data.model.db
 
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.Index
-
-@Entity(
+/*@Entity(
     primaryKeys = ["articleId", "tagId"],
     indices = [Index(value = ["tagId"])],
     foreignKeys = [
@@ -27,4 +23,4 @@ import androidx.room.Index
 data class ArticleTagCrossRef(
     val articleId: Long,
     val tagId: Long
-)
+)*/

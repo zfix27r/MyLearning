@@ -10,10 +10,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ru.sergeyzabelin.mylearning.data.local.db.AppDatabase
-import ru.sergeyzabelin.mylearning.data.local.db.AppDatabaseWorker
-import ru.sergeyzabelin.mylearning.data.local.db.MainDao
-import ru.sergeyzabelin.mylearning.data.local.db.TopicDao
+import ru.sergeyzabelin.mylearning.data.local.db.*
 import ru.sergeyzabelin.mylearning.utils.AppConstants
 import javax.inject.Singleton
 
@@ -46,6 +43,12 @@ object DataModule {
     @Provides
     fun provideTopicDao(db: AppDatabase): TopicDao {
         return db.topicDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideAppDatabaseWorkerDao(db: AppDatabase): AppDatabaseWorkerDao {
+        return db.databaseWorkerDao()
     }
 
 }

@@ -54,7 +54,7 @@
         <argument
             android:name="topicId"
             app:argType="long"
-            android:defaultValue="0L" />
+            android:defaultValue="1L" />
     </fragment>
 
     <fragment

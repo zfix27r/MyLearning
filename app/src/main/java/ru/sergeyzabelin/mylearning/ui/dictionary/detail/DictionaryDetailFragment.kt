@@ -1,7 +1,6 @@
 package ru.sergeyzabelin.mylearning.ui.dictionary.detail
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -50,7 +49,7 @@ class DictionaryDetailFragment : Fragment() {
         binding.viewModel = viewModel
 
 
-        viewModel.topicWithArticles.observe(viewLifecycleOwner) {
+/*        viewModel.topicWithArticles.observe(viewLifecycleOwner) {
             if (it != null) {
                 Log.e("asd", it.toString())
 
@@ -61,7 +60,7 @@ class DictionaryDetailFragment : Fragment() {
 
                 //adapter.submitList(it.articles)
             }
-        }
+        }*/
     }
 
 

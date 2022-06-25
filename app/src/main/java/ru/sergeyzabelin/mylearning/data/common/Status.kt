@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ru.sergeyzabelin.mylearning.data
+package ru.sergeyzabelin.mylearning.data.common
 
 /**
  * Status of a resource that is provided to the UI.

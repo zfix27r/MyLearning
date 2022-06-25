@@ -4,23 +4,21 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 
-@Entity(
-/*    foreignKeys = [ForeignKey(
-        entity = Topic::class,
-        parentColumns = arrayOf("id"),
-        childColumns = arrayOf("parent_id"),
-        onDelete = ForeignKey.CASCADE
-    )]*/
-)
+@Entity
 data class Article(
 
     @PrimaryKey(autoGenerate = true)
     val id: Long,
-    val parentId: Long,
+
     val description: String,
+    // ссылка на источник, 0 - нет
     val sourceUrl: String,
+    // ид на книгу, 0 - нет
     val bookId: Int,
-    val difficultyLevel: Int,
-    val usability: Int,
+    // сложность понимания [0-5]
+    val difficulty: Float,
+    // полезность [0-5]
+    val usability: Float,
+
     val updateAt: Long
 )

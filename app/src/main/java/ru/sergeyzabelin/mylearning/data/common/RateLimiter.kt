@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package ru.sergeyzabelin.mylearning.data
+package ru.sergeyzabelin.mylearning.data.common
 
 import android.os.SystemClock
 import androidx.collection.ArrayMap

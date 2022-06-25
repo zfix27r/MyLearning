@@ -1,0 +1,22 @@
+[
+  {"topicId": 2, "articleId": 1},
+  {"topicId": 13, "articleId": 2},
+  {"topicId": 16, "articleId": 3},
+  {"topicId": 17, "articleId": 4},
+  {"topicId": 17, "articleId": 5},
+  {"topicId": 18, "articleId": 6},
+  {"topicId": 19, "articleId": 7},
+  {"topicId": 20, "articleId": 8},
+  {"topicId": 44, "articleId": 9},
+  {"topicId": 42, "articleId": 10},
+  {"topicId": 63, "articleId": 11},
+  {"topicId": 63, "articleId": 12},
+  {"topicId": 63, "articleId": 13},
+  {"topicId": 63, "articleId": 14},
+  {"topicId": 63, "articleId": 15},
+  {"topicId": 63, "articleId": 16},
+  {"topicId": 64, "articleId": 17},
+  {"topicId": 65, "articleId": 18},
+  {"topicId": 4, "articleId": 19},
+  {"topicId": 8, "articleId": 20}
+]
