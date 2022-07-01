@@ -6,20 +6,25 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import ru.sergeyzabelin.mylearning.R
 import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryAddBinding
-import ru.sergeyzabelin.mylearning.ui.main.MainViewModel
+import ru.sergeyzabelin.mylearning.utils.autoCleared
 
 class DictionaryAddFragment : Fragment() {
-    private lateinit var binding: FragmentDictionaryAddBinding
 
-    private val viewModel: MainViewModel by activityViewModels()
+    private val viewModel by activityViewModels<DictionaryAddViewModel>()
+    private var binding by autoCleared<FragmentDictionaryAddBinding>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        setHasOptionsMenu(true)
-        binding = FragmentDictionaryAddBinding.inflate(inflater, container, false)
-        return binding.root
+        val dataBinding = FragmentDictionaryAddBinding.inflate(inflater, container, false)
+        binding = dataBinding
+        return dataBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,52 +33,41 @@ class DictionaryAddFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.top_app_bar, menu)
+        inflater.inflate(R.menu.top_app_bar_dictionary_add, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-/*            R.id.action_done -> {
+            R.id.dictionaryDone -> {
                 checkAllInputAndDone()
                 true
-            }*/
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
 
     private fun checkAllInputAndDone() {
-        val titleOriginal = binding.dictionaryAddTitleOriginalInput.text.toString()
-        val title = binding.dictionaryAddTitleInput.text.toString()
-        val description = binding.dictionaryAddDescriptionInput.text.toString()
+        viewModel.saveTopicModel.title = binding.dictionaryAddTitle.text.toString()
+        viewModel.saveTopicModel.title = binding.dictionaryAddLabel.text.toString()
 
-
-        if (titleOriginal.isEmpty()) {
-            binding.dictionaryAddTitleOriginal.error =
+        if (viewModel.saveTopicModel.title.isEmpty()) {
+            binding.dictionaryAddTitleLayout.error =
                 this.resources.getString(R.string.message_field_empty)
 
             return
         } else {
-            binding.dictionaryAddTitleOriginal.error = null
+            binding.dictionaryAddTitleLayout.error = null
         }
 
-        if (title.isEmpty()) {
-            binding.dictionaryAddTitle.error =
+        if (viewModel.saveTopicModel.title.isEmpty()) {
+            binding.dictionaryAddLabelLayout.error =
                 this.resources.getString(R.string.message_field_empty)
             return
         } else {
-            binding.dictionaryAddTitle.error = null
+            binding.dictionaryAddLabelLayout.error = null
         }
 
-        if (description.isEmpty()) {
-            binding.dictionaryAddDescription.error =
-                this.resources.getString(R.string.message_field_empty)
-            return
-        }
-        binding.dictionaryAddDescription.error = null
-
-        //val dictionary = Dictionary(titleOriginal, title, description)
-
-        //viewModel.setDictionary(dictionary)
+        viewModel.addSaveTopicModel()
     }
 
 }

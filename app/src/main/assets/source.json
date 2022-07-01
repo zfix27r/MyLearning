@@ -1,0 +1,20 @@
+[
+  {"title": "Head First. Паттерны проектирования", "author": "Эрик Фримен, Элизабет Робсон, Кэти Сьерра, Берт Бейтс", "date": "2022", "url": "","difficulty": 0, "usability": 0},
+  {"title": "ООП в картинках", "author": "", "date": "2019", "url": "https://habr.com/ru/post/463125/","difficulty": 0, "usability": 0},
+  {"title": "Advanced WorkManager", "author": "", "date": "", "url": "https://developer.android.com/codelabs/android-adv-workmanager#0","difficulty": 0, "usability": 0},
+  {"title": "Schedule tasks with WorkManager", "author": "", "date": "", "url": "https://developer.android.com/topic/libraries/architecture/workmanager","difficulty": 0, "usability": 0},
+  {"title": "Background work with WorkManager - Kotlin", "author": "", "date": "", "url": "https://developer.android.com/codelabs/android-workmanager#0","difficulty": 0, "usability": 0},
+  {"title": "Introducing WorkManager. Blog series.", "author": "", "date": "", "url": "https://medium.com/androiddevelopers/introducing-workmanager-2083bcfc4712","difficulty": 0, "usability": 0},
+  {"title": "ADS 2019 WorkManager talk: WorkManager: Beyond the Basics", "author": "", "date": "", "url": "https://www.youtube.com/watch?v=Bz0z694SrEE","difficulty": 0, "usability": 0},
+  {"title": "WorkManager - MAD Skills Series", "author": "", "date": "", "url": "https://www.youtube.com/watch?v=NtpgWjiXEfg&list=PLWz5rJ2EKKc_J88-h0PhCO_aV0HIAs9Qk","difficulty": 0, "usability": 0},
+  {"title": "Incorporate Lifecycle-Aware Components", "author": "", "date": "", "url": "https://developer.android.com/codelabs/android-lifecycles#0","difficulty": 0, "usability": 0},
+  {"title": "Android Room with a View - Kotlin", "author": "", "date": "", "url": "https://developer.android.com/codelabs/android-room-with-a-view-kotlin#0","difficulty": 0, "usability": 0},
+  {"title": "Красной таблетки не существует", "author": "", "date": "", "url": "https://habr.com/ru/post/151902/","difficulty": 2, "usability": 4},
+  {"title": "Заблуждения Clean Architecture", "author": "", "date": "", "url": "https://habr.com/ru/company/mobileup/blog/335382/","difficulty": 3, "usability": 5},
+  {"title": " Kotlin. Коллекции", "author": "Leslie M.", "date": "2022", "url": "https://bimlibik.github.io/posts/kotlin-collections/","difficulty": 0, "usability": 0},
+  {"title": "Логические операторы в Java", "author": "Эллеонора Керри", "date": "2019", "url": "https://javarush.ru/groups/posts/logicheskie-operacii-v-java#Логические_операторы_в_Java","difficulty": 0, "usability": 0},
+  {"title": "Знакомство с операторами Java: логические, арифметические, побитовые", "author": "Professor Hans Noodles", "date": "2019", "url": "https://javarush.ru/groups/posts/operatory-java-logicheskie-arifmeticheskie-pobitovye","difficulty": 0, "usability": 0},
+  {"title": "9. Java — Основные операторы языка", "author": "ProgLang", "date": "", "url": "http://proglang.su/java/operators","difficulty": 0, "usability": 0},
+  {"title": "Выражения, операнды и операторы", "author": "", "date": "", "url": "https://info-master.su/programming/kurs/expressions.php","difficulty": 0, "usability": 0},
+  {"title": "", "author": "", "date": "", "url": "","difficulty": 0, "usability": 0}
+]

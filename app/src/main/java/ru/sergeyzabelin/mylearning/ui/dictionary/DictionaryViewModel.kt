@@ -5,20 +5,22 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import ru.sergeyzabelin.mylearning.data.common.Resource
-import ru.sergeyzabelin.mylearning.data.model.db.DictionaryData
-import ru.sergeyzabelin.mylearning.di.usecases.GetDictionaryTopicsUseCase
+import ru.sergeyzabelin.mylearning.data.model.db.Dictionary
+import ru.sergeyzabelin.mylearning.domain.usecases.GetDictionaryUseCase
 import javax.inject.Inject
 
 
 @HiltViewModel
 class DictionaryViewModel @Inject constructor(
-    getDictionaryUseCase: GetDictionaryTopicsUseCase,
+    getDictionaryUseCase: GetDictionaryUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val savedTopicId = savedStateHandle.get<Long>("topicId")!!
+    private val savedTopicId: Long = savedStateHandle.get<Long>("topicId")!!
 
-    val data: LiveData<Resource<DictionaryData>> =
+    val data: LiveData<Resource<List<Dictionary>>> =
         getDictionaryUseCase.execute(savedTopicId)
 
+    //val selectedTopicId: Long
+        //get() = data.value?.data?.topic?.id ?: 0
 }

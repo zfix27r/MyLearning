@@ -39,7 +39,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnDictionary.setOnClickListener {
-            findNavController().navigate(R.id.action_navMainFragment_to_navDictionaryFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_dictionaryFragment)
         }
     }
 }

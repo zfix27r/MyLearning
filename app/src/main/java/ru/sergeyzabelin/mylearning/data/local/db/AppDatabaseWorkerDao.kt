@@ -3,6 +3,7 @@ package ru.sergeyzabelin.mylearning.data.local.db
 import androidx.room.Dao
 import androidx.room.Insert
 import ru.sergeyzabelin.mylearning.data.model.db.Article
+import ru.sergeyzabelin.mylearning.data.model.db.Source
 import ru.sergeyzabelin.mylearning.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.data.model.db.TopicArticleCrossRef
 
@@ -17,4 +18,7 @@ interface AppDatabaseWorkerDao {
 
     @Insert
     suspend fun setAllTopicArticleCrossRef(list: List<TopicArticleCrossRef>)
+
+    @Insert
+    suspend fun setAllSource(list: List<Source>)
 }

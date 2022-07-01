@@ -3,6 +3,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+    <string name="main_fragment"></string>
+    <string name="dictionary_fragment"></string>
+    <string name="dictionary_topic_fragment"></string>
+    <string name="dictionary_article_fragment"></string>
+
+
     <!--    ERROR     -->
     <string name="button_retry">повторить</string>
     <string name="unknown_error">Неизвестная ошибка</string>
@@ -15,11 +21,13 @@
     <string name="menu_topic">Темы</string>
     <string name="menu_article">Статьи</string>
 
-    <string name="button_add">Добавить</string>
+    <string name="add">Добавить</string>
+    <string name="edit">Изменить</string>
+    <string name="delete">Удалить</string>
 
-    <string name="lesson_add_eng_title">Название на английском</string>
-    <string name="lesson_add_title">Название</string>
-    <string name="lesson_add_description">Описание</string>
+    <string name="dictionary_add_title">Название</string>
+    <string name="dictionary_add_label">Оригинальное название(опционально)</string>
+
     <string name="lesson_add_resource_link">Ссылка</string>
 
     <string name="lesson_topic_add_exception_field_empty">Заполните все поля</string>

@@ -1,6 +1,6 @@
 package ru.sergeyzabelin.mylearning.data
 
-import ru.sergeyzabelin.mylearning.data.local.db.TopicDao
+import ru.sergeyzabelin.mylearning.data.local.db.DictionaryDao
 import ru.sergeyzabelin.mylearning.data.model.api.WikiDetail
 import ru.sergeyzabelin.mylearning.data.model.db.Article
 import ru.sergeyzabelin.mylearning.utils.AppExecutors
@@ -10,7 +10,7 @@ import javax.inject.Singleton
 @Singleton
 class DetailDictionaryRepository @Inject constructor(
     private val appExecutors: AppExecutors,
-    private val dao: TopicDao
+    private val dao: DictionaryDao
 ) {
 
     //fun getTopicWithArticlesById(id: Long) = dao.getTopicWithArticlesById(id)

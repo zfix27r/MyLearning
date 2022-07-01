@@ -6,15 +6,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.chip.Chip
 import ru.sergeyzabelin.mylearning.data.model.db.Article
-import ru.sergeyzabelin.mylearning.data.model.db.ArticleWithTopicLabel
 import ru.sergeyzabelin.mylearning.databinding.ItemDictionaryArticleBinding
 
 class DictionaryArticleAdapter(
-    private val onClickGoWeb: ((Article) -> Unit)
+    private val onClickGoWeb: ((String) -> Unit)
 ) :
-    ListAdapter<ArticleWithTopicLabel, RecyclerView.ViewHolder>(DiffCallback()) {
+    ListAdapter<Article, RecyclerView.ViewHolder>(DiffCallback()) {
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -43,25 +41,32 @@ class DictionaryArticleAdapter(
 
         private val binding = itemDictionaryArticleBinding
 
-        fun bind(data: ArticleWithTopicLabel) {
-            binding.article = data.article
+        fun bind(article: Article) {
+            binding.article = article
 
-            data.topics.forEach {
-                val chip = Chip(context)
-                chip.text = it.label.ifEmpty { it.title }
-
-                binding.itemDictionaryArticleTags.addView(chip)
+/*            //TODO найти более подходящее место для изменение данных
+            if (article.sourceUrl.isNotEmpty()) {
+                binding.urlDomain = getDomainFromUrl(article.sourceUrl)
             }
-            //binding.dictionaryTopicItem.setOnClickListener { onClickGoNext(topic) }
+            binding.itemDictionaryArticle.setOnClickListener { onClickGoWeb(article.sourceUrl) }*/
+        }
+
+        private fun getDomainFromUrl(url: String): String {
+            val regex = """http[s]?://([a-z]+\.?[A-z]+\.[A-z]+)/[A-z]+.*+""".toRegex()
+
+            val matches = regex.find(url)
+            val (domain) = matches!!.destructured
+
+            return domain
         }
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<ArticleWithTopicLabel>() {
-        override fun areItemsTheSame(oldItem: ArticleWithTopicLabel, newItem: ArticleWithTopicLabel): Boolean {
-            return oldItem.article.id == newItem.article.id
+    class DiffCallback : DiffUtil.ItemCallback<Article>() {
+        override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: ArticleWithTopicLabel, newItem: ArticleWithTopicLabel): Boolean {
+        override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
             return oldItem == newItem
         }
     }

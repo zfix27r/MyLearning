@@ -9,7 +9,6 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.sergeyzabelin.mylearning.R
 import ru.sergeyzabelin.mylearning.data.model.db.Article
-import ru.sergeyzabelin.mylearning.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryBinding
 import ru.sergeyzabelin.mylearning.ui.common.RetryCallback
 import ru.sergeyzabelin.mylearning.utils.autoCleared
@@ -20,8 +19,7 @@ class DictionaryFragment : Fragment() {
 
     private val viewModel by viewModels<DictionaryViewModel>()
     private var binding by autoCleared<FragmentDictionaryBinding>()
-    private var topicAdapter by autoCleared<DictionaryTopicAdapter>()
-    private var articleAdapter by autoCleared<DictionaryArticleAdapter>()
+    private var adapter by autoCleared<DictionaryAdapter>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,74 +47,106 @@ class DictionaryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.dictionaryNavigationBar.setOnItemSelectedListener { item ->
-
-            when (item.itemId) {
-                R.id.menuDictionaryTopic -> {
-                    binding.dictionaryRecyclerArticle.visibility = View.GONE
-                    binding.dictionaryRecyclerTopic.visibility = View.VISIBLE
-
-                    true
-                }
-                R.id.menuDictionaryArticle -> {
-                    binding.dictionaryRecyclerTopic.visibility = View.GONE
-                    binding.dictionaryRecyclerArticle.visibility = View.VISIBLE
-
-                    true
-                }
-                else -> false
-            }
-
-        }
-
-
         binding.lifecycleOwner = viewLifecycleOwner
         //binding.topics = viewModel.topics
 
 
-        topicAdapter = DictionaryTopicAdapter { topic -> onClickGoNext(topic) }
-        binding.dictionaryRecyclerTopic.adapter = topicAdapter
-
-        articleAdapter = DictionaryArticleAdapter { article -> onClickGoWeb(article)}
-        binding.dictionaryRecyclerArticle.adapter = articleAdapter
+        adapter =
+            DictionaryAdapter({ id -> onClickGoNext(id) }, { id -> onLongClickActionMode(id) })
+        binding.dictionaryRecycler.adapter = adapter
 
         viewModel.data.observe(viewLifecycleOwner) { list ->
 
             list.data?.let { data ->
                 Log.e("s", list.data.toString())
 
-                topicAdapter.submitList(data.topics)
-                articleAdapter.submitList(data.articles)
-
-                viewArticleBadge(data.articles.size)
+                adapter.submitList(data)
             }
         }
     }
 
-    private fun onClickGoNext(topic: Topic) {
+    private fun onClickGoNext(id: Long) {
         findNavController().navigate(
-            DictionaryFragmentDirections.actionNavDictionaryFragmentSelf(topic.id))
+            DictionaryFragmentDirections.actionDictionaryFragmentSelf(id)
+        )
     }
 
 
     private fun onClickGoWeb(article: Article) {
+
     }
 
-    private fun viewArticleBadge(size: Int) {
+    private fun onLongClickActionMode(id: Long) {
+        val callback = object : ActionMode.Callback {
+
+            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                activity?.menuInflater?.inflate(R.menu.contextual_action_bar, menu)
+                return true
+            }
+
+            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                return false
+            }
+
+            override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+                return when (item?.itemId) {
+                    R.id.edit -> {
+                        findNavController().navigate(
+                            DictionaryFragmentDirections
+                                .actionDictionaryFragmentToDictionaryTopicFragment(id)
+                        )
+                        true
+                    }
+                    R.id.delete -> {
+                        // Handle more item (inside overflow menu) press
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+            override fun onDestroyActionMode(mode: ActionMode?) {
+            }
+        }
+
+        val actionMode = activity?.startActionMode(callback)
+        //actionMode?.title = "1 selected"
+    }
+
+/*    private fun viewArticleBadge(size: Int) {
         val badge = binding.dictionaryNavigationBar.getOrCreateBadge(R.id.menuDictionaryArticle)
         badge.isVisible = true
         badge.number = size
-    }
+    }*/
 
     fun onClickFab() {
-        findNavController().navigate(R.id.action_navDictionaryFragment_to_navDictionaryAddFragment)
+        //findNavController().navigate(R.id.act)
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.top_app_bar, menu)
-
-        //menu.findItem(R.id.action_done).isVisible = false
+        inflater.inflate(R.menu.top_app_bar_dictionary, menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.dictionaryAdd -> {
+/*                if (binding.dictionaryNavigationBar.selectedItemId == R.id.menuDictionaryTopic) {
+*//*                    findNavController().navigate(
+                        DictionaryFragmentDirections.actionNavDictionaryFragmentToNavDictionaryAddFragment(
+                            selectedTopicId = viewModel.selectedTopicId
+                        )
+                    )*//*
+                } else {
 
+                }*/
+
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
+
+        }
+    }
 }

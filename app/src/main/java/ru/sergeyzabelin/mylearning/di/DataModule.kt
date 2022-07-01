@@ -41,7 +41,7 @@ object DataModule {
 
     @Singleton
     @Provides
-    fun provideTopicDao(db: AppDatabase): TopicDao {
+    fun provideTopicDao(db: AppDatabase): DictionaryDao {
         return db.topicDao()
     }
 

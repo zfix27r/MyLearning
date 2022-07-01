@@ -13,6 +13,7 @@ import dagger.assisted.AssistedInject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import ru.sergeyzabelin.mylearning.data.model.db.Article
+import ru.sergeyzabelin.mylearning.data.model.db.Source
 import ru.sergeyzabelin.mylearning.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.data.model.db.TopicArticleCrossRef
 import ru.sergeyzabelin.mylearning.utils.AppConstants
@@ -61,6 +62,16 @@ class AppDatabaseWorker @AssistedInject constructor(
                         } catch (e: Exception) {
                             Log.e("test", e.toString())
                         }
+                        Result.success()
+                    }
+                }
+
+            applicationContext.assets.open(AppConstants.ASSET_SOURCE_FILEPATH)
+                .use { inputStream ->
+                    JsonReader(inputStream.reader()).use { jsonReader ->
+                        val type = object : TypeToken<List<Source>>() {}.type
+                        val list: List<Source> = Gson().fromJson(jsonReader, type)
+                        dao.setAllSource(list)
                         Result.success()
                     }
                 }
