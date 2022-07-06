@@ -12,6 +12,12 @@
         android:id="@+id/delete"
         android:icon="@drawable/ic_baseline_delete_24"
         android:title="@string/delete"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/done"
+        android:icon="@drawable/ic_baseline_done_24"
+        android:title="@string/done"
         app:showAsAction="always" />
 
 </menu>

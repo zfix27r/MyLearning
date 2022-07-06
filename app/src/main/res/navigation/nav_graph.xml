@@ -26,27 +26,39 @@
         <argument
             android:name="topicId"
             app:argType="long"
-            android:defaultValue="0L" />
+            android:defaultValue="1L" />
         <action
             android:id="@+id/action_dictionaryFragment_to_dictionaryArticleFragment"
             app:destination="@id/dictionaryArticleFragment" />
         <action
-            android:id="@+id/action_dictionaryFragment_to_dictionaryTopicFragment"
-            app:destination="@id/dictionaryTopicFragment" />
+            android:id="@+id/action_dictionaryFragment_to_dictionaryTopicAddFragment"
+            app:destination="@id/dictionaryTopicAddFragment" />
+        <action
+            android:id="@+id/action_dictionaryFragment_to_dictionaryTopicEditFragment"
+            app:destination="@id/dictionaryTopicEditFragment" />
     </fragment>
     <fragment
-        android:id="@+id/dictionaryTopicFragment"
-        android:name="ru.sergeyzabelin.mylearning.DictionaryTopicFragment"
-        android:label="fragment_dictionary_topic"
-        tools:layout="@layout/fragment_dictionary_topic" >
+        android:id="@+id/dictionaryTopicAddFragment"
+        android:name="ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryTopicAddFragment"
+        android:label="@string/dictionary_topic_add_fragment"
+        tools:layout="@layout/fragment_dictionary_topic_add" >
+        <argument
+            android:name="topicId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/dictionaryTopicEditFragment"
+        android:name="ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryTopicEditFragment"
+        android:label="@string/dictionary_topic_edit_fragment"
+        tools:layout="@layout/fragment_dictionary_topic_edit" >
         <argument
             android:name="topicId"
             app:argType="long" />
     </fragment>
     <fragment
         android:id="@+id/dictionaryArticleFragment"
-        android:name="ru.sergeyzabelin.mylearning.DictionaryArticleFragment"
-        android:label="fragment_dictionary_article"
+        android:name="ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryArticleFragment"
+        android:label="@string/dictionary_article_fragment"
         tools:layout="@layout/fragment_dictionary_article" >
         <argument
             android:name="articleId"

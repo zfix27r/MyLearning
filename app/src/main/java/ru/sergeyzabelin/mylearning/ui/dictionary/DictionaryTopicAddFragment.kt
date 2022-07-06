@@ -1,21 +1,24 @@
-package ru.sergeyzabelin.mylearning.ui.dictionary.add
+package ru.sergeyzabelin.mylearning.ui.dictionary
 
-/*
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import ru.sergeyzabelin.mylearning.R
-import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryAddBinding
+import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryTopicAddBinding
 import ru.sergeyzabelin.mylearning.utils.autoCleared
 
-class DictionaryAddFragment : Fragment() {
 
-    private val viewModel by activityViewModels<DictionaryAddViewModel>()
-    private var binding by autoCleared<FragmentDictionaryAddBinding>()
+@AndroidEntryPoint
+class DictionaryTopicAddFragment : Fragment() {
+
+    private val viewModel by viewModels<DictionaryTopicEditViewModel>()
+    private var binding by autoCleared<FragmentDictionaryTopicAddBinding>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setHasOptionsMenu(true)
     }
 
@@ -23,7 +26,10 @@ class DictionaryAddFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dataBinding = FragmentDictionaryAddBinding.inflate(inflater, container, false)
+        val dataBinding = FragmentDictionaryTopicAddBinding.inflate(inflater, container, false)
+
+        //dataBinding.topic = viewModel.data
+
         binding = dataBinding
         return dataBinding.root
     }
@@ -34,20 +40,23 @@ class DictionaryAddFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.top_app_bar_dictionary_add, menu)
+        inflater.inflate(R.menu.dictionary_topic_app_bar, menu)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.dictionaryDone -> {
-                checkAllInputAndDone()
+
+
                 true
             }
-            else -> super.onOptionsItemSelected(item)
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
         }
     }
 
-    private fun checkAllInputAndDone() {
+/*    private fun checkAllInputAndDone() {
         viewModel.saveTopicModel.title = binding.dictionaryAddTitle.text.toString()
         viewModel.saveTopicModel.title = binding.dictionaryAddLabel.text.toString()
 
@@ -69,6 +78,5 @@ class DictionaryAddFragment : Fragment() {
         }
 
         viewModel.addSaveTopicModel()
-    }
-
-}*/
+    }*/
+}

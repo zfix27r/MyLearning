@@ -5,7 +5,8 @@
 
     <string name="main_fragment"></string>
     <string name="dictionary_fragment"></string>
-    <string name="dictionary_topic_fragment"></string>
+    <string name="dictionary_topic_add_fragment"></string>
+    <string name="dictionary_topic_edit_fragment"></string>
     <string name="dictionary_article_fragment"></string>
 
 

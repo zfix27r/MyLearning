@@ -13,11 +13,11 @@
 
         <import type="java.util.List" />
 
-        <import type="ru.sergeyzabelin.mylearning.data.model.db.Topic" />
+        <import type="ru.sergeyzabelin.mylearning.data.model.db.Dictionary" />
 
         <variable
             name="topics"
-            type="LiveData&lt;Resource&lt;List&lt;Topic>>>" />
+            type="LiveData&lt;Resource&lt;List&lt;Dictionary>>>" />
 
         <variable
             name="contributorStatus"

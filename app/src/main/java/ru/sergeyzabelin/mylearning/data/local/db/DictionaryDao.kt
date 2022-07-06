@@ -13,8 +13,11 @@ import ru.sergeyzabelin.mylearning.data.model.db.Topic
 interface DictionaryDao {
 
     @Transaction
-    @Query("SELECT * FROM topic WHERE parentTopicId = :parentTopicId")
-    fun getDictionaryBy(parentTopicId: Long): LiveData<List<Dictionary>>
+    @Query("SELECT * FROM topic WHERE id = :id LIMIT 1")
+    fun getDictionaryBy(id: Long): LiveData<Dictionary>
+
+    @Query("SELECT * FROM topic WHERE id = :id LIMIT 1")
+    fun getDictionaryTopicBy(id: Long): LiveData<Topic>
 
     @Update
     suspend fun setTopic(topic: Topic)

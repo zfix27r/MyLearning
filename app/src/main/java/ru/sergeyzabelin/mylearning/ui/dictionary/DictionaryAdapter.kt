@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.sergeyzabelin.mylearning.data.model.db.Dictionary
+import ru.sergeyzabelin.mylearning.data.model.db.TopicWithArticle
 import ru.sergeyzabelin.mylearning.databinding.ItemDictionaryBinding
 
 
@@ -15,7 +15,7 @@ class DictionaryAdapter(
     private val onClickGoNext: ((Long) -> Unit),
     private val onLongClickActionMode: ((Long) -> Unit)
 ) :
-    ListAdapter<Dictionary, RecyclerView.ViewHolder>(DiffCallback()) {
+    ListAdapter<TopicWithArticle, RecyclerView.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(
@@ -43,11 +43,11 @@ class DictionaryAdapter(
         private lateinit var adapter: DictionaryArticleAdapter
 
 
-        fun bind(dictionary: Dictionary) {
-            binding.topic = dictionary.topic
-            binding.dictionaryItem.setOnClickListener { onClickGoNext(dictionary.topic.id) }
+        fun bind(data: TopicWithArticle) {
+            binding.topic = data.topic
+            binding.dictionaryItem.setOnClickListener { onClickGoNext(data.topic.id) }
             binding.dictionaryItem.setOnLongClickListener {
-                onLongClickActionMode(dictionary.topic.id)
+                onLongClickActionMode(data.topic.id)
                 true
             }
 
@@ -55,7 +55,7 @@ class DictionaryAdapter(
             binding.dictionaryArticlesRecycler.visibility = View.VISIBLE
             adapter = DictionaryArticleAdapter { id -> onClick(id) }
             binding.dictionaryArticlesRecycler.adapter = adapter
-            adapter.submitList(dictionary.articles)
+            adapter.submitList(data.articles)
         }
 
         fun onClick(url: String) {
@@ -63,12 +63,12 @@ class DictionaryAdapter(
         }
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<Dictionary>() {
-        override fun areItemsTheSame(oldItem: Dictionary, newItem: Dictionary): Boolean {
+    class DiffCallback : DiffUtil.ItemCallback<TopicWithArticle>() {
+        override fun areItemsTheSame(oldItem: TopicWithArticle, newItem: TopicWithArticle): Boolean {
             return oldItem.topic.id == newItem.topic.id
         }
 
-        override fun areContentsTheSame(oldItem: Dictionary, newItem: Dictionary): Boolean {
+        override fun areContentsTheSame(oldItem: TopicWithArticle, newItem: TopicWithArticle): Boolean {
             return oldItem == newItem
         }
     }

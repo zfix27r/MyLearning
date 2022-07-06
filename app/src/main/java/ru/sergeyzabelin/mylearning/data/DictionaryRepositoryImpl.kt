@@ -23,17 +23,17 @@ class DictionaryRepositoryImpl @Inject constructor(
 
     private val repoListRateLimit = RateLimiter<String>(10, TimeUnit.MINUTES)
 
-    override fun getDictionaryBy(parentTopicId: Long): LiveData<Resource<List<Dictionary>>> {
-        return object : NetworkBoundResource<List<Dictionary>, List<Dictionary>>(appExecutors) {
+    override fun getDictionaryBy(id: Long): LiveData<Resource<Dictionary>> {
+        return object : NetworkBoundResource<Dictionary, List<Dictionary>>(appExecutors) {
 /*            override fun saveCallResult(item: List<Topic>) {
                 //repoDao.insertRepos(item) TODO why
             }*/
 
-            override fun shouldFetch(data: List<Dictionary>?): Boolean {
+            override fun shouldFetch(data: Dictionary?): Boolean {
                 return data == null /*|| repoListRateLimit.shouldFetch(id.toString())*/
             }
 
-            override fun loadFromDb(): LiveData<List<Dictionary>> {
+            override fun loadFromDb(): LiveData<Dictionary> {
 
                 // TODO либо переделать на сырой зарос с исключением текущего топика, либо я хз
 /*                return dao.getDictionaryDataById(id).let { liveData ->
@@ -55,13 +55,29 @@ class DictionaryRepositoryImpl @Inject constructor(
                         }
                     }
                 } as LiveData<DictionaryData>*/
-                return dao.getDictionaryBy(parentTopicId)
+                return dao.getDictionaryBy(id)
             }
 
             //override fun createCall() = githubService.getRepos(owner)
 
             override fun onFetchFailed() {
-                repoListRateLimit.reset(parentTopicId.toString())
+                repoListRateLimit.reset(id.toString())
+            }
+        }.asLiveData()
+    }
+
+    override fun getDictionaryTopicBy(id: Long): LiveData<Resource<Topic>> {
+        return object : NetworkBoundResource<Topic, List<Topic>>(appExecutors) {
+            override fun shouldFetch(data: Topic?): Boolean {
+                return data == null
+            }
+
+            override fun loadFromDb(): LiveData<Topic> {
+                return dao.getDictionaryTopicBy(id)
+            }
+
+            override fun onFetchFailed() {
+                repoListRateLimit.reset(id.toString())
             }
         }.asLiveData()
     }

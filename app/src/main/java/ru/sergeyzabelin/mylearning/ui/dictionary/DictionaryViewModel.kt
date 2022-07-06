@@ -18,7 +18,7 @@ class DictionaryViewModel @Inject constructor(
 
     private val savedTopicId: Long = savedStateHandle.get<Long>("topicId")!!
 
-    val data: LiveData<Resource<List<Dictionary>>> =
+    val data: LiveData<Resource<Dictionary>> =
         getDictionaryUseCase.execute(savedTopicId)
 
     //val selectedTopicId: Long

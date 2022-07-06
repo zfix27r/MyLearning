@@ -3,6 +3,7 @@ package ru.sergeyzabelin.mylearning.ui.dictionary
 import android.os.Bundle
 import android.util.Log
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -48,8 +49,6 @@ class DictionaryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.lifecycleOwner = viewLifecycleOwner
-        //binding.topics = viewModel.topics
-
 
         adapter =
             DictionaryAdapter({ id -> onClickGoNext(id) }, { id -> onLongClickActionMode(id) })
@@ -58,9 +57,14 @@ class DictionaryFragment : Fragment() {
         viewModel.data.observe(viewLifecycleOwner) { list ->
 
             list.data?.let { data ->
+                (activity as AppCompatActivity).supportActionBar?.let {
+                    it.title = data.topic.title
+                    it.subtitle = data.topic.label
+                }
+
                 Log.e("s", list.data.toString())
 
-                adapter.submitList(data)
+                adapter.submitList(data.topics)
             }
         }
     }
@@ -80,25 +84,31 @@ class DictionaryFragment : Fragment() {
         val callback = object : ActionMode.Callback {
 
             override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-                activity?.menuInflater?.inflate(R.menu.contextual_action_bar, menu)
+                activity?.menuInflater?.inflate(R.menu.dictionary_contextual_action_bar, menu)
+                menu?.findItem(R.id.done)?.isVisible = false
                 return true
             }
 
             override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+
                 return false
             }
 
             override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
                 return when (item?.itemId) {
                     R.id.edit -> {
+                        mode?.finish()
                         findNavController().navigate(
                             DictionaryFragmentDirections
-                                .actionDictionaryFragmentToDictionaryTopicFragment(id)
+                                .actionDictionaryFragmentToDictionaryTopicEditFragment(id)
                         )
                         true
                     }
                     R.id.delete -> {
                         // Handle more item (inside overflow menu) press
+                        true
+                    }
+                    R.id.done -> {
                         true
                     }
                     else -> false
@@ -128,18 +138,18 @@ class DictionaryFragment : Fragment() {
         inflater.inflate(R.menu.top_app_bar_dictionary, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+/*    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.dictionaryAdd -> {
-/*                if (binding.dictionaryNavigationBar.selectedItemId == R.id.menuDictionaryTopic) {
-*//*                    findNavController().navigate(
+*//*                if (binding.dictionaryNavigationBar.selectedItemId == R.id.menuDictionaryTopic) {
+*//**//*                    findNavController().navigate(
                         DictionaryFragmentDirections.actionNavDictionaryFragmentToNavDictionaryAddFragment(
                             selectedTopicId = viewModel.selectedTopicId
                         )
-                    )*//*
+                    )*//**//*
                 } else {
 
-                }*/
+                }*//*
 
                 true
             }
@@ -148,5 +158,5 @@ class DictionaryFragment : Fragment() {
             }
 
         }
-    }
+    }*/
 }
