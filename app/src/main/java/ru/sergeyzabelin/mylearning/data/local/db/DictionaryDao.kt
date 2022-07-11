@@ -1,10 +1,8 @@
 package ru.sergeyzabelin.mylearning.data.local.db
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Query
-import androidx.room.Transaction
-import androidx.room.Update
+import androidx.room.*
+import androidx.room.OnConflictStrategy.REPLACE
 import ru.sergeyzabelin.mylearning.data.model.db.Article
 import ru.sergeyzabelin.mylearning.data.model.db.Dictionary
 import ru.sergeyzabelin.mylearning.data.model.db.Topic
@@ -19,9 +17,16 @@ interface DictionaryDao {
     @Query("SELECT * FROM topic WHERE id = :id LIMIT 1")
     fun getDictionaryTopicBy(id: Long): LiveData<Topic>
 
-    @Update
+    @Update(onConflict = REPLACE)
     suspend fun setTopic(topic: Topic)
 
-    @Update
+    @Insert
+    suspend fun addTopic(topic: Topic)
+
+    @Update(onConflict = REPLACE)
     suspend fun setArticle(article: Article)
+
+    @Insert
+    suspend fun addArticle(article: Article)
+
 }

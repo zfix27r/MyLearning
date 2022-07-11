@@ -9,6 +9,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:text="- часть заголовка класса, его объявление идёт сразу после имени класса (и необязательных параметров). Если нет аннотаций и модификаторов видимости, ключевое слово constructor может быть опущено, так же не может содержать в себе" />
 
 </FrameLayout>

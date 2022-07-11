@@ -1,6 +1,7 @@
 package ru.sergeyzabelin.mylearning.data
 
 import androidx.lifecycle.LiveData
+import ru.sergeyzabelin.mylearning.data.common.ApiResponse
 import ru.sergeyzabelin.mylearning.data.common.NetworkBoundResource
 import ru.sergeyzabelin.mylearning.data.common.RateLimiter
 import ru.sergeyzabelin.mylearning.data.common.Resource
@@ -24,7 +25,7 @@ class DictionaryRepositoryImpl @Inject constructor(
     private val repoListRateLimit = RateLimiter<String>(10, TimeUnit.MINUTES)
 
     override fun getDictionaryBy(id: Long): LiveData<Resource<Dictionary>> {
-        return object : NetworkBoundResource<Dictionary, List<Dictionary>>(appExecutors) {
+        return object : NetworkBoundResource<Dictionary, Dictionary>(appExecutors) {
 /*            override fun saveCallResult(item: List<Topic>) {
                 //repoDao.insertRepos(item) TODO why
             }*/
@@ -63,11 +64,19 @@ class DictionaryRepositoryImpl @Inject constructor(
             override fun onFetchFailed() {
                 repoListRateLimit.reset(id.toString())
             }
+
+            override fun saveCallResult(item: Dictionary) {
+            }
+
+            override fun createCall(): LiveData<ApiResponse<Dictionary>>? {
+                return null
+            }
+
         }.asLiveData()
     }
 
     override fun getDictionaryTopicBy(id: Long): LiveData<Resource<Topic>> {
-        return object : NetworkBoundResource<Topic, List<Topic>>(appExecutors) {
+        return object : NetworkBoundResource<Topic, Topic>(appExecutors) {
             override fun shouldFetch(data: Topic?): Boolean {
                 return data == null
             }
@@ -79,18 +88,36 @@ class DictionaryRepositoryImpl @Inject constructor(
             override fun onFetchFailed() {
                 repoListRateLimit.reset(id.toString())
             }
+
+            override fun saveCallResult(item: Topic) {
+            }
+
+            override fun createCall(): LiveData<ApiResponse<Topic>>? {
+                return null
+            }
         }.asLiveData()
     }
 
     override suspend fun saveDictionaryTopic(saveTopicModel: SaveTopicModel) {
         val topic = Topic(
-                id = 0,
-                parentTopicId = saveTopicModel.topicParentId,
-                title = saveTopicModel.title,
-                label = saveTopicModel.label
-            )
+            id = saveTopicModel.id,
+            parentTopicId = saveTopicModel.topicParentId,
+            title = saveTopicModel.title,
+            label = saveTopicModel.label
+        )
 
         dao.setTopic(topic)
+    }
+
+    override suspend fun addDictionaryTopic(saveTopicModel: SaveTopicModel) {
+        val topic = Topic(
+            id = saveTopicModel.id,
+            parentTopicId = saveTopicModel.topicParentId,
+            title = saveTopicModel.title,
+            label = saveTopicModel.label
+        )
+
+        dao.addTopic(topic)
     }
 
     override suspend fun saveDictionaryArticle(article: Article) {

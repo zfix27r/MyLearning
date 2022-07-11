@@ -1,6 +1,7 @@
 package ru.sergeyzabelin.mylearning.ui.dictionary
 
 import android.content.Context
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -44,6 +45,8 @@ class DictionaryArticleAdapter(
         fun bind(article: Article) {
             binding.article = article
 
+            binding.itemDictionaryArticleDescription.text = Html.fromHtml("", Html.FROM_HTML_MODE_COMPACT)
+
 /*            //TODO найти более подходящее место для изменение данных
             if (article.sourceUrl.isNotEmpty()) {
                 binding.urlDomain = getDomainFromUrl(article.sourceUrl)
@@ -51,14 +54,14 @@ class DictionaryArticleAdapter(
             binding.itemDictionaryArticle.setOnClickListener { onClickGoWeb(article.sourceUrl) }*/
         }
 
-        private fun getDomainFromUrl(url: String): String {
+/*        private fun getDomainFromUrl(url: String): String {
             val regex = """http[s]?://([a-z]+\.?[A-z]+\.[A-z]+)/[A-z]+.*+""".toRegex()
 
             val matches = regex.find(url)
             val (domain) = matches!!.destructured
 
             return domain
-        }
+        }*/
     }
 
     class DiffCallback : DiffUtil.ItemCallback<Article>() {

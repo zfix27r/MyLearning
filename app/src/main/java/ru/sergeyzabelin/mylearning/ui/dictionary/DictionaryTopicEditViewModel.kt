@@ -22,19 +22,54 @@ class DictionaryTopicEditViewModel @Inject constructor(
 ) : ViewModel() {
 
     private val topicId: Long = savedStateHandle.get<Long>("topicId")!!
+    private val saveTopicModel: SaveTopicModel = SaveTopicModel()
+
+    private var _inputTitleStatus: DictionaryInputStatus = DictionaryInputStatus.HELPER_EQUAL
+    val inputTitleStatus
+        get() = _inputTitleStatus
+
+    private var _inputLabelStatus: DictionaryInputStatus = DictionaryInputStatus.SUCCESS
+    val inputLabelStatus
+        get() = _inputLabelStatus
 
     val topic: LiveData<Resource<Topic>> = getDictionaryTopicUseCase.execute(topicId)
-    val saveTopicModel: SaveTopicModel = SaveTopicModel(topicParentId = topicId)
 
-    fun addSaveTopicModel() = viewModelScope.launch {
-        //saveDictionaryTopicUseCase.execute(saveTopicModel)
+    fun save() = viewModelScope.launch {
+        topic.value?.data?.let {
+            if (saveTopicModel.label.isEmpty())
+                saveTopicModel.label = it.label
+            saveTopicModel.id = it.id
+            saveTopicModel.topicParentId = it.parentTopicId
+        }
+
+        saveDictionaryTopicUseCase.execute(saveTopicModel)
     }
 
-    fun updateSaveTopicModelFromTopic() {
-        saveTopicModel.title = topic.value?.data?.title ?: ""
-        saveTopicModel.label = topic.value?.data?.label ?: ""
+    fun checkInputTitle(title: String) {
+        saveTopicModel.title = title
+        _inputTitleStatus = getStatusTitle()
+    }
+
+    fun checkInputLabel(label: String) {
+        saveTopicModel.label = label
+    }
+
+    private fun getStatusTitle(): DictionaryInputStatus {
+        if (saveTopicModel.title == topic.value?.data?.title)
+            return DictionaryInputStatus.HELPER_EQUAL
+        if (saveTopicModel.title.isEmpty())
+            return DictionaryInputStatus.ERROR_EMPTY
+
+        return DictionaryInputStatus.SUCCESS
     }
 
 
+    fun isAllInputCorrect(): Boolean {
+        if (inputTitleStatus != DictionaryInputStatus.SUCCESS)
+            return false
+        if (inputLabelStatus != DictionaryInputStatus.SUCCESS)
+            return false
 
+        return true
+    }
 }

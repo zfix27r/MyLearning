@@ -5,6 +5,7 @@ import android.view.*
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.sergeyzabelin.mylearning.R
 import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryTopicEditBinding
@@ -29,20 +30,8 @@ class DictionaryTopicEditFragment : Fragment() {
     ): View {
         val dataBinding = FragmentDictionaryTopicEditBinding.inflate(inflater, container, false)
 
-        viewModel.topic.observe(viewLifecycleOwner) {
-            viewModel.updateSaveTopicModelFromTopic()
-            //Log.e("sdf", it.data.toString())
-            dataBinding.topic = viewModel.topic
-            dataBinding.saveTopicModel = viewModel.saveTopicModel
-            //Log.e("sdf", viewModel.saveTopicModel.toString())
-        }
-
-        dataBinding.topicTitleLayout.editText?.addTextChangedListener {
-            checkInputTitle(it.toString())
-        }
-
+        dataBinding.setLifecycleOwner { lifecycle }
         dataBinding.topic = viewModel.topic
-
 
         binding = dataBinding
         return dataBinding.root
@@ -51,17 +40,46 @@ class DictionaryTopicEditFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.titleLayout.editText?.addTextChangedListener {
+            viewModel.checkInputTitle(it.toString())
+            binding.titleLayout.error = getStatusError(viewModel.inputTitleStatus)
+            binding.titleLayout.helperText = getStatusHelper(viewModel.inputTitleStatus)
+            unlockFab()
+        }
+
+        binding.labelLayout.editText?.addTextChangedListener {
+            viewModel.checkInputLabel(it.toString())
+        }
+
+        binding.fab.setOnClickListener {
+            binding.titleLayout.isEnabled = false
+            binding.labelLayout.isEnabled = false
+            viewModel.save()
+            findNavController().popBackStack()
+        }
+    }
+
+    private fun getStatusError(status: DictionaryInputStatus): String? {
+        return when (status) {
+            DictionaryInputStatus.ERROR_EMPTY -> this.resources.getString(R.string.message_error_empty)
+            DictionaryInputStatus.SUCCESS -> null
+            else -> null
+        }
+    }
+
+    private fun getStatusHelper(status: DictionaryInputStatus): String? {
+        return when (status) {
+            DictionaryInputStatus.HELPER_EQUAL -> this.resources.getString(R.string.message_helper_equal)
+            DictionaryInputStatus.SUCCESS -> null
+            else -> null
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_app_bar, menu)
     }
 
-    private fun checkInputTitle(title: String) {
-        if (title.isEmpty()) {
-            binding.topicTitleLayout.error = this.resources.getString(R.string.message_field_empty)
-        } else {
-            binding.topicTitleLayout.error = null
-        }
+    private fun unlockFab() {
+        binding.fab.visibility = if (viewModel.isAllInputCorrect()) View.VISIBLE else View.GONE
     }
 }

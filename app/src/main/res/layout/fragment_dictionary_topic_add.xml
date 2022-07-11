@@ -5,17 +5,6 @@
 
     <data>
 
-        <import type="ru.sergeyzabelin.mylearning.data.common.Status" />
-
-        <import type="ru.sergeyzabelin.mylearning.data.common.Resource" />
-
-        <import type="androidx.lifecycle.LiveData" />
-
-        <import type="ru.sergeyzabelin.mylearning.data.model.db.Topic" />
-
-        <variable
-            name="topic"
-            type="LiveData&lt;Resource&lt;Topic>>" />
     </data>
 
 
@@ -23,56 +12,60 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="8dp">
 
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/titleLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp">
+                android:hint="@string/dictionary_add_title"
+                app:errorEnabled="true">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/topicTitleLayout"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/dictionary_add_title"
-                    app:errorEnabled="true">
+                    android:inputType="textMultiLine"
+                    android:maxHeight="110dp"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/topicTitle"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textMultiLine"
-                        android:maxHeight="110dp"
-                        android:text="@{topic.data.title}"
-                        android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/labelLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:hint="@string/dictionary_add_label"
+                app:errorEnabled="true">
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/topicLabelLayout"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/label"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:hint="@string/dictionary_add_label"
-                    app:errorEnabled="true">
+                    android:inputType="textMultiLine"
+                    android:maxHeight="110dp"
+                    android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/topicLabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textMultiLine"
-                        android:maxHeight="110dp"
-                        android:text="@{topic.data.label}"
-                        android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-                </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
 
-            </LinearLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="@string/add"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_baseline_done_24" />
 
-        </ScrollView>
     </FrameLayout>
 
 </layout>

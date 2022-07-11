@@ -48,6 +48,11 @@ class DictionaryFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.fab.setOnClickListener {
+            findNavController().navigate(DictionaryFragmentDirections.
+            actionDictionaryFragmentToDictionaryTopicAddFragment(viewModel.savedTopicId))
+        }
+
         binding.lifecycleOwner = viewLifecycleOwner
 
         adapter =
@@ -135,7 +140,7 @@ class DictionaryFragment : Fragment() {
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.top_app_bar_dictionary, menu)
+        inflater.inflate(R.menu.main_app_bar, menu)
     }
 
 /*    override fun onOptionsItemSelected(item: MenuItem): Boolean {

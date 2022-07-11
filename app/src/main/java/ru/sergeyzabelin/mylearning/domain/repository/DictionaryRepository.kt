@@ -13,6 +13,8 @@ interface DictionaryRepository {
 
     fun getDictionaryTopicBy(id: Long): LiveData<Resource<Topic>>
 
+    suspend fun addDictionaryTopic(saveTopicModel: SaveTopicModel)
+
     suspend fun saveDictionaryTopic(saveTopicModel: SaveTopicModel)
 
     suspend fun saveDictionaryArticle(article: Article)

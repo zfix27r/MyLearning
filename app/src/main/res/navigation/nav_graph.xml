@@ -40,7 +40,6 @@
     <fragment
         android:id="@+id/dictionaryTopicAddFragment"
         android:name="ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryTopicAddFragment"
-        android:label="@string/dictionary_topic_add_fragment"
         tools:layout="@layout/fragment_dictionary_topic_add" >
         <argument
             android:name="topicId"
@@ -49,7 +48,6 @@
     <fragment
         android:id="@+id/dictionaryTopicEditFragment"
         android:name="ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryTopicEditFragment"
-        android:label="@string/dictionary_topic_edit_fragment"
         tools:layout="@layout/fragment_dictionary_topic_edit" >
         <argument
             android:name="topicId"

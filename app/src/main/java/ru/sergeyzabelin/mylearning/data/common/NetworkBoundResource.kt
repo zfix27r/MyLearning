@@ -17,6 +17,7 @@
 package ru.sergeyzabelin.mylearning.data.common
 
 import androidx.annotation.MainThread
+import androidx.annotation.WorkerThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import ru.sergeyzabelin.mylearning.utils.AppExecutors
@@ -60,7 +61,14 @@ abstract class NetworkBoundResource<ResultType, RequestType>
     }
 
     private fun fetchFromNetwork(dbSource: LiveData<ResultType>) {
-/*        val apiResponse = createCall()
+        val apiResponse = createCall()
+        if (apiResponse == null) {
+            onFetchFailed()
+            result.addSource(dbSource) { newData ->
+                setValue(Resource.error("", newData))
+            }
+            return
+        }
         // we re-attach dbSource as a new source, it will dispatch its latest value quickly
         result.addSource(dbSource) { newData ->
             setValue(Resource.loading(newData))
@@ -96,19 +104,20 @@ abstract class NetworkBoundResource<ResultType, RequestType>
                         setValue(Resource.error(response.errorMessage, newData))
                     }
                 }
+                else -> {}
             }
-        }*/
+        }
     }
 
     protected open fun onFetchFailed() {}
 
     fun asLiveData() = result as LiveData<Resource<ResultType>>
 
-/*    @WorkerThread
-    protected open fun processResponse(response: ApiSuccessResponse<RequestType>) = response.body*/
+    @WorkerThread
+    protected open fun processResponse(response: ApiSuccessResponse<RequestType>) = response.body
 
-/*    @WorkerThread
-    protected abstract fun saveCallResult(item: RequestType)*/
+    @WorkerThread
+    protected abstract fun saveCallResult(item: RequestType)
 
     @MainThread
     protected abstract fun shouldFetch(data: ResultType?): Boolean
@@ -116,6 +125,6 @@ abstract class NetworkBoundResource<ResultType, RequestType>
     @MainThread
     protected abstract fun loadFromDb(): LiveData<ResultType>
 
-/*    @MainThread
-    protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>*/
+    @MainThread
+    protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>?
 }

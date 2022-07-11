@@ -8,10 +8,6 @@
         <variable
             name="article"
             type="ru.sergeyzabelin.mylearning.data.model.db.Article" />
-
-        <variable
-            name="urlDomain"
-            type="String" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,7 +22,8 @@
             android:layout_marginStart="160dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:alpha="0.7"
+            android:alpha="0.3"
+            app:dividerColor="?attr/colorPrimaryDark"
             app:layout_constraintEnd_toStartOf="@+id/itemDictionaryArticleRating"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -52,6 +49,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
+            android:fontFamily="sans-serif-condensed"
             android:text="@{ article.description }"
             android:textAppearance="@style/TextAppearance.Material3.BodySmall"
             android:textColor="?android:attr/textColorSecondary"
