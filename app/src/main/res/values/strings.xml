@@ -29,11 +29,7 @@
     <string name="dictionary_add_title">Название</string>
     <string name="dictionary_add_label">Оригинальное название(опционально)</string>
 
-    <string name="lesson_add_resource_link">Ссылка</string>
-
-    <string name="lesson_topic_add_exception_field_empty">Заполните все поля</string>
-    <string name="lesson_topic_add_exception_no_internet">Проверьте подключние к интернету</string>
-    <string name="lesson_topic_add_exception_done">Тема урока успешно добавлена</string>
+    <string name="message_delete_order_confirmation">подтвердите удаление</string>
 
     <string name="tint_input_field">заполните поле</string>
     <string name="message_no_result">не удалось получить информацию</string>

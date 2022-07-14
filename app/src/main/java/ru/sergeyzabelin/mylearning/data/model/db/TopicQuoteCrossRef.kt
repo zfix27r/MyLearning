@@ -5,8 +5,8 @@ import androidx.room.ForeignKey
 import androidx.room.Index
 
 @Entity(
-    primaryKeys = ["topicId", "articleId"],
-    indices = [Index(value = ["articleId"])],
+    primaryKeys = ["topicId", "quoteId"],
+    indices = [Index(value = ["quoteId"])],
     foreignKeys = [
         ForeignKey(
             entity = Topic::class,
@@ -16,15 +16,15 @@ import androidx.room.Index
             onUpdate = ForeignKey.CASCADE
         ),
         ForeignKey(
-            entity = Article::class,
+            entity = Quote::class,
             parentColumns = ["id"],
-            childColumns = ["articleId"],
+            childColumns = ["quoteId"],
             onDelete = ForeignKey.CASCADE,
             onUpdate = ForeignKey.CASCADE
         )
     ]
 )
-data class TopicArticleCrossRef(
+data class TopicQuoteCrossRef(
     val topicId: Long,
-    val articleId: Long
+    val quoteId: Long
 )

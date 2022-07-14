@@ -2,7 +2,7 @@ package ru.sergeyzabelin.mylearning.data
 
 import ru.sergeyzabelin.mylearning.data.local.db.DictionaryDao
 import ru.sergeyzabelin.mylearning.data.model.api.WikiDetail
-import ru.sergeyzabelin.mylearning.data.model.db.Article
+import ru.sergeyzabelin.mylearning.data.model.db.Quote
 import ru.sergeyzabelin.mylearning.utils.AppExecutors
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -41,5 +41,5 @@ class DetailDictionaryRepository @Inject constructor(
             .getDescriptionById()*//*
     }*/
 
-    suspend fun setArticle(article: Article) = dao.setArticle(article)
+    suspend fun setArticle(article: Quote) = dao.setArticle(article)
 }

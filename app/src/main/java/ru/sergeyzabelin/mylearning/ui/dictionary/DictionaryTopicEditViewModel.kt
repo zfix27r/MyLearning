@@ -8,56 +8,57 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.sergeyzabelin.mylearning.data.common.Resource
 import ru.sergeyzabelin.mylearning.data.model.db.Topic
-import ru.sergeyzabelin.mylearning.domain.model.SaveTopicModel
-import ru.sergeyzabelin.mylearning.domain.usecases.GetDictionarySaveTopicModelUseCase
-import ru.sergeyzabelin.mylearning.domain.usecases.SaveDictionaryTopicUseCase
+import ru.sergeyzabelin.mylearning.domain.usecases.GetTopicUseCase
+import ru.sergeyzabelin.mylearning.domain.usecases.SaveTopicUseCase
 import javax.inject.Inject
 
 
 @HiltViewModel
 class DictionaryTopicEditViewModel @Inject constructor(
-    getDictionaryTopicUseCase: GetDictionarySaveTopicModelUseCase,
-    private val saveDictionaryTopicUseCase: SaveDictionaryTopicUseCase,
+    getTopicUseCase: GetTopicUseCase,
+    private val saveTopicUseCase: SaveTopicUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val topicId: Long = savedStateHandle.get<Long>("topicId")!!
-    private val saveTopicModel: SaveTopicModel = SaveTopicModel()
 
+    private var title: String = ""
     private var _inputTitleStatus: DictionaryInputStatus = DictionaryInputStatus.HELPER_EQUAL
     val inputTitleStatus
         get() = _inputTitleStatus
 
-    private var _inputLabelStatus: DictionaryInputStatus = DictionaryInputStatus.SUCCESS
-    val inputLabelStatus
-        get() = _inputLabelStatus
+    private var subTitle: String = ""
+    private var _inputSubTitleStatus: DictionaryInputStatus = DictionaryInputStatus.SUCCESS
+    val inputSubTitleStatus
+        get() = _inputSubTitleStatus
 
-    val topic: LiveData<Resource<Topic>> = getDictionaryTopicUseCase.execute(topicId)
+    val topic: LiveData<Resource<Topic>> = getTopicUseCase.execute(topicId)
 
     fun save() = viewModelScope.launch {
-        topic.value?.data?.let {
-            if (saveTopicModel.label.isEmpty())
-                saveTopicModel.label = it.label
-            saveTopicModel.id = it.id
-            saveTopicModel.topicParentId = it.parentTopicId
-        }
-
-        saveDictionaryTopicUseCase.execute(saveTopicModel)
+        saveTopicUseCase.execute(
+            Topic(
+                id = 0,
+                parentTopicId = topicId,
+                title = title,
+                subTitle = subTitle,
+                isHasChild = topic.value?.data?.isHasChild ?: false // TODO присваивается в случае null значение с потолка, но по логике с null до save() не попасть
+            )
+        )
     }
 
     fun checkInputTitle(title: String) {
-        saveTopicModel.title = title
+        this.title = title
         _inputTitleStatus = getStatusTitle()
     }
 
-    fun checkInputLabel(label: String) {
-        saveTopicModel.label = label
+    fun checkInputSubTitle(subTitle: String) {
+        this.subTitle = subTitle
     }
 
     private fun getStatusTitle(): DictionaryInputStatus {
-        if (saveTopicModel.title == topic.value?.data?.title)
+        if (title == topic.value?.data?.title)
             return DictionaryInputStatus.HELPER_EQUAL
-        if (saveTopicModel.title.isEmpty())
+        if (title.isEmpty())
             return DictionaryInputStatus.ERROR_EMPTY
 
         return DictionaryInputStatus.SUCCESS
@@ -67,7 +68,7 @@ class DictionaryTopicEditViewModel @Inject constructor(
     fun isAllInputCorrect(): Boolean {
         if (inputTitleStatus != DictionaryInputStatus.SUCCESS)
             return false
-        if (inputLabelStatus != DictionaryInputStatus.SUCCESS)
+        if (inputSubTitleStatus != DictionaryInputStatus.SUCCESS)
             return false
 
         return true

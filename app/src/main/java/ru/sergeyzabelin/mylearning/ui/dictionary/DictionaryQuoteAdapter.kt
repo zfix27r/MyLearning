@@ -7,20 +7,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.sergeyzabelin.mylearning.data.model.db.Article
-import ru.sergeyzabelin.mylearning.databinding.ItemDictionaryArticleBinding
+import ru.sergeyzabelin.mylearning.data.model.db.Quote
+import ru.sergeyzabelin.mylearning.databinding.ItemDictionaryQuoteBinding
 
-class DictionaryArticleAdapter(
+class DictionaryQuoteAdapter(
     private val onClickGoWeb: ((String) -> Unit)
 ) :
-    ListAdapter<Article, RecyclerView.ViewHolder>(DiffCallback()) {
+    ListAdapter<Quote, RecyclerView.ViewHolder>(DiffCallback()) {
     private lateinit var context: Context
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         context = parent.context
 
         return ViewHolder(
-            ItemDictionaryArticleBinding.inflate(
+            ItemDictionaryQuoteBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -37,15 +37,15 @@ class DictionaryArticleAdapter(
         return currentList.size
     }
 
-    inner class ViewHolder(itemDictionaryArticleBinding: ItemDictionaryArticleBinding) :
-        RecyclerView.ViewHolder(itemDictionaryArticleBinding.root) {
+    inner class ViewHolder(itemDictionaryQuoteBinding: ItemDictionaryQuoteBinding) :
+        RecyclerView.ViewHolder(itemDictionaryQuoteBinding.root) {
 
-        private val binding = itemDictionaryArticleBinding
+        private val binding = itemDictionaryQuoteBinding
 
-        fun bind(article: Article) {
-            binding.article = article
+        fun bind(quote: Quote) {
+            binding.quote = quote
 
-            binding.itemDictionaryArticleDescription.text = Html.fromHtml("", Html.FROM_HTML_MODE_COMPACT)
+            binding.text.text = Html.fromHtml("", Html.FROM_HTML_MODE_COMPACT)
 
 /*            //TODO найти более подходящее место для изменение данных
             if (article.sourceUrl.isNotEmpty()) {
@@ -64,12 +64,12 @@ class DictionaryArticleAdapter(
         }*/
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<Article>() {
-        override fun areItemsTheSame(oldItem: Article, newItem: Article): Boolean {
+    class DiffCallback : DiffUtil.ItemCallback<Quote>() {
+        override fun areItemsTheSame(oldItem: Quote, newItem: Quote): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Article, newItem: Article): Boolean {
+        override fun areContentsTheSame(oldItem: Quote, newItem: Quote): Boolean {
             return oldItem == newItem
         }
     }

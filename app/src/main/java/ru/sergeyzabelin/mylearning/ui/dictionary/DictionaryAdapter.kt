@@ -7,15 +7,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import ru.sergeyzabelin.mylearning.data.model.db.TopicWithArticle
+import ru.sergeyzabelin.mylearning.data.model.db.Topic
+import ru.sergeyzabelin.mylearning.data.model.db.TopicWithQuote
 import ru.sergeyzabelin.mylearning.databinding.ItemDictionaryBinding
 
 
 class DictionaryAdapter(
-    private val onClickGoNext: ((Long) -> Unit),
-    private val onLongClickActionMode: ((Long) -> Unit)
+    private val onClickGoNextTopic: ((Long) -> Unit),
+    private val onClickGoTopicQuote: ((Long) -> Unit),
+    private val onLongClickActionMode: ((Topic) -> Unit)
 ) :
-    ListAdapter<TopicWithArticle, RecyclerView.ViewHolder>(DiffCallback()) {
+    ListAdapter<TopicWithQuote, RecyclerView.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(
@@ -40,22 +42,34 @@ class DictionaryAdapter(
         RecyclerView.ViewHolder(itemDictionaryBinding.root) {
 
         private val binding = itemDictionaryBinding
-        private lateinit var adapter: DictionaryArticleAdapter
+        private lateinit var adapter: DictionaryQuoteAdapter
 
 
-        fun bind(data: TopicWithArticle) {
+        fun bind(data: TopicWithQuote) {
             binding.topic = data.topic
-            binding.dictionaryItem.setOnClickListener { onClickGoNext(data.topic.id) }
-            binding.dictionaryItem.setOnLongClickListener {
-                onLongClickActionMode(data.topic.id)
+
+            binding.topicLayout.setOnClickListener { onClickGoNextTopic(data.topic.id) }
+            binding.topicLayout.setOnLongClickListener {
+                onLongClickActionMode(data.topic)
                 true
             }
 
+            binding.item.setOnClickListener { onClickGoTopicQuote(data.topic.id) }
 
-            binding.dictionaryArticlesRecycler.visibility = View.VISIBLE
-            adapter = DictionaryArticleAdapter { id -> onClick(id) }
-            binding.dictionaryArticlesRecycler.adapter = adapter
-            adapter.submitList(data.articles)
+            if (data.topic.subTitle.isNotEmpty()) {
+                binding.subTitle.visibility = View.VISIBLE
+            }
+
+            if (data.quotes.isNotEmpty()) {
+                binding.quotesIcon.visibility = View.VISIBLE
+                binding.quotesCounter.visibility = View.VISIBLE
+                binding.quotesCounter.text = data.quotes.size.toString()
+
+                binding.quotes.visibility = View.VISIBLE
+                adapter = DictionaryQuoteAdapter { id -> onClick(id) }
+                binding.quotes.adapter = adapter
+                adapter.submitList(data.quotes)
+            }
         }
 
         fun onClick(url: String) {
@@ -63,12 +77,12 @@ class DictionaryAdapter(
         }
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<TopicWithArticle>() {
-        override fun areItemsTheSame(oldItem: TopicWithArticle, newItem: TopicWithArticle): Boolean {
+    class DiffCallback : DiffUtil.ItemCallback<TopicWithQuote>() {
+        override fun areItemsTheSame(oldItem: TopicWithQuote, newItem: TopicWithQuote): Boolean {
             return oldItem.topic.id == newItem.topic.id
         }
 
-        override fun areContentsTheSame(oldItem: TopicWithArticle, newItem: TopicWithArticle): Boolean {
+        override fun areContentsTheSame(oldItem: TopicWithQuote, newItem: TopicWithQuote): Boolean {
             return oldItem == newItem
         }
     }

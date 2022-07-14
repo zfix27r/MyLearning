@@ -45,7 +45,7 @@ class DictionaryTopicAddFragment : Fragment() {
         }
 
         binding.labelLayout.editText?.addTextChangedListener {
-            viewModel.checkInputLabel(it.toString())
+            viewModel.checkInputSubTitle(it.toString())
         }
 
         binding.fab.setOnClickListener {

@@ -28,14 +28,14 @@
             app:argType="long"
             android:defaultValue="1L" />
         <action
-            android:id="@+id/action_dictionaryFragment_to_dictionaryArticleFragment"
-            app:destination="@id/dictionaryArticleFragment" />
-        <action
             android:id="@+id/action_dictionaryFragment_to_dictionaryTopicAddFragment"
             app:destination="@id/dictionaryTopicAddFragment" />
         <action
             android:id="@+id/action_dictionaryFragment_to_dictionaryTopicEditFragment"
             app:destination="@id/dictionaryTopicEditFragment" />
+        <action
+            android:id="@+id/action_dictionaryFragment_to_quoteFragment"
+            app:destination="@id/quoteFragment" />
     </fragment>
     <fragment
         android:id="@+id/dictionaryTopicAddFragment"
@@ -54,12 +54,13 @@
             app:argType="long" />
     </fragment>
     <fragment
-        android:id="@+id/dictionaryArticleFragment"
-        android:name="ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryArticleFragment"
-        android:label="@string/dictionary_article_fragment"
-        tools:layout="@layout/fragment_dictionary_article" >
+        android:id="@+id/quoteFragment"
+        android:name="ru.sergeyzabelin.mylearning.QuoteFragment"
+        android:label="fragment_quote"
+        tools:layout="@layout/fragment_quote" >
         <argument
-            android:name="articleId"
+            android:name="topicId"
             app:argType="long" />
     </fragment>
+
 </navigation>

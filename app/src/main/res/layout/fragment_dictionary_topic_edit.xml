@@ -68,7 +68,7 @@
                     android:layout_height="wrap_content"
                     android:inputType="textMultiLine"
                     android:maxHeight="110dp"
-                    android:text="@{topic.data.label}"
+                    android:text="@{topic.data.subTitle}"
                     android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
 
             </com.google.android.material.textfield.TextInputLayout>

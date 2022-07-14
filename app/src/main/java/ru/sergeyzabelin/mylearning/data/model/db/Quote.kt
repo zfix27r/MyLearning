@@ -5,10 +5,10 @@ import androidx.room.PrimaryKey
 
 
 @Entity
-data class Article(
+data class Quote(
 
     @PrimaryKey(autoGenerate = true)
     val id: Long,
-    val description: String,
+    val text: String,
     val sourceId: Long
 )

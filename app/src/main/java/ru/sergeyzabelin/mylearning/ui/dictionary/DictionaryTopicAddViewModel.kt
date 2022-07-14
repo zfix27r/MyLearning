@@ -5,45 +5,52 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import ru.sergeyzabelin.mylearning.domain.model.SaveTopicModel
-import ru.sergeyzabelin.mylearning.domain.usecases.AddDictionaryTopicUseCase
+import ru.sergeyzabelin.mylearning.data.model.db.Topic
+import ru.sergeyzabelin.mylearning.domain.usecases.AddTopicUseCase
 import javax.inject.Inject
 
 
 @HiltViewModel
 class DictionaryTopicAddViewModel @Inject constructor(
-    private val addDictionaryTopicUseCase: AddDictionaryTopicUseCase,
+    private val addDictionaryTopicUseCase: AddTopicUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
     private val topicId: Long = savedStateHandle.get<Long>("topicId")!!
-    private val saveTopicModel: SaveTopicModel = SaveTopicModel()
 
+    private var title: String = ""
     private var _inputTitleStatus: DictionaryInputStatus = DictionaryInputStatus.HELPER_EQUAL
     val inputTitleStatus
         get() = _inputTitleStatus
 
-    private var _inputLabelStatus: DictionaryInputStatus = DictionaryInputStatus.SUCCESS
-    val inputLabelStatus
-        get() = _inputLabelStatus
+    private var subTitle: String = ""
+    private var _inputSubTitleStatus: DictionaryInputStatus = DictionaryInputStatus.SUCCESS
+    val inputSubTitleStatus
+        get() = _inputSubTitleStatus
 
     fun add() = viewModelScope.launch {
-        saveTopicModel.topicParentId = topicId
-
-        addDictionaryTopicUseCase.execute(saveTopicModel)
+        addDictionaryTopicUseCase.execute(
+            Topic(
+                id = 0,
+                parentTopicId = topicId,
+                title = title,
+                subTitle = subTitle,
+                isHasChild = false
+            )
+        )
     }
 
     fun checkInputTitle(title: String) {
-        saveTopicModel.title = title
+        this.title = title
         _inputTitleStatus = getStatusTitle()
     }
 
-    fun checkInputLabel(label: String) {
-        saveTopicModel.label = label
+    fun checkInputSubTitle(subTitle: String) {
+        this.subTitle = subTitle
     }
 
     private fun getStatusTitle(): DictionaryInputStatus {
-        if (saveTopicModel.title.isEmpty())
+        if (title.isEmpty())
             return DictionaryInputStatus.ERROR_EMPTY
 
         return DictionaryInputStatus.SUCCESS
@@ -53,7 +60,7 @@ class DictionaryTopicAddViewModel @Inject constructor(
     fun isAllInputCorrect(): Boolean {
         if (inputTitleStatus != DictionaryInputStatus.SUCCESS)
             return false
-        if (inputLabelStatus != DictionaryInputStatus.SUCCESS)
+        if (inputSubTitleStatus != DictionaryInputStatus.SUCCESS)
             return false
 
         return true

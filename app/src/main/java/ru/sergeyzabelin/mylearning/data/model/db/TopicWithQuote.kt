@@ -4,19 +4,19 @@ import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
 
-data class TopicWithArticle(
+data class TopicWithQuote(
     @Embedded
     val topic: Topic,
 
     @Relation(
-        entity = Article::class,
+        entity = Quote::class,
         parentColumn = "id",
         entityColumn = "id",
         associateBy = Junction(
-            value = TopicArticleCrossRef::class,
+            value = TopicQuoteCrossRef::class,
             parentColumn = "topicId",
-            entityColumn = "articleId"
+            entityColumn = "quoteId"
         )
     )
-    var articles: List<Article>
+    var quotes: List<Quote>
 )

@@ -6,10 +6,9 @@ import ru.sergeyzabelin.mylearning.data.common.NetworkBoundResource
 import ru.sergeyzabelin.mylearning.data.common.RateLimiter
 import ru.sergeyzabelin.mylearning.data.common.Resource
 import ru.sergeyzabelin.mylearning.data.local.db.DictionaryDao
-import ru.sergeyzabelin.mylearning.data.model.db.Article
 import ru.sergeyzabelin.mylearning.data.model.db.Dictionary
+import ru.sergeyzabelin.mylearning.data.model.db.Quote
 import ru.sergeyzabelin.mylearning.data.model.db.Topic
-import ru.sergeyzabelin.mylearning.domain.model.SaveTopicModel
 import ru.sergeyzabelin.mylearning.domain.repository.DictionaryRepository
 import ru.sergeyzabelin.mylearning.utils.AppExecutors
 import java.util.concurrent.TimeUnit
@@ -75,7 +74,7 @@ class DictionaryRepositoryImpl @Inject constructor(
         }.asLiveData()
     }
 
-    override fun getDictionaryTopicBy(id: Long): LiveData<Resource<Topic>> {
+    override fun getTopicBy(id: Long): LiveData<Resource<Topic>> {
         return object : NetworkBoundResource<Topic, Topic>(appExecutors) {
             override fun shouldFetch(data: Topic?): Boolean {
                 return data == null
@@ -98,29 +97,19 @@ class DictionaryRepositoryImpl @Inject constructor(
         }.asLiveData()
     }
 
-    override suspend fun saveDictionaryTopic(saveTopicModel: SaveTopicModel) {
-        val topic = Topic(
-            id = saveTopicModel.id,
-            parentTopicId = saveTopicModel.topicParentId,
-            title = saveTopicModel.title,
-            label = saveTopicModel.label
-        )
-
+    override suspend fun saveTopic(topic: Topic) {
         dao.setTopic(topic)
     }
 
-    override suspend fun addDictionaryTopic(saveTopicModel: SaveTopicModel) {
-        val topic = Topic(
-            id = saveTopicModel.id,
-            parentTopicId = saveTopicModel.topicParentId,
-            title = saveTopicModel.title,
-            label = saveTopicModel.label
-        )
+    override suspend fun deleteTopic(topic: Topic) {
+        dao.deleteTopic(topic)
+    }
 
+    override suspend fun addTopic(topic: Topic) {
         dao.addTopic(topic)
     }
 
-    override suspend fun saveDictionaryArticle(article: Article) {
-        dao.setArticle(article)
+    override suspend fun saveQuote(quote: Quote) {
+        dao.setArticle(quote)
     }
 }

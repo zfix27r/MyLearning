@@ -3,8 +3,8 @@ package ru.sergeyzabelin.mylearning.data.local.db
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import ru.sergeyzabelin.mylearning.data.model.db.Article
 import ru.sergeyzabelin.mylearning.data.model.db.Dictionary
+import ru.sergeyzabelin.mylearning.data.model.db.Quote
 import ru.sergeyzabelin.mylearning.data.model.db.Topic
 
 @Dao
@@ -23,10 +23,13 @@ interface DictionaryDao {
     @Insert
     suspend fun addTopic(topic: Topic)
 
+    @Delete
+    suspend fun deleteTopic(topic: Topic)
+
     @Update(onConflict = REPLACE)
-    suspend fun setArticle(article: Article)
+    suspend fun setArticle(article: Quote)
 
     @Insert
-    suspend fun addArticle(article: Article)
+    suspend fun addArticle(article: Quote)
 
 }

@@ -2,16 +2,16 @@ package ru.sergeyzabelin.mylearning.data.local.db
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import ru.sergeyzabelin.mylearning.data.model.db.Article
+import ru.sergeyzabelin.mylearning.data.model.db.Quote
 import ru.sergeyzabelin.mylearning.data.model.db.Source
 import ru.sergeyzabelin.mylearning.data.model.db.Topic
-import ru.sergeyzabelin.mylearning.data.model.db.TopicArticleCrossRef
+import ru.sergeyzabelin.mylearning.data.model.db.TopicQuoteCrossRef
 
 @Database(
     entities = [
         Topic::class,
-        Article::class,
-        TopicArticleCrossRef::class,
+        Quote::class,
+        TopicQuoteCrossRef::class,
         Source::class],
     version = 1,
     exportSchema = false

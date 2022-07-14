@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.sergeyzabelin.mylearning.R
-import ru.sergeyzabelin.mylearning.data.model.db.Article
+import ru.sergeyzabelin.mylearning.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryBinding
 import ru.sergeyzabelin.mylearning.ui.common.RetryCallback
 import ru.sergeyzabelin.mylearning.utils.autoCleared
@@ -49,14 +49,20 @@ class DictionaryFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.fab.setOnClickListener {
-            findNavController().navigate(DictionaryFragmentDirections.
-            actionDictionaryFragmentToDictionaryTopicAddFragment(viewModel.savedTopicId))
+            findNavController().navigate(
+                DictionaryFragmentDirections.actionDictionaryFragmentToDictionaryTopicAddFragment(
+                    viewModel.savedTopicId
+                )
+            )
         }
 
         binding.lifecycleOwner = viewLifecycleOwner
 
         adapter =
-            DictionaryAdapter({ id -> onClickGoNext(id) }, { id -> onLongClickActionMode(id) })
+            DictionaryAdapter(
+                { id -> onClickGoNextTopic(id) },
+                { id -> onClickGoTopicQuote(id) },
+                { topic -> onLongClickActionMode(topic) })
         binding.dictionaryRecycler.adapter = adapter
 
         viewModel.data.observe(viewLifecycleOwner) { list ->
@@ -64,7 +70,7 @@ class DictionaryFragment : Fragment() {
             list.data?.let { data ->
                 (activity as AppCompatActivity).supportActionBar?.let {
                     it.title = data.topic.title
-                    it.subtitle = data.topic.label
+                    it.subtitle = data.topic.subTitle
                 }
 
                 Log.e("s", list.data.toString())
@@ -74,23 +80,27 @@ class DictionaryFragment : Fragment() {
         }
     }
 
-    private fun onClickGoNext(id: Long) {
+    private fun onClickGoNextTopic(id: Long) {
         findNavController().navigate(
             DictionaryFragmentDirections.actionDictionaryFragmentSelf(id)
         )
     }
 
-
-    private fun onClickGoWeb(article: Article) {
-
+    private fun onClickGoTopicQuote(id: Long) {
+        findNavController().navigate(
+            DictionaryFragmentDirections.actionDictionaryFragmentToQuoteFragment(id)
+        )
     }
 
-    private fun onLongClickActionMode(id: Long) {
+    private fun onLongClickActionMode(topic: Topic) {
         val callback = object : ActionMode.Callback {
 
             override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
                 activity?.menuInflater?.inflate(R.menu.dictionary_contextual_action_bar, menu)
-                menu?.findItem(R.id.done)?.isVisible = false
+                menu?.let {
+                    it.findItem(R.id.done)?.isVisible = false
+                    if (topic.isHasChild) it.findItem(R.id.delete)?.isVisible = false
+                }
                 return true
             }
 
@@ -105,15 +115,22 @@ class DictionaryFragment : Fragment() {
                         mode?.finish()
                         findNavController().navigate(
                             DictionaryFragmentDirections
-                                .actionDictionaryFragmentToDictionaryTopicEditFragment(id)
+                                .actionDictionaryFragmentToDictionaryTopicEditFragment(topic.id)
                         )
                         true
                     }
                     R.id.delete -> {
-                        // Handle more item (inside overflow menu) press
+                        mode?.let {
+                            it.title = getString(R.string.message_delete_order_confirmation)
+                            it.menu.findItem(R.id.edit).isVisible = false
+                            it.menu.findItem(R.id.delete).isVisible = false
+                            it.menu.findItem(R.id.done).isVisible = true
+                        }
                         true
                     }
                     R.id.done -> {
+                        viewModel.topicDelete(topic)
+                        mode?.finish()
                         true
                     }
                     else -> false
@@ -127,6 +144,8 @@ class DictionaryFragment : Fragment() {
         val actionMode = activity?.startActionMode(callback)
         //actionMode?.title = "1 selected"
     }
+
+    //private fun topicEdit
 
 /*    private fun viewArticleBadge(size: Int) {
         val badge = binding.dictionaryNavigationBar.getOrCreateBadge(R.id.menuDictionaryArticle)
@@ -142,26 +161,4 @@ class DictionaryFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.main_app_bar, menu)
     }
-
-/*    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.dictionaryAdd -> {
-*//*                if (binding.dictionaryNavigationBar.selectedItemId == R.id.menuDictionaryTopic) {
-*//**//*                    findNavController().navigate(
-                        DictionaryFragmentDirections.actionNavDictionaryFragmentToNavDictionaryAddFragment(
-                            selectedTopicId = viewModel.selectedTopicId
-                        )
-                    )*//**//*
-                } else {
-
-                }*//*
-
-                true
-            }
-            else -> {
-                super.onOptionsItemSelected(item)
-            }
-
-        }
-    }*/
 }
