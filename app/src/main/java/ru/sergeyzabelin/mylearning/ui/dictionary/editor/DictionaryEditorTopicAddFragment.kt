@@ -1,4 +1,4 @@
-package ru.sergeyzabelin.mylearning.ui.dictionary
+package ru.sergeyzabelin.mylearning.ui.dictionary.editor
 
 import android.os.Bundle
 import android.view.*
@@ -8,15 +8,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.sergeyzabelin.mylearning.R
-import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryTopicEditBinding
+import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryTopicAddBinding
+import ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryInputStatus
 import ru.sergeyzabelin.mylearning.utils.autoCleared
 
 
 @AndroidEntryPoint
-class DictionaryTopicEditFragment : Fragment() {
+class DictionaryEditorTopicAddFragment : Fragment() {
 
-    private val viewModel by viewModels<DictionaryTopicEditViewModel>()
-    private var binding by autoCleared<FragmentDictionaryTopicEditBinding>()
+    private val viewModel by viewModels<DictionaryEditorTopicAddViewModel>()
+    private var binding by autoCleared<FragmentDictionaryTopicAddBinding>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,10 +29,7 @@ class DictionaryTopicEditFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dataBinding = FragmentDictionaryTopicEditBinding.inflate(inflater, container, false)
-
-        dataBinding.setLifecycleOwner { lifecycle }
-        dataBinding.topic = viewModel.topic
+        val dataBinding = FragmentDictionaryTopicAddBinding.inflate(inflater, container, false)
 
         binding = dataBinding
         return dataBinding.root
@@ -54,7 +52,7 @@ class DictionaryTopicEditFragment : Fragment() {
         binding.fab.setOnClickListener {
             binding.titleLayout.isEnabled = false
             binding.labelLayout.isEnabled = false
-            viewModel.save()
+            viewModel.add()
             findNavController().popBackStack()
         }
     }

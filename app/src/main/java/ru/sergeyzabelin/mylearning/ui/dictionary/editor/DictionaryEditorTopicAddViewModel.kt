@@ -1,4 +1,4 @@
-package ru.sergeyzabelin.mylearning.ui.dictionary
+package ru.sergeyzabelin.mylearning.ui.dictionary.editor
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
@@ -7,11 +7,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import ru.sergeyzabelin.mylearning.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.domain.usecases.AddTopicUseCase
+import ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryInputStatus
 import javax.inject.Inject
 
 
 @HiltViewModel
-class DictionaryTopicAddViewModel @Inject constructor(
+class DictionaryEditorTopicAddViewModel @Inject constructor(
     private val addDictionaryTopicUseCase: AddTopicUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {

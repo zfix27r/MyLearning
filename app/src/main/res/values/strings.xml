@@ -15,16 +15,12 @@
     <string name="unknown_error">Неизвестная ошибка</string>
 
     <string name="settings">Настройки</string>
-    <string name="done">Готово</string>
-    <string name="kotlin">kotlin</string>
-    <string name="java">java</string>
-
-    <string name="menu_topic">Темы</string>
-    <string name="menu_article">Статьи</string>
-
     <string name="add">Добавить</string>
     <string name="edit">Изменить</string>
     <string name="delete">Удалить</string>
+    <string name="done">Готово</string>
+    <string name="view_extended">расширенный вид</string>
+    <string name="editor">редактор</string>
 
     <string name="dictionary_add_title">Название</string>
     <string name="dictionary_add_label">Оригинальное название(опционально)</string>

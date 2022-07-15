@@ -1,4 +1,4 @@
-package ru.sergeyzabelin.mylearning.ui.dictionary
+package ru.sergeyzabelin.mylearning.ui.dictionary.editor
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
@@ -16,7 +16,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class DictionaryViewModel @Inject constructor(
+class DictionaryEditorViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     getDictionaryUseCase: GetDictionaryUseCase,
     private val deleteTopicUseCase: DeleteTopicUseCase,
@@ -25,8 +25,7 @@ class DictionaryViewModel @Inject constructor(
 
     val savedTopicId: Long = savedStateHandle.get<Long>("topicId")!!
 
-    val data: LiveData<Resource<Dictionary>> =
-        getDictionaryUseCase.execute(savedTopicId)
+    val data: LiveData<Resource<Dictionary>> = getDictionaryUseCase.execute(savedTopicId)
 
     fun topicDelete(topic: Topic) = viewModelScope.launch { deleteTopicUseCase.execute(topic) }
 

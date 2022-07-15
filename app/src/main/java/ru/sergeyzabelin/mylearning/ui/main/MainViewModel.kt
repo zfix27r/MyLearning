@@ -4,12 +4,16 @@ import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableInt
 import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
+import ru.sergeyzabelin.mylearning.data.DictionaryPreferences
 import ru.sergeyzabelin.mylearning.data.local.db.MainRepository
 import javax.inject.Inject
 
 
 @HiltViewModel
-class MainViewModel @Inject constructor(repository: MainRepository) : ViewModel() {
+class MainViewModel @Inject constructor(
+    private val dictionaryPreferences: DictionaryPreferences,
+    repository: MainRepository
+) : ViewModel() {
 
 /*    val firstRun = {
         repository.firstRun()
@@ -36,4 +40,7 @@ class MainViewModel @Inject constructor(repository: MainRepository) : ViewModel(
 /*    fun setDictionary(dictionary: Dictionary) {
         repo.setDictionaryToFirebase(dictionary)
     }*/
+
+    fun isSimpleMode(): Boolean =
+        dictionaryPreferences.getModeView() == DictionaryPreferences.MODE.SIMPLE
 }

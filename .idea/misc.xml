@@ -18,6 +18,8 @@
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_dictionary_article.xml" value="0.4233576642335766" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_dictionary_detail.xml" value="0.4699527346387576" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_dictionary_edit.xml" value="0.2975630611372381" />
+        <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_dictionary_editor.xml" value="0.2975630611372381" />
+        <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_dictionary_extended.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_dictionary_quote.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_dictionary_topic.xml" value="0.4233576642335766" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_dictionary_topic_add.xml" value="0.4233576642335766" />
@@ -32,6 +34,7 @@
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/item_dictionary.xml" value="0.5" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/item_dictionary_article.xml" value="0.6625172890733056" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/item_dictionary_detail_link_view.xml" value="0.6796875" />
+        <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/item_dictionary_editor.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/item_dictionary_quote.xml" value="0.6625172890733056" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/item_dictionary_topic.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/item_dictionary_topic_view.xml" value="0.5648021828103683" />
@@ -48,7 +51,9 @@
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/recycler_dictionary_item.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/menu/bottom_bar_dictionary.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/menu/contextual_action_bar.xml" value="0.2975630611372381" />
+        <entry key="..\:/Android Project/MyLearning/app/src/main/res/menu/dictionary_app_bar.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/menu/dictionary_contextual_action_bar.xml" value="0.5" />
+        <entry key="..\:/Android Project/MyLearning/app/src/main/res/menu/dictionary_editor_app_bar.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/menu/dictionary_topic_app_bar.xml" value="0.8721804511278195" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/menu/main_app_bar.xml" value="0.8721804511278195" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/menu/main_menu.xml" value="0.2975630611372381" />

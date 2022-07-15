@@ -1,4 +1,4 @@
-package ru.sergeyzabelin.mylearning.ui.dictionary
+package ru.sergeyzabelin.mylearning.ui.dictionary.extended
 
 import android.os.Bundle
 import android.util.Log
@@ -14,23 +14,23 @@ import dagger.hilt.android.AndroidEntryPoint
 import ru.sergeyzabelin.mylearning.R
 import ru.sergeyzabelin.mylearning.data.DictionaryPreferences
 import ru.sergeyzabelin.mylearning.data.model.db.Topic
-import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryBinding
+import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryExtendedBinding
 import ru.sergeyzabelin.mylearning.ui.common.RetryCallback
 import ru.sergeyzabelin.mylearning.utils.autoCleared
 
 
 @AndroidEntryPoint
-class DictionaryFragment : Fragment() {
+class DictionaryExtendedFragment : Fragment() {
 
-    private val viewModel by viewModels<DictionaryViewModel>()
-    private var binding by autoCleared<FragmentDictionaryBinding>()
-    private var adapter by autoCleared<DictionaryAdapter>()
+    private val viewModel by viewModels<DictionaryExtendedViewModel>()
+    private var binding by autoCleared<FragmentDictionaryExtendedBinding>()
+    private var adapter by autoCleared<DictionaryExtendedAdapter>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dataBinding = FragmentDictionaryBinding.inflate(inflater, container, false)
+        val dataBinding = FragmentDictionaryExtendedBinding.inflate(inflater, container, false)
 
         dataBinding.retryCallback = object : RetryCallback {
             override fun retry() {
@@ -49,14 +49,14 @@ class DictionaryFragment : Fragment() {
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.dictionary_app_bar, menu)
-                menu.findItem(R.id.switcher).isChecked = false
-                menu.findItem(R.id.editor).isVisible = false
+                menu.findItem(R.id.switcher).isChecked = true
                 view.visibility
             }
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
-                    R.id.switcher -> toExtendedFragment()
+                    R.id.switcher -> toSimpleFragment()
+                    R.id.editor -> toEditorFragment()
                     android.R.id.home -> findNavController().popBackStack()
                 }
 
@@ -66,7 +66,7 @@ class DictionaryFragment : Fragment() {
 
         binding.lifecycleOwner = viewLifecycleOwner
 
-        adapter = DictionaryAdapter(
+        adapter = DictionaryExtendedAdapter(
             { id -> onClickGoNextTopic(id) },
             { id -> onClickGoTopicQuote(id) },
             { topic -> onLongClickActionMode(topic) })
@@ -87,7 +87,8 @@ class DictionaryFragment : Fragment() {
 
     private fun onClickGoNextTopic(id: Long) {
         findNavController().navigate(
-            DictionaryFragmentDirections.actionDictionaryFragmentSelf(id)
+            DictionaryExtendedFragmentDirections
+                .actionDictionaryExtendedFragmentSelf(id)
         )
     }
 
@@ -98,11 +99,20 @@ class DictionaryFragment : Fragment() {
     private fun onLongClickActionMode(topic: Topic) {
     }
 
-    private fun toExtendedFragment() {
-        viewModel.setMode(DictionaryPreferences.MODE.EXTENDED)
+    private fun toSimpleFragment() {
+        viewModel.setMode(DictionaryPreferences.MODE.SIMPLE)
         findNavController().navigate(
-            DictionaryFragmentDirections
-                .actionDictionaryFragmentToDictionaryExtendedFragment(
+            DictionaryExtendedFragmentDirections
+                .actionDictionaryExtendedFragmentToDictionaryFragment(
+                    viewModel.savedTopicId
+                )
+        )
+    }
+
+    private fun toEditorFragment() {
+        findNavController().navigate(
+            DictionaryExtendedFragmentDirections
+                .actionDictionaryExtendedFragmentToDictionaryEditorFragment(
                     viewModel.savedTopicId
                 )
         )

@@ -11,7 +11,7 @@ import ru.sergeyzabelin.mylearning.data.model.db.Quote
 import ru.sergeyzabelin.mylearning.databinding.ItemDictionaryQuoteBinding
 
 class DictionaryQuoteAdapter(
-    private val onClickGoWeb: ((String) -> Unit)
+    private val onClickGoWeb: ((String) -> Unit)? = null
 ) :
     ListAdapter<Quote, RecyclerView.ViewHolder>(DiffCallback()) {
     private lateinit var context: Context

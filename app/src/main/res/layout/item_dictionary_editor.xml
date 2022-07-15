@@ -54,6 +54,79 @@
 
         </LinearLayout>
 
+        <ImageView
+            android:id="@+id/quotesIcon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginEnd="8dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topicLayout"
+            app:srcCompat="@drawable/ic_baseline_format_quote_24"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/quotesCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/quotesIcon"
+            app:layout_constraintEnd_toEndOf="@+id/quotesIcon"
+            app:layout_constraintStart_toEndOf="@+id/quotesIcon"
+            app:layout_constraintTop_toTopOf="@+id/quotesIcon"
+            tools:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/videoIcon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="4dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/quotesIcon"
+            app:layout_constraintTop_toBottomOf="@+id/quotesIcon"
+            app:srcCompat="@drawable/ic_baseline_ondemand_video_24"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/videoCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0"
+            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/videoIcon"
+            app:layout_constraintEnd_toEndOf="@+id/videoIcon"
+            app:layout_constraintStart_toEndOf="@+id/videoIcon"
+            app:layout_constraintTop_toTopOf="@+id/videoIcon"
+            tools:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/linksIcon"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="4dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/videoIcon"
+            app:layout_constraintTop_toBottomOf="@+id/videoIcon"
+            app:srcCompat="@drawable/ic_baseline_link_24"
+            tools:visibility="gone" />
+
+        <TextView
+            android:id="@+id/linksCounter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="1dp"
+            android:text="0"
+            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/linksIcon"
+            app:layout_constraintEnd_toEndOf="@+id/linksIcon"
+            app:layout_constraintStart_toEndOf="@+id/linksIcon"
+            app:layout_constraintTop_toTopOf="@+id/linksIcon"
+            tools:visibility="gone" />
+
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -63,7 +136,7 @@
             android:layout_marginEnd="8dp"
             android:gravity="center"
             android:orientation="vertical"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/quotesIcon"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/topicLayout"
             tools:visibility="visible">
