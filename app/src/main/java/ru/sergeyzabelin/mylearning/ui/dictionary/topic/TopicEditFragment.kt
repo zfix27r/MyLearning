@@ -1,4 +1,4 @@
-package ru.sergeyzabelin.mylearning.ui.dictionary.editor
+package ru.sergeyzabelin.mylearning.ui.dictionary.topic
 
 import android.os.Bundle
 import android.view.*
@@ -8,16 +8,16 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.sergeyzabelin.mylearning.R
-import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryTopicEditBinding
-import ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryInputStatus
+import ru.sergeyzabelin.mylearning.databinding.FragmentTopicEditBinding
+import ru.sergeyzabelin.mylearning.ui.dictionary.common.InputStatus
 import ru.sergeyzabelin.mylearning.utils.autoCleared
 
 
 @AndroidEntryPoint
-class DictionaryEditorTopicEditFragment : Fragment() {
+class TopicEditFragment : Fragment() {
 
-    private val viewModel by viewModels<DictionaryEditorTopicEditViewModel>()
-    private var binding by autoCleared<FragmentDictionaryTopicEditBinding>()
+    private val viewModel by viewModels<TopicEditViewModel>()
+    private var binding by autoCleared<FragmentTopicEditBinding>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +29,7 @@ class DictionaryEditorTopicEditFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dataBinding = FragmentDictionaryTopicEditBinding.inflate(inflater, container, false)
+        val dataBinding = FragmentTopicEditBinding.inflate(inflater, container, false)
 
         dataBinding.setLifecycleOwner { lifecycle }
         dataBinding.topic = viewModel.topic
@@ -60,18 +60,18 @@ class DictionaryEditorTopicEditFragment : Fragment() {
         }
     }
 
-    private fun getStatusError(status: DictionaryInputStatus): String? {
+    private fun getStatusError(status: InputStatus): String? {
         return when (status) {
-            DictionaryInputStatus.ERROR_EMPTY -> this.resources.getString(R.string.message_error_empty)
-            DictionaryInputStatus.SUCCESS -> null
+            InputStatus.EMPTY -> this.resources.getString(R.string.error_empty)
+            InputStatus.SUCCESS -> null
             else -> null
         }
     }
 
-    private fun getStatusHelper(status: DictionaryInputStatus): String? {
+    private fun getStatusHelper(status: InputStatus): String? {
         return when (status) {
-            DictionaryInputStatus.HELPER_EQUAL -> this.resources.getString(R.string.message_helper_equal)
-            DictionaryInputStatus.SUCCESS -> null
+            InputStatus.NOT_CHANGED -> this.resources.getString(R.string.helper_not_changed)
+            InputStatus.SUCCESS -> null
             else -> null
         }
     }

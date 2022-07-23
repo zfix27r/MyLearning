@@ -2,9 +2,7 @@ package ru.sergeyzabelin.mylearning.domain.repository
 
 import androidx.lifecycle.LiveData
 import ru.sergeyzabelin.mylearning.data.common.Resource
-import ru.sergeyzabelin.mylearning.data.model.db.Dictionary
-import ru.sergeyzabelin.mylearning.data.model.db.Quote
-import ru.sergeyzabelin.mylearning.data.model.db.Topic
+import ru.sergeyzabelin.mylearning.data.model.db.*
 
 interface DictionaryRepository {
 
@@ -12,11 +10,15 @@ interface DictionaryRepository {
 
     fun getTopicBy(id: Long): LiveData<Resource<Topic>>
 
-    suspend fun addTopic(topic: Topic)
+    fun getContentBy(id: Long): LiveData<Resource<Content>>
 
-    suspend fun saveTopic(topic: Topic)
+    suspend fun save(quote: Quote)
+    suspend fun save(topic: Topic)
+    suspend fun save(source: Source)
+    suspend fun save(question: Question)
 
-    suspend fun deleteTopic(topic: Topic)
-
-    suspend fun saveQuote(article: Quote)
+    suspend fun delete(quote: Quote)
+    suspend fun delete(topic: Topic)
+    suspend fun delete(source: Source)
+    suspend fun delete(question: Question)
 }

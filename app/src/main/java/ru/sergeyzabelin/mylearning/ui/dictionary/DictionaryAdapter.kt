@@ -7,16 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.sergeyzabelin.mylearning.data.model.db.Topic
-import ru.sergeyzabelin.mylearning.data.model.db.TopicWithQuote
 import ru.sergeyzabelin.mylearning.databinding.ItemDictionaryBinding
 
 
 class DictionaryAdapter(
     private val onClickGoNextTopic: ((Long) -> Unit),
-    private val onClickGoTopicQuote: ((Long) -> Unit),
+    private val onClickGoTopicContent: ((Long) -> Unit),
     private val onLongClickActionMode: ((Topic) -> Unit)
 ) :
-    ListAdapter<TopicWithQuote, RecyclerView.ViewHolder>(DiffCallback()) {
+    ListAdapter<Topic, RecyclerView.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return ViewHolder(
@@ -41,33 +40,54 @@ class DictionaryAdapter(
         RecyclerView.ViewHolder(itemDictionaryBinding.root) {
 
         private val binding = itemDictionaryBinding
-        private lateinit var adapter: DictionaryQuoteAdapter
 
+        fun bind(data: Topic) {
+            binding.topic = data
 
-        fun bind(data: TopicWithQuote) {
-            binding.topic = data.topic
+            if (data.isHasChild) setHeaderActive(data)
+            else setHeaderInactive()
 
-            if (data.topic.isHasChild)
-                binding.topicLayout.setOnClickListener { onClickGoNextTopic(data.topic.id) }
+            setHeaderActionMode(data)
 
-            if (data.topic.subTitle.isNotEmpty())
-                binding.subTitle.visibility = View.VISIBLE
+            if (data.counterQuote > 0) setContentActive(data)
+            else setContentInactive()
+        }
 
-            if (data.quotes.isNotEmpty()) {
-                binding.quotes.visibility = View.VISIBLE
-                adapter = DictionaryQuoteAdapter()
-                binding.quotes.adapter = adapter
-                adapter.submitList(data.quotes)
+        private fun setHeaderActive(topic: Topic) {
+            binding.headerLayout.setOnClickListener { onClickGoNextTopic(topic.id) }
+            binding.headerDivider.alpha = 0.4f
+        }
+
+        private fun setHeaderInactive() {
+            binding.headerDivider.alpha = 0.1f
+        }
+
+        private fun setHeaderActionMode(topic: Topic) {
+            binding.headerLayout.setOnLongClickListener {
+                onLongClickActionMode(topic)
+                true
             }
+        }
+
+        private fun setContentActive(topic: Topic) {
+            binding.contentLayout.setOnClickListener { onClickGoTopicContent(topic.id) }
+            binding.quoteIcon.visibility = View.VISIBLE
+            binding.quoteCounter.text = topic.counterQuote.toString()
+            binding.contentDivider.alpha = 0.2f
+        }
+
+        private fun setContentInactive() {
+            binding.quoteIcon.visibility = View.GONE
+            binding.contentDivider.alpha = 0.1f
         }
     }
 
-    class DiffCallback : DiffUtil.ItemCallback<TopicWithQuote>() {
-        override fun areItemsTheSame(oldItem: TopicWithQuote, newItem: TopicWithQuote): Boolean {
-            return oldItem.topic.id == newItem.topic.id
+    class DiffCallback : DiffUtil.ItemCallback<Topic>() {
+        override fun areItemsTheSame(oldItem: Topic, newItem: Topic): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: TopicWithQuote, newItem: TopicWithQuote): Boolean {
+        override fun areContentsTheSame(oldItem: Topic, newItem: Topic): Boolean {
             return oldItem == newItem
         }
     }

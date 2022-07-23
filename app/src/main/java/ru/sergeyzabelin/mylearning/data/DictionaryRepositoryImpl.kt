@@ -6,9 +6,7 @@ import ru.sergeyzabelin.mylearning.data.common.NetworkBoundResource
 import ru.sergeyzabelin.mylearning.data.common.RateLimiter
 import ru.sergeyzabelin.mylearning.data.common.Resource
 import ru.sergeyzabelin.mylearning.data.local.db.DictionaryDao
-import ru.sergeyzabelin.mylearning.data.model.db.Dictionary
-import ru.sergeyzabelin.mylearning.data.model.db.Quote
-import ru.sergeyzabelin.mylearning.data.model.db.Topic
+import ru.sergeyzabelin.mylearning.data.model.db.*
 import ru.sergeyzabelin.mylearning.domain.repository.DictionaryRepository
 import ru.sergeyzabelin.mylearning.utils.AppExecutors
 import java.util.concurrent.TimeUnit
@@ -81,7 +79,7 @@ class DictionaryRepositoryImpl @Inject constructor(
             }
 
             override fun loadFromDb(): LiveData<Topic> {
-                return dao.getDictionaryTopicBy(id)
+                return dao.getTopicBy(id)
             }
 
             override fun onFetchFailed() {
@@ -97,19 +95,36 @@ class DictionaryRepositoryImpl @Inject constructor(
         }.asLiveData()
     }
 
-    override suspend fun saveTopic(topic: Topic) {
-        dao.setTopic(topic)
+    override fun getContentBy(id: Long): LiveData<Resource<Content>> {
+        return object : NetworkBoundResource<Content, Content>(appExecutors) {
+            override fun shouldFetch(data: Content?): Boolean {
+                return data == null
+            }
+
+            override fun loadFromDb(): LiveData<Content> {
+                return dao.getTopicWithQuoteBy(id)
+            }
+
+            override fun onFetchFailed() {
+                repoListRateLimit.reset(id.toString())
+            }
+
+            override fun saveCallResult(item: Content) {
+            }
+
+            override fun createCall(): LiveData<ApiResponse<Content>>? {
+                return null
+            }
+        }.asLiveData()
     }
 
-    override suspend fun deleteTopic(topic: Topic) {
-        dao.deleteTopic(topic)
-    }
+    override suspend fun save(quote: Quote) = dao.save(quote)
+    override suspend fun save(topic: Topic) = dao.save(topic)
+    override suspend fun save(source: Source) = dao.save(source)
+    override suspend fun save(question: Question) = dao.save(question)
 
-    override suspend fun addTopic(topic: Topic) {
-        dao.addTopic(topic)
-    }
-
-    override suspend fun saveQuote(quote: Quote) {
-        dao.setArticle(quote)
-    }
+    override suspend fun delete(quote: Quote) = dao.delete(quote)
+    override suspend fun delete(topic: Topic) = dao.delete(topic)
+    override suspend fun delete(source: Source) = dao.delete(source)
+    override suspend fun delete(question: Question) = dao.delete(question)
 }

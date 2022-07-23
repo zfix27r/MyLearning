@@ -8,6 +8,9 @@
     <string name="dictionary_topic_add_fragment"></string>
     <string name="dictionary_topic_edit_fragment"></string>
     <string name="dictionary_article_fragment"></string>
+    <string name="quote_fragment">Quote</string>
+    <string name="source_fragment">Source</string>
+    <string name="question_fragment">Question</string>
 
 
     <!--    ERROR     -->
@@ -21,6 +24,8 @@
     <string name="done">Готово</string>
     <string name="view_extended">расширенный вид</string>
     <string name="editor">редактор</string>
+    <string name="quote">цитата</string>
+    <string name="content_tabs">контент</string>
 
     <string name="dictionary_add_title">Название</string>
     <string name="dictionary_add_label">Оригинальное название(опционально)</string>
@@ -29,8 +34,8 @@
 
     <string name="tint_input_field">заполните поле</string>
     <string name="message_no_result">не удалось получить информацию</string>
-    <string name="message_helper_equal">необходимо ввести новое название</string>
-    <string name="message_error_empty">необходимо заполнить</string>
+    <string name="helper_not_changed">необходимо ввести новое название</string>
+    <string name="error_empty">необходимо заполнить</string>
 
 
 </resources>

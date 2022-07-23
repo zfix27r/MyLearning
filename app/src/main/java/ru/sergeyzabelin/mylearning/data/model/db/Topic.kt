@@ -12,5 +12,6 @@ data class Topic(
     val parentTopicId: Long,
     val title: String,
     val subTitle: String,
-    val isHasChild: Boolean
+    val isHasChild: Boolean,
+    val counterQuote: Int
 )

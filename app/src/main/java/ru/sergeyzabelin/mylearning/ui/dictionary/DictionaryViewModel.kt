@@ -12,6 +12,7 @@ import ru.sergeyzabelin.mylearning.data.model.db.Dictionary
 import ru.sergeyzabelin.mylearning.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.domain.usecases.DeleteTopicUseCase
 import ru.sergeyzabelin.mylearning.domain.usecases.GetDictionaryUseCase
+import ru.sergeyzabelin.mylearning.utils.AppConstants.Companion.TOPIC_ID
 import javax.inject.Inject
 
 
@@ -23,13 +24,10 @@ class DictionaryViewModel @Inject constructor(
     private val dictionaryPreferences: DictionaryPreferences
 ) : ViewModel() {
 
-    val savedTopicId: Long = savedStateHandle.get<Long>("topicId")!!
+    val topicId: Long = savedStateHandle.get<Long>(TOPIC_ID) ?: 0
 
     val data: LiveData<Resource<Dictionary>> =
-        getDictionaryUseCase.execute(savedTopicId)
+        getDictionaryUseCase.execute(topicId)
 
     fun topicDelete(topic: Topic) = viewModelScope.launch { deleteTopicUseCase.execute(topic) }
-
-    fun getMode(): DictionaryPreferences.MODE = dictionaryPreferences.getModeView()
-    fun setMode(mode: DictionaryPreferences.MODE) = dictionaryPreferences.setModeView(mode)
 }

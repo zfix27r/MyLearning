@@ -37,7 +37,14 @@
         <item name="actionModeCloseDrawable">@drawable/ic_baseline_close_24</item>
 
         <item name="actionModeStyle">@style/ActionModeStyle</item>
-        <item name="actionBarTheme">@style/ThemeOverlay.AppCompat.Dark.ActionBar</item>
+        <item name="toolbarStyle">@style/Theme.MyLearning.Toolbar</item>
+    </style>
+
+    <style name="Theme.MyLearning.Toolbar" parent="@style/Widget.Material3.Toolbar">
+    </style>
+
+    <style name="Theme.MyLearning.Menu">
+        <item name="iconTint">#F40303</item>
     </style>
 
     <style name="ActionModeStyle" parent="@style/Widget.AppCompat.ActionMode">

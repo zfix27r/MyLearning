@@ -1,4 +1,4 @@
-package ru.sergeyzabelin.mylearning.ui.dictionary.editor
+package ru.sergeyzabelin.mylearning.ui.dictionary.topic
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
@@ -10,12 +10,12 @@ import ru.sergeyzabelin.mylearning.data.common.Resource
 import ru.sergeyzabelin.mylearning.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.domain.usecases.GetTopicUseCase
 import ru.sergeyzabelin.mylearning.domain.usecases.SaveTopicUseCase
-import ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryInputStatus
+import ru.sergeyzabelin.mylearning.ui.dictionary.common.InputStatus
 import javax.inject.Inject
 
 
 @HiltViewModel
-class DictionaryEditorTopicEditViewModel @Inject constructor(
+class TopicEditViewModel @Inject constructor(
     getTopicUseCase: GetTopicUseCase,
     private val saveTopicUseCase: SaveTopicUseCase,
     savedStateHandle: SavedStateHandle
@@ -24,12 +24,12 @@ class DictionaryEditorTopicEditViewModel @Inject constructor(
     private val topicId: Long = savedStateHandle.get<Long>("topicId")!!
 
     private var title: String = ""
-    private var _inputTitleStatus: DictionaryInputStatus = DictionaryInputStatus.HELPER_EQUAL
+    private var _inputTitleStatus: InputStatus = InputStatus.NOT_CHANGED
     val inputTitleStatus
         get() = _inputTitleStatus
 
     private var subTitle: String = ""
-    private var _inputSubTitleStatus: DictionaryInputStatus = DictionaryInputStatus.SUCCESS
+    private var _inputSubTitleStatus: InputStatus = InputStatus.SUCCESS
     val inputSubTitleStatus
         get() = _inputSubTitleStatus
 
@@ -42,7 +42,8 @@ class DictionaryEditorTopicEditViewModel @Inject constructor(
                 parentTopicId = topicId,
                 title = title,
                 subTitle = subTitle,
-                isHasChild = topic.value?.data?.isHasChild ?: false // TODO присваивается в случае null значение с потолка, но по логике с null до save() не попасть
+                isHasChild = topic.value?.data?.isHasChild ?: false, // TODO присваивается в случае null значение с потолка, но по логике с null до save() не попасть
+                counterQuote = topic.value?.data?.counterQuote ?: 0
             )
         )
     }
@@ -56,20 +57,20 @@ class DictionaryEditorTopicEditViewModel @Inject constructor(
         this.subTitle = subTitle
     }
 
-    private fun getStatusTitle(): DictionaryInputStatus {
+    private fun getStatusTitle(): InputStatus {
         if (title == topic.value?.data?.title)
-            return DictionaryInputStatus.HELPER_EQUAL
+            return InputStatus.NOT_CHANGED
         if (title.isEmpty())
-            return DictionaryInputStatus.ERROR_EMPTY
+            return InputStatus.EMPTY
 
-        return DictionaryInputStatus.SUCCESS
+        return InputStatus.SUCCESS
     }
 
 
     fun isAllInputCorrect(): Boolean {
-        if (inputTitleStatus != DictionaryInputStatus.SUCCESS)
+        if (inputTitleStatus != InputStatus.SUCCESS)
             return false
-        if (inputSubTitleStatus != DictionaryInputStatus.SUCCESS)
+        if (inputSubTitleStatus != InputStatus.SUCCESS)
             return false
 
         return true

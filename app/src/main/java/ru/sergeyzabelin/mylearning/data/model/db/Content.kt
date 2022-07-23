@@ -4,7 +4,7 @@ import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
 
-data class TopicWithQuote(
+data class Content(
     @Embedded
     val topic: Topic,
 
@@ -18,5 +18,5 @@ data class TopicWithQuote(
             entityColumn = "quoteId"
         )
     )
-    var quotes: List<Quote>
+    val quotes: List<Quote>
 )

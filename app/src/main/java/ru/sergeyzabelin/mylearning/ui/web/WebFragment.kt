@@ -1,4 +1,4 @@
-package ru.sergeyzabelin.mylearning.ui.dictionary
+package ru.sergeyzabelin.mylearning.ui.web
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,9 +9,9 @@ import androidx.fragment.app.viewModels
 import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryWebViewBinding
 
 
-class DictionaryWebViewFragment : Fragment() {
+class WebFragment : Fragment() {
 
-    private val viewViewModel by viewModels<DictionaryWebViewViewModel>()
+    private val viewViewModel by viewModels<WebViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

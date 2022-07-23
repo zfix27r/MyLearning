@@ -8,6 +8,6 @@ class DeleteTopicUseCase @Inject constructor(
     private val dictionaryRepository: DictionaryRepositoryImpl
 ) {
     suspend fun execute(topic: Topic) {
-        dictionaryRepository.deleteTopic(topic)
+        dictionaryRepository.delete(topic)
     }
 }

@@ -9,7 +9,7 @@ import javax.inject.Inject
 class GetDictionaryUseCase @Inject constructor(
     private val dictionaryRepository: DictionaryRepositoryImpl
 ) {
-    fun execute(parentTopicId: Long): LiveData<Resource<Dictionary>> {
-        return dictionaryRepository.getDictionaryBy(parentTopicId)
+    fun execute(id: Long): LiveData<Resource<Dictionary>> {
+        return dictionaryRepository.getDictionaryBy(id)
     }
 }

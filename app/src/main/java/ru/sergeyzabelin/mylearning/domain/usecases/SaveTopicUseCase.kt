@@ -8,6 +8,6 @@ class SaveTopicUseCase @Inject constructor(
     private val dictionaryRepository: DictionaryRepositoryImpl
 ) {
     suspend fun execute(topic: Topic) {
-        dictionaryRepository.saveTopic(topic)
+        dictionaryRepository.save(topic)
     }
 }

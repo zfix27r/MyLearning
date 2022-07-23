@@ -40,7 +40,4 @@ class MainViewModel @Inject constructor(
 /*    fun setDictionary(dictionary: Dictionary) {
         repo.setDictionaryToFirebase(dictionary)
     }*/
-
-    fun isSimpleMode(): Boolean =
-        dictionaryPreferences.getModeView() == DictionaryPreferences.MODE.SIMPLE
 }

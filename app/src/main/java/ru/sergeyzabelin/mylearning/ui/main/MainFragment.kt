@@ -39,10 +39,7 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnDictionary.setOnClickListener {
-            if (viewModel.isSimpleMode())
-                findNavController().navigate(R.id.action_mainFragment_to_dictionaryFragment)
-            else
-                findNavController().navigate(R.id.action_mainFragment_to_dictionaryExtendedFragment)
+            findNavController().navigate(R.id.action_mainFragment_to_dictionaryFragment)
         }
     }
 }

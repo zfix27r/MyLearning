@@ -12,5 +12,5 @@ data class Dictionary(
         parentColumn = "id",
         entityColumn = "parentTopicId"
     )
-    var topics: List<TopicWithQuote>
+    val topics: List<Topic>
 )
