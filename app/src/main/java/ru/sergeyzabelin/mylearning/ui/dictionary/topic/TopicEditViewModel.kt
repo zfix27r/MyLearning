@@ -11,6 +11,7 @@ import ru.sergeyzabelin.mylearning.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.domain.usecases.GetTopicUseCase
 import ru.sergeyzabelin.mylearning.domain.usecases.SaveTopicUseCase
 import ru.sergeyzabelin.mylearning.ui.dictionary.common.InputStatus
+import ru.sergeyzabelin.mylearning.utils.AppConstants.Companion.TOPIC_ID
 import javax.inject.Inject
 
 
@@ -20,8 +21,9 @@ class TopicEditViewModel @Inject constructor(
     private val saveTopicUseCase: SaveTopicUseCase,
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+    private val topicId: Long = savedStateHandle.get<Long>(TOPIC_ID)!!
 
-    private val topicId: Long = savedStateHandle.get<Long>("topicId")!!
+    val data: LiveData<Resource<Topic>> = getTopicUseCase.execute(topicId)
 
     private var title: String = ""
     private var _inputTitleStatus: InputStatus = InputStatus.NOT_CHANGED
@@ -33,7 +35,6 @@ class TopicEditViewModel @Inject constructor(
     val inputSubTitleStatus
         get() = _inputSubTitleStatus
 
-    val topic: LiveData<Resource<Topic>> = getTopicUseCase.execute(topicId)
 
     fun save() = viewModelScope.launch {
         saveTopicUseCase.execute(
@@ -42,8 +43,8 @@ class TopicEditViewModel @Inject constructor(
                 parentTopicId = topicId,
                 title = title,
                 subTitle = subTitle,
-                isHasChild = topic.value?.data?.isHasChild ?: false, // TODO присваивается в случае null значение с потолка, но по логике с null до save() не попасть
-                counterQuote = topic.value?.data?.counterQuote ?: 0
+                isHasChild = data.value?.data?.isHasChild ?: false, // TODO присваивается в случае null значение с потолка, но по логике с null до save() не попасть
+                counterQuote = data.value?.data?.counterQuote ?: 0
             )
         )
     }
@@ -58,7 +59,7 @@ class TopicEditViewModel @Inject constructor(
     }
 
     private fun getStatusTitle(): InputStatus {
-        if (title == topic.value?.data?.title)
+        if (title == data.value?.data?.title)
             return InputStatus.NOT_CHANGED
         if (title.isEmpty())
             return InputStatus.EMPTY

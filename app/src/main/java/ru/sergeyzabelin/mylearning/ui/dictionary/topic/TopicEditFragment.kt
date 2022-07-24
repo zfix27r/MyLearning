@@ -2,9 +2,12 @@ package ru.sergeyzabelin.mylearning.ui.dictionary.topic
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.sergeyzabelin.mylearning.R
@@ -19,20 +22,11 @@ class TopicEditFragment : Fragment() {
     private val viewModel by viewModels<TopicEditViewModel>()
     private var binding by autoCleared<FragmentTopicEditBinding>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        setHasOptionsMenu(true)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val dataBinding = FragmentTopicEditBinding.inflate(inflater, container, false)
-
-        dataBinding.setLifecycleOwner { lifecycle }
-        dataBinding.topic = viewModel.topic
 
         binding = dataBinding
         return dataBinding.root
@@ -40,23 +34,38 @@ class TopicEditFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.topic = viewModel.data
 
+        actionBar()
+        title()
+        subTitle()
+        fab()
+    }
+
+    private fun actionBar() {
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.dictionary_app_bar, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                when (menuItem.itemId) {
+                    android.R.id.home -> findNavController().popBackStack()
+                }
+
+                return true
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun title() {
         binding.titleLayout.editText?.addTextChangedListener {
             viewModel.checkInputTitle(it.toString())
             binding.titleLayout.error = getStatusError(viewModel.inputTitleStatus)
             binding.titleLayout.helperText = getStatusHelper(viewModel.inputTitleStatus)
             unlockFab()
-        }
-
-        binding.labelLayout.editText?.addTextChangedListener {
-            viewModel.checkInputSubTitle(it.toString())
-        }
-
-        binding.fab.setOnClickListener {
-            binding.titleLayout.isEnabled = false
-            binding.labelLayout.isEnabled = false
-            viewModel.save()
-            findNavController().popBackStack()
         }
     }
 
@@ -76,8 +85,19 @@ class TopicEditFragment : Fragment() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.main_app_bar, menu)
+    private fun subTitle() {
+        binding.subTitleLayout.editText?.addTextChangedListener {
+            viewModel.checkInputSubTitle(it.toString())
+        }
+    }
+
+    private fun fab() {
+        binding.fab.setOnClickListener {
+            binding.titleLayout.isEnabled = false
+            binding.subTitleLayout.isEnabled = false
+            viewModel.save()
+            findNavController().popBackStack()
+        }
     }
 
     private fun unlockFab() {

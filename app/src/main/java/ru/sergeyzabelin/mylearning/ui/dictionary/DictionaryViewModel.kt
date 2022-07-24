@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import ru.sergeyzabelin.mylearning.data.DictionaryPreferences
 import ru.sergeyzabelin.mylearning.data.common.Resource
 import ru.sergeyzabelin.mylearning.data.model.db.Dictionary
 import ru.sergeyzabelin.mylearning.data.model.db.Topic
@@ -20,8 +19,7 @@ import javax.inject.Inject
 class DictionaryViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
     getDictionaryUseCase: GetDictionaryUseCase,
-    private val deleteTopicUseCase: DeleteTopicUseCase,
-    private val dictionaryPreferences: DictionaryPreferences
+    private val deleteTopicUseCase: DeleteTopicUseCase
 ) : ViewModel() {
 
     val topicId: Long = savedStateHandle.get<Long>(TOPIC_ID) ?: 0
