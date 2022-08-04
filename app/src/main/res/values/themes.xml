@@ -32,6 +32,7 @@
         <item name="colorColor58Container">#e1dfff</item>
         <item name="colorOnColor58Container">#08006c</item>
         <item name="harmonizeColor58">true</item>
+        <item name="fontFamily">sans-serif-light</item>
 
         <item name="windowActionModeOverlay">true</item>
         <item name="actionModeCloseDrawable">@drawable/ic_baseline_close_24</item>
@@ -40,8 +41,9 @@
         <item name="toolbarStyle">@style/Theme.MyLearning.Toolbar</item>
     </style>
 
-    <style name="Theme.MyLearning.Toolbar" parent="@style/Widget.Material3.Toolbar">
-    </style>
+    <style name="Theme.MyLearning.Toolbar" parent="@style/ThemeOverlay.AppCompat.DayNight">
+        <item name="fontFamily">sans-serif</item>
+   </style>
 
     <style name="Theme.MyLearning.Menu">
         <item name="iconTint">#F40303</item>

@@ -12,13 +12,18 @@ interface DictionaryRepository {
 
     fun getContentBy(id: Long): LiveData<Resource<Content>>
 
-    suspend fun save(quote: Quote)
-    suspend fun save(topic: Topic)
-    suspend fun save(source: Source)
-    suspend fun save(question: Question)
+    suspend fun insert(quote: Quote): Long
+    suspend fun insert(topic: Topic): Long
+    suspend fun insert(source: Source): Long
+    suspend fun insert(question: Question): Long
 
-    suspend fun delete(quote: Quote)
-    suspend fun delete(topic: Topic)
-    suspend fun delete(source: Source)
-    suspend fun delete(question: Question)
+    suspend fun update(quote: Quote): Int
+    suspend fun update(topic: Topic): Int
+    suspend fun update(source: Source): Int
+    suspend fun update(question: Question): Int
+
+    suspend fun delete(quote: Quote): Int
+    suspend fun delete(topic: Topic): Int
+    suspend fun delete(source: Source): Int
+    suspend fun delete(question: Question): Int
 }

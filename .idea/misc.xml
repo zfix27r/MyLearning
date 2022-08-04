@@ -6,19 +6,20 @@
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2045" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/drawable/border_item_dictionary.xml" value="0.18" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/drawable/dictionary_item_content_rectangle.xml" value="0.1585" />
+        <entry key="..\:/Android Project/MyLearning/app/src/main/res/drawable/gradient_item_dictionary_content.xml" value="0.1585" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/drawable/ic_baseline_expand_less_24.xml" value="0.285" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1935" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/drawable/shape_detail_dictionary_menu.xml" value="0.2" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/drawable/shape_tag.xml" value="0.205" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/font/roboto.xml" value="0.4853515625" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout-v23/item_detail_dictionary_article_view.xml" value="0.3625" />
-        <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/activity_main.xml" value="0.3561924257932446" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/content_main.xml" value="0.33463796477495106" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/dictionary_recycler_item.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_content.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_content_add.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_content_edit.xml" value="0.2975630611372381" />
-        <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_dictionary.xml" value="0.3426371511068335" />
+        <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_dictionary.xml" value="0.33" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_dictionary_add.xml" value="0.33" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_dictionary_article.xml" value="0.4233576642335766" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_dictionary_detail.xml" value="0.4699527346387576" />
@@ -37,9 +38,10 @@
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_quote.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_topic_add.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_topic_edit.xml" value="0.2975630611372381" />
+        <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_topic_editor.xml" value="0.5" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/item_detail_dictionary_article.xml" value="0.67" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/item_detail_dictionary_article_view.xml" value="0.1" />
-        <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/item_dictionary.xml" value="0.67" />
+        <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/item_dictionary.xml" value="0.4363411619283066" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/item_dictionary_article.xml" value="0.6625172890733056" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/item_dictionary_detail_link_view.xml" value="0.6796875" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/item_dictionary_editor.xml" value="0.25" />
@@ -55,7 +57,7 @@
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/lesson_detail_item.xml" value="0.12740487387772553" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/lesson_topic_item.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/loading.xml" value="0.2967079948696024" />
-        <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/loading_state.xml" value="0.2967079948696024" />
+        <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/loading_state.xml" value="0.33" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/no_results.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/recycler_dictionary_item.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/menu/bottom_bar_dictionary.xml" value="0.2975630611372381" />

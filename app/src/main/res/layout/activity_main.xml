@@ -12,6 +12,7 @@
             android:id="@+id/topAppbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:theme="@style/Theme.MyLearning.Toolbar"
             android:minHeight="?attr/actionBarSize"
             app:menu="@menu/main_app_bar"
             app:title="@string/app_name" />

@@ -12,18 +12,18 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.sergeyzabelin.mylearning.R
+import ru.sergeyzabelin.mylearning.data.common.Status
 import ru.sergeyzabelin.mylearning.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryBinding
 import ru.sergeyzabelin.mylearning.ui.common.RetryCallback
 import ru.sergeyzabelin.mylearning.utils.autoCleared
-
 
 @AndroidEntryPoint
 class DictionaryFragment : Fragment() {
 
     private val viewModel by viewModels<DictionaryViewModel>()
     private var binding by autoCleared<FragmentDictionaryBinding>()
-    private var adapter by autoCleared<DictionaryAdapter>()
+    private var adapter by autoCleared<TopicsAdapter>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -58,6 +58,10 @@ class DictionaryFragment : Fragment() {
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
+                    R.id.add -> findNavController().navigate(
+                        DictionaryFragmentDirections
+                            .actionDictionaryFragmentToTopicEditorFragment(0, viewModel.topicId)
+                    )
                     android.R.id.home -> findNavController().popBackStack()
                 }
 
@@ -67,38 +71,69 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun adapter() {
-        adapter = DictionaryAdapter(
-            { id -> navSelf(id) },
-            { id -> navContent(id) },
-            { topic -> onLongClickActionMode(topic) })
+        val adapter = TopicsAdapter(object : TopicActionListener {
+            override fun onTopicNext(topic: Topic) {
+                findNavController().navigate(
+                    DictionaryFragmentDirections.actionDictionaryFragmentSelf(topic.id)
+                )
+            }
+
+            override fun onTopicDetails(topic: Topic) {
+                findNavController().navigate(
+                    DictionaryFragmentDirections.actionDictionaryFragmentToContentFragment(topic.id)
+                )
+            }
+
+            override fun onTopicAdd(topic: Topic) {
+                findNavController().navigate(
+                    DictionaryFragmentDirections
+                        .actionDictionaryFragmentToTopicEditorFragment(
+                            topic.id,
+                            topic.parentTopicId
+                        )
+                )
+            }
+
+            override fun onTopicEdit(topic: Topic) {
+                findNavController().navigate(
+                    DictionaryFragmentDirections
+                        .actionDictionaryFragmentToTopicEditorFragment(
+                            topic.id,
+                            topic.parentTopicId
+                        )
+                )
+            }
+
+            override fun onTopicDelete(topic: Topic) {
+
+            }
+        })
 
         binding.recycler.adapter = adapter
-
         viewModel.data.observe(viewLifecycleOwner) { list ->
-            list.data?.let { data ->
-                (activity as AppCompatActivity).supportActionBar?.let {
-                    it.title = data.topic.title
-                    it.subtitle = data.topic.subTitle
-                }
+            when (list.status) {
+                Status.LOADING -> {}
+                Status.ERROR -> {}
+                Status.SUCCESS -> {
+                    list.data?.topics?.let { topics ->
+                        if (topics.isEmpty()) {
+                            binding.recycler.visibility = View.GONE
+                            binding.noResult.visibility = View.VISIBLE
+                        } else {
+                            (activity as AppCompatActivity).supportActionBar?.let {
+                                it.title = list.data?.topic?.title
+                                it.subtitle = list.data?.topic?.subTitle
+                            }
 
-                adapter.submitList(data.topics)
+                            adapter.submitList(list.data?.topics)
+                        }
+                    }
+                }
             }
         }
     }
 
-    private fun navSelf(id: Long) {
-        findNavController().navigate(
-            DictionaryFragmentDirections.actionDictionaryFragmentSelf(id)
-        )
-    }
-
-    private fun navContent(id: Long) {
-        findNavController().navigate(
-            DictionaryFragmentDirections.actionDictionaryFragmentToContentFragment(id)
-        )
-    }
-
-    private fun onLongClickActionMode(topic: Topic) {
+/*    private fun onLongClickActionMode(topic: Topic) {
         val callback = object : ActionMode.Callback {
 
             override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
@@ -118,12 +153,12 @@ class DictionaryFragment : Fragment() {
                 return when (item?.itemId) {
                     R.id.add -> {
                         mode?.finish()
-                        navTopicAdd(topic.id)
+                        navTopicEditor(topic.id)
                         true
                     }
                     R.id.edit -> {
                         mode?.finish()
-                        navTopicEdit(topic.id)
+                        navTopicEditor(topic.id)
                         true
                     }
                     R.id.delete -> {
@@ -149,19 +184,5 @@ class DictionaryFragment : Fragment() {
         }
 
         activity?.startActionMode(callback)
-    }
-
-    private fun navTopicAdd(id: Long) {
-        findNavController().navigate(
-            DictionaryFragmentDirections
-                .actionDictionaryFragmentToTopicAddFragment(id)
-        )
-    }
-
-    private fun navTopicEdit(id: Long) {
-        findNavController().navigate(
-            DictionaryFragmentDirections
-                .actionDictionaryFragmentToTopicEditFragment(id)
-        )
-    }
+    }*/
 }

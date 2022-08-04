@@ -118,13 +118,18 @@ class DictionaryRepositoryImpl @Inject constructor(
         }.asLiveData()
     }
 
-    override suspend fun save(quote: Quote) = dao.save(quote)
-    override suspend fun save(topic: Topic) = dao.save(topic)
-    override suspend fun save(source: Source) = dao.save(source)
-    override suspend fun save(question: Question) = dao.save(question)
+    override suspend fun insert(quote: Quote): Long = dao.insert(quote)
+    override suspend fun insert(topic: Topic): Long = dao.insert(topic)
+    override suspend fun insert(source: Source): Long = dao.insert(source)
+    override suspend fun insert(question: Question): Long = dao.insert(question)
 
-    override suspend fun delete(quote: Quote) = dao.delete(quote)
-    override suspend fun delete(topic: Topic) = dao.delete(topic)
-    override suspend fun delete(source: Source) = dao.delete(source)
-    override suspend fun delete(question: Question) = dao.delete(question)
+    override suspend fun update(quote: Quote): Int = dao.update(quote)
+    override suspend fun update(topic: Topic): Int = dao.update(topic)
+    override suspend fun update(source: Source): Int = dao.update(source)
+    override suspend fun update(question: Question): Int = dao.update(question)
+
+    override suspend fun delete(quote: Quote): Int = dao.delete(quote)
+    override suspend fun delete(topic: Topic): Int = dao.delete(topic)
+    override suspend fun delete(source: Source): Int = dao.delete(source)
+    override suspend fun delete(question: Question): Int = dao.delete(question)
 }

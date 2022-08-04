@@ -8,6 +8,7 @@ class SaveQuoteUseCase @Inject constructor(
     private val dictionaryRepository: DictionaryRepositoryImpl
 ) {
     suspend fun execute(quote: Quote) {
-        dictionaryRepository.save(quote)
+        if (quote.id > 0) dictionaryRepository.update(quote)
+        else dictionaryRepository.insert(quote)
     }
 }

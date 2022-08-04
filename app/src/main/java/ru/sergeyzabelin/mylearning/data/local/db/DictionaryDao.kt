@@ -2,7 +2,6 @@ package ru.sergeyzabelin.mylearning.data.local.db
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import androidx.room.OnConflictStrategy.REPLACE
 import ru.sergeyzabelin.mylearning.data.model.db.*
 
 @Dao
@@ -19,21 +18,40 @@ interface DictionaryDao {
     @Query("SELECT * FROM topic WHERE id = :id LIMIT 1")
     fun getTopicWithQuoteBy(id: Long): LiveData<Content>
 
-    @Insert(onConflict = REPLACE)
-    suspend fun save(topic: Topic)
-    @Insert(onConflict = REPLACE)
-    suspend fun save(quote: Quote)
-    @Insert(onConflict = REPLACE)
-    suspend fun save(source: Source)
-    @Insert(onConflict = REPLACE)
-    suspend fun save(question: Question)
+
+    @Insert
+    suspend fun insert(topic: Topic): Long
+
+    @Insert
+    suspend fun insert(quote: Quote): Long
+
+    @Insert
+    suspend fun insert(source: Source): Long
+
+    @Insert
+    suspend fun insert(question: Question): Long
+
+    @Update
+    suspend fun update(topic: Topic): Int
+
+    @Update
+    suspend fun update(quote: Quote): Int
+
+    @Update
+    suspend fun update(source: Source): Int
+
+    @Update
+    suspend fun update(question: Question): Int
 
     @Delete
-    suspend fun delete(topic: Topic)
+    suspend fun delete(topic: Topic): Int
+
     @Delete
-    suspend fun delete(quote: Quote)
+    suspend fun delete(quote: Quote): Int
+
     @Delete
-    suspend fun delete(source: Source)
+    suspend fun delete(source: Source): Int
+
     @Delete
-    suspend fun delete(question: Question)
+    suspend fun delete(question: Question): Int
 }

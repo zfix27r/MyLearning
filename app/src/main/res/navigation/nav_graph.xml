@@ -29,11 +29,8 @@
             android:id="@+id/action_dictionaryFragment_to_contentFragment"
             app:destination="@id/contentFragment" />
         <action
-            android:id="@+id/action_dictionaryFragment_to_topicAddFragment"
-            app:destination="@id/topicAddFragment" />
-        <action
-            android:id="@+id/action_dictionaryFragment_to_topicEditFragment"
-            app:destination="@id/topicEditFragment" />
+            android:id="@+id/action_dictionaryFragment_to_topicEditorFragment"
+            app:destination="@id/topicEditorFragment" />
     </fragment>
     <fragment
         android:id="@+id/contentFragment"
@@ -44,19 +41,14 @@
             app:argType="long" />
     </fragment>
     <fragment
-        android:id="@+id/topicAddFragment"
-        android:name="ru.sergeyzabelin.mylearning.ui.dictionary.topic.TopicAddFragment"
-        tools:layout="@layout/fragment_topic_add" >
+        android:id="@+id/topicEditorFragment"
+        android:name="ru.sergeyzabelin.mylearning.ui.dictionary.TopicEditorFragment"
+        tools:layout="@layout/fragment_topic_editor" >
         <argument
             android:name="topicId"
             app:argType="long" />
-    </fragment>
-    <fragment
-        android:id="@+id/topicEditFragment"
-        android:name="ru.sergeyzabelin.mylearning.ui.dictionary.topic.TopicEditFragment"
-        tools:layout="@layout/fragment_topic_edit" >
         <argument
-            android:name="topicId"
+            android:name="parentTopicId"
             app:argType="long" />
     </fragment>
     <fragment

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="?android:attr/selectableItemBackground"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -21,19 +22,20 @@
             android:layout_height="1dp"
             android:alpha="0.1"
             app:dividerColor="?attr/colorPrimary"
-            app:layout_constraintEnd_toEndOf="@+id/headerLayout"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/contentDivider"
             android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_height="20dp"
             android:alpha="0.1"
-            app:dividerColor="?attr/colorPrimary"
+            android:background="@drawable/gradient_item_dictionary_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/headerLayout"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="gone" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/headerLayout"
@@ -82,9 +84,10 @@
             android:id="@+id/contentLayout"
             android:layout_width="96dp"
             android:layout_height="0dp"
-            android:layout_marginTop="-1dp"
-            android:layout_marginBottom="-1dp"
-            app:layout_constraintBottom_toBottomOf="@+id/headerLayout"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:background="@drawable/gradient_item_dictionary_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -110,6 +113,7 @@
                 app:layout_constraintStart_toEndOf="@+id/quoteIcon"
                 app:layout_constraintTop_toTopOf="@+id/quoteIcon"
                 tools:text="100" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

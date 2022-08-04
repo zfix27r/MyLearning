@@ -30,6 +30,7 @@
     <string name="dictionary_add_title">Название</string>
     <string name="dictionary_add_label">Оригинальное название(опционально)</string>
 
+    <string name="topics_empty">Вложенных тем нет</string>
     <string name="message_delete_order_confirmation">подтвердите удаление</string>
 
     <string name="tint_input_field">заполните поле</string>
