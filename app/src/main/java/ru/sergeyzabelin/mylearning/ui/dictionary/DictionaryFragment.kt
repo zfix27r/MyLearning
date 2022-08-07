@@ -1,7 +1,6 @@
 package ru.sergeyzabelin.mylearning.ui.dictionary
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuHost
@@ -12,8 +11,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.sergeyzabelin.mylearning.R
-import ru.sergeyzabelin.mylearning.data.common.Status
-import ru.sergeyzabelin.mylearning.data.model.db.Topic
+import ru.zfix27r.data.common.Status
+import ru.zfix27r.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryBinding
 import ru.sergeyzabelin.mylearning.ui.common.RetryCallback
 import ru.sergeyzabelin.mylearning.utils.autoCleared
@@ -23,17 +22,18 @@ class DictionaryFragment : Fragment() {
 
     private val viewModel by viewModels<DictionaryViewModel>()
     private var binding by autoCleared<FragmentDictionaryBinding>()
-    private var adapter by autoCleared<TopicsAdapter>()
+    private var adapter by autoCleared<DictionaryAdapter>()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         val dataBinding = FragmentDictionaryBinding.inflate(inflater, container, false)
-
+        dataBinding.lifecycleOwner = viewLifecycleOwner
         dataBinding.retryCallback = object : RetryCallback {
             override fun retry() {
-                Log.e("retry", "on")
+                // TODO #1 Повторная попытка загрузки данных. Пока не ясно как ее реализовать, приложение рабоает только с внутренней БД.
             }
         }
 
@@ -43,10 +43,10 @@ class DictionaryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.lifecycleOwner = viewLifecycleOwner
 
         actionBar()
         adapter()
+        dataObserver()
     }
 
     private fun actionBar() {
@@ -60,7 +60,7 @@ class DictionaryFragment : Fragment() {
                 when (menuItem.itemId) {
                     R.id.add -> findNavController().navigate(
                         DictionaryFragmentDirections
-                            .actionDictionaryFragmentToTopicEditorFragment(0, viewModel.topicId)
+                            .actionDictionaryToTopicEditor(0, viewModel.topicId)
                     )
                     android.R.id.home -> findNavController().popBackStack()
                 }
@@ -71,45 +71,48 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun adapter() {
-        val adapter = TopicsAdapter(object : TopicActionListener {
-            override fun onTopicNext(topic: Topic) {
+        adapter = DictionaryAdapter(object : TopicActionListener {
+            override fun onSelf(topic: Topic) {
                 findNavController().navigate(
-                    DictionaryFragmentDirections.actionDictionaryFragmentSelf(topic.id)
+                    DictionaryFragmentDirections.actionDictionaryToDictionary(topic.id)
                 )
             }
 
-            override fun onTopicDetails(topic: Topic) {
+            override fun onDetails(topic: Topic) {
                 findNavController().navigate(
-                    DictionaryFragmentDirections.actionDictionaryFragmentToContentFragment(topic.id)
+                    DictionaryFragmentDirections.actionDictionaryToContent(topic.id)
                 )
             }
 
-            override fun onTopicAdd(topic: Topic) {
+            override fun onAdd(topic: Topic) {
                 findNavController().navigate(
                     DictionaryFragmentDirections
-                        .actionDictionaryFragmentToTopicEditorFragment(
+                        .actionDictionaryToTopicEditor(
                             topic.id,
                             topic.parentTopicId
                         )
                 )
             }
 
-            override fun onTopicEdit(topic: Topic) {
+            override fun onEdit(topic: Topic) {
                 findNavController().navigate(
                     DictionaryFragmentDirections
-                        .actionDictionaryFragmentToTopicEditorFragment(
+                        .actionDictionaryToTopicEditor(
                             topic.id,
                             topic.parentTopicId
                         )
                 )
             }
 
-            override fun onTopicDelete(topic: Topic) {
+            override fun onDelete(topic: Topic) {
 
             }
         })
 
         binding.recycler.adapter = adapter
+    }
+
+    private fun dataObserver() {
         viewModel.data.observe(viewLifecycleOwner) { list ->
             when (list.status) {
                 Status.LOADING -> {}
@@ -121,11 +124,11 @@ class DictionaryFragment : Fragment() {
                             binding.noResult.visibility = View.VISIBLE
                         } else {
                             (activity as AppCompatActivity).supportActionBar?.let {
-                                it.title = list.data?.topic?.title
-                                it.subtitle = list.data?.topic?.subTitle
+                                it.title = list.data.topic.title
+                                it.subtitle = list.data.topic.subTitle
                             }
 
-                            adapter.submitList(list.data?.topics)
+                            adapter.submitList(list.data.topics)
                         }
                     }
                 }
@@ -133,56 +136,4 @@ class DictionaryFragment : Fragment() {
         }
     }
 
-/*    private fun onLongClickActionMode(topic: Topic) {
-        val callback = object : ActionMode.Callback {
-
-            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-                activity?.menuInflater?.inflate(R.menu.dictionary_contextual_action_bar, menu)
-                menu?.let {
-                    it.findItem(R.id.done)?.isVisible = false
-                    if (topic.isHasChild) it.findItem(R.id.delete)?.isVisible = false
-                }
-                return true
-            }
-
-            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
-                return false
-            }
-
-            override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
-                return when (item?.itemId) {
-                    R.id.add -> {
-                        mode?.finish()
-                        navTopicEditor(topic.id)
-                        true
-                    }
-                    R.id.edit -> {
-                        mode?.finish()
-                        navTopicEditor(topic.id)
-                        true
-                    }
-                    R.id.delete -> {
-                        mode?.let {
-                            it.title = getString(R.string.message_delete_order_confirmation)
-                            it.menu.findItem(R.id.edit).isVisible = false
-                            it.menu.findItem(R.id.delete).isVisible = false
-                            it.menu.findItem(R.id.done).isVisible = true
-                        }
-                        true
-                    }
-                    R.id.done -> {
-                        viewModel.topicDelete(topic)
-                        mode?.finish()
-                        true
-                    }
-                    else -> false
-                }
-            }
-
-            override fun onDestroyActionMode(mode: ActionMode?) {
-            }
-        }
-
-        activity?.startActionMode(callback)
-    }*/
 }

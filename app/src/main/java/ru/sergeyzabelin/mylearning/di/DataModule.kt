@@ -10,8 +10,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import ru.sergeyzabelin.mylearning.data.local.db.*
-import ru.sergeyzabelin.mylearning.utils.AppConstants
+import ru.zfix27r.data.local.db.*
 import javax.inject.Singleton
 
 @Module
@@ -23,7 +22,7 @@ object DataModule {
     fun provideDb(app: Application): AppDatabase {
         return Room.databaseBuilder(
             app, AppDatabase::class.java,
-            AppConstants.DATABASE_NAME
+            "my_learning"
         ).addCallback(object : RoomDatabase.Callback() {
             override fun onCreate(db: SupportSQLiteDatabase) {
                 super.onCreate(db)
@@ -35,20 +34,24 @@ object DataModule {
 
     @Singleton
     @Provides
-    fun provideMainDao(db: AppDatabase): MainDao {
-        return db.mainDao()
+    fun provideWorkerDao(db: AppDatabase): WorkerDao {
+        return db.workerDao()
     }
 
     @Singleton
     @Provides
-    fun provideTopicDao(db: AppDatabase): DictionaryDao {
-        return db.topicDao()
+    fun provideDictionaryDao(db: AppDatabase): DictionaryDao {
+        return db.dictionaryDao()
     }
 
     @Singleton
     @Provides
-    fun provideAppDatabaseWorkerDao(db: AppDatabase): AppDatabaseWorkerDao {
-        return db.databaseWorkerDao()
+    fun provideContentDao(db: AppDatabase): ContentDao {
+        return db.contentDao()
     }
 
+    @Singleton
+    fun provideQuoteDao(db: AppDatabase): QuoteDao {
+        return db.quoteDao()
+    }
 }

@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import ru.sergeyzabelin.mylearning.data.common.Resource
-import ru.sergeyzabelin.mylearning.data.model.db.Dictionary
-import ru.sergeyzabelin.mylearning.data.model.db.Topic
+import ru.zfix27r.data.common.Resource
+import ru.zfix27r.data.model.db.Dictionary
+import ru.zfix27r.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.domain.usecases.DeleteTopicUseCase
 import ru.sergeyzabelin.mylearning.domain.usecases.GetDictionaryUseCase
 import ru.sergeyzabelin.mylearning.utils.AppConstants.Companion.TOPIC_ID

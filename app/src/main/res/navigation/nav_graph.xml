@@ -3,47 +3,48 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@+id/mainFragment">
+    app:startDestination="@+id/dictionary">
 
     <fragment
-        android:id="@+id/mainFragment"
-        android:name="ru.sergeyzabelin.mylearning.ui.main.MainFragment"
-        tools:layout="@layout/fragment_main">
-        <action
-            android:id="@+id/action_mainFragment_to_dictionaryFragment"
-            app:destination="@id/dictionaryFragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/dictionaryFragment"
+        android:id="@+id/dictionary"
         android:name="ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryFragment"
-        tools:layout="@layout/fragment_dictionary" >
+        tools:layout="@layout/fragment_dictionary">
         <action
-            android:id="@+id/action_dictionaryFragment_self"
-            app:destination="@id/dictionaryFragment" />
+            android:id="@+id/action_dictionary_to_dictionary"
+            app:destination="@id/dictionaryRecursive" />
+        <action
+            android:id="@+id/action_dictionary_to_topicEditor"
+            app:destination="@id/topicEditor" />
+        <action
+            android:id="@+id/action_dictionary_to_content"
+            app:destination="@id/content" />
         <argument
             android:name="topicId"
-            app:argType="long"
-            android:defaultValue="1L" />
-        <action
-            android:id="@+id/action_dictionaryFragment_to_contentFragment"
-            app:destination="@id/contentFragment" />
-        <action
-            android:id="@+id/action_dictionaryFragment_to_topicEditorFragment"
-            app:destination="@id/topicEditorFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/contentFragment"
-        android:name="ru.sergeyzabelin.mylearning.ui.content.ContentFragment"
-        tools:layout="@layout/fragment_content" >
-        <argument
-            android:name="topicId"
+            android:defaultValue="1L"
             app:argType="long" />
     </fragment>
     <fragment
-        android:id="@+id/topicEditorFragment"
+        android:id="@+id/dictionaryRecursive"
+        android:name="ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryFragment"
+        tools:layout="@layout/fragment_dictionary">
+        <action
+            android:id="@+id/action_dictionary_to_dictionary"
+            app:destination="@id/dictionaryRecursive" />
+        <action
+            android:id="@+id/action_dictionary_to_topicEditor"
+            app:destination="@id/topicEditor" />
+        <action
+            android:id="@+id/action_dictionary_to_content"
+            app:destination="@id/content" />
+        <argument
+            android:name="topicId"
+            android:defaultValue="1L"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/topicEditor"
         android:name="ru.sergeyzabelin.mylearning.ui.dictionary.TopicEditorFragment"
-        tools:layout="@layout/fragment_topic_editor" >
+        tools:layout="@layout/fragment_topic_editor">
         <argument
             android:name="topicId"
             app:argType="long" />
@@ -52,36 +53,45 @@
             app:argType="long" />
     </fragment>
     <fragment
-        android:id="@+id/quoteEditFragment"
-        android:name="ru.sergeyzabelin.mylearning.ui.content.ContentEditFragment"
-        android:label="fragment_quote_edit"
-        tools:layout="@layout/fragment_content_edit" />
-    <fragment
-        android:id="@+id/quoteAddFragment"
-        android:name="ru.sergeyzabelin.mylearning.ui.content.ContentAddFragment"
-        android:label="fragment_quote_add"
-        tools:layout="@layout/fragment_content_add" />
-    <fragment
-        android:id="@+id/quoteFragment"
-        android:name="ru.sergeyzabelin.mylearning.ui.content.quote.QuoteFragment"
-        android:label="fragment_quote"
-        tools:layout="@layout/fragment_quote" >
+        android:id="@+id/content"
+        android:name="ru.sergeyzabelin.mylearning.ui.content.ContentFragment"
+        tools:layout="@layout/fragment_content">
+        <argument
+            android:name="topicId"
+            app:argType="long" />
         <action
-            android:id="@+id/action_quoteFragment_to_quoteAddFragment"
-            app:destination="@id/quoteAddFragment" />
+            android:id="@+id/action_content_to_quoteEditor"
+            app:destination="@id/quoteEditor" />
         <action
-            android:id="@+id/action_quoteFragment_to_quoteEditFragment"
-            app:destination="@id/quoteEditFragment" />
+            android:id="@+id/action_content_to_sourceEditor"
+            app:destination="@id/sourceEditor" />
+        <action
+            android:id="@+id/action_content_to_questionEditor"
+            app:destination="@id/questionEditor" />
     </fragment>
     <fragment
-        android:id="@+id/sourceFragment"
-        android:name="ru.sergeyzabelin.mylearning.ui.content.source.SourceFragment"
-        android:label="fragment_source"
-        tools:layout="@layout/fragment_source" />
+        android:id="@+id/quoteEditor"
+        android:name="ru.sergeyzabelin.mylearning.ui.content.quote.QuoteEditorFragment"
+        tools:layout="@layout/fragment_quote_editor">
+        <argument
+            android:name="quoteId"
+            app:argType="long" />
+    </fragment>
     <fragment
-        android:id="@+id/questionFragment"
-        android:name="ru.sergeyzabelin.mylearning.ui.content.question.QuestionFragment"
-        android:label="fragment_question"
-        tools:layout="@layout/fragment_question" />
-
+        android:id="@+id/sourceEditor"
+        android:name="ru.sergeyzabelin.mylearning.ui.content.quote.SourceEditorFragment"
+        tools:layout="@layout/fragment_source_editor">
+        <argument
+            android:name="sourceId"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/questionEditor"
+        android:name="ru.sergeyzabelin.mylearning.ui.content.question.QuestionEditorFragment"
+        android:label="fragment_question_editor"
+        tools:layout="@layout/fragment_question_editor">
+        <argument
+            android:name="questionId"
+            app:argType="long" />
+    </fragment>
 </navigation>

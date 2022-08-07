@@ -4,13 +4,13 @@
 
     <data>
 
-        <import type="ru.sergeyzabelin.mylearning.data.common.Resource" />
+        <import type="ru.zfix27r.data.common.Resource" />
 
-        <import type="ru.sergeyzabelin.mylearning.data.common.Status" />
+        <import type="ru.zfix27r.data.common.Status" />
 
         <variable
             name="resource"
-            type="ru.sergeyzabelin.mylearning.data.common.Resource" />
+            type="ru.zfix27r.data.common.Resource" />
 
         <variable
             name="callback"

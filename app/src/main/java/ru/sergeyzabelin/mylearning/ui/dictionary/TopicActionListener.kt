@@ -1,16 +1,16 @@
 package ru.sergeyzabelin.mylearning.ui.dictionary
 
-import ru.sergeyzabelin.mylearning.data.model.db.Topic
+import ru.zfix27r.data.model.db.Topic
 
 interface TopicActionListener {
 
-    fun onTopicNext(topic: Topic)
+    fun onSelf(topic: Topic)
 
-    fun onTopicDetails(topic: Topic)
+    fun onDetails(topic: Topic)
 
-    fun onTopicAdd(topic: Topic)
+    fun onAdd(topic: Topic)
 
-    fun onTopicEdit(topic: Topic)
+    fun onEdit(topic: Topic)
 
-    fun onTopicDelete(topic: Topic)
+    fun onDelete(topic: Topic)
 }

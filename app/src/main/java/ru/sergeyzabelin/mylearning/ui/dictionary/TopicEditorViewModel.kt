@@ -6,19 +6,18 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import ru.sergeyzabelin.mylearning.data.common.Resource
-import ru.sergeyzabelin.mylearning.data.model.db.Topic
-import ru.sergeyzabelin.mylearning.domain.usecases.GetTopicUseCase
-import ru.sergeyzabelin.mylearning.domain.usecases.SaveTopicUseCase
 import ru.sergeyzabelin.mylearning.ui.dictionary.common.InputStatus.EMPTY
 import ru.sergeyzabelin.mylearning.ui.dictionary.common.InputStatus.SUCCESS
+import ru.zfix27r.domain.usecases.AddTopicUseCase
+import ru.zfix27r.domain.usecases.GetTopicByIdUseCase
+import ru.zfix27r.domain.usecases.SaveTopicUseCase
 import javax.inject.Inject
-
 
 @HiltViewModel
 class TopicEditorViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    getTopicUseCase: GetTopicUseCase,
+    getTopicUseCase: GetTopicByIdUseCase,
+    private val addTopicUseCase: AddTopicUseCase,
     private val saveTopicUseCase: SaveTopicUseCase
 ) : ViewModel() {
 
@@ -63,9 +62,9 @@ class TopicEditorViewModel @Inject constructor(
             parentTopicId = parentTopicId,
             title = title,
             subTitle = subTitle,
-            isHasChild = data?.value?.data?.isHasChild ?: false,
-            counterQuote = data?.value?.data?.counterQuote ?: 0
+            difficulty = data?.value?.data?.difficulty ?: 0
         )
+        updateModelUseCase.execute(topic)
         saveTopicUseCase.execute(topic)
     }
 

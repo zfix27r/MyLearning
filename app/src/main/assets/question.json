@@ -1,0 +1,13 @@
+[
+  {"text": "Все классы в Java наследуются от Object, как вы думаете, почему так сделано?", "topicId": 21, "quotesId": ""},
+  {"text": "Можно ли создать экземпляр класса Object?", "topicId": 21, "quotesId": ""},
+  {"text": "Зачем кому-то может понадобиться создавать экземпляр класса Object?", "topicId": 21, "quotesId": ""},
+  {"text": "Опишите методы класса Object.", "topicId": 21, "quotesId": ""},
+  {"text": "Особенности методов wait, notify, notifyAll.", "topicId": 21, "quotesId": ""},
+  {"text": "Что такое хэш-код. Что за значение возвращает метод hashCode класса Object?", "topicId": 21, "quotesId": ""},
+  {"text": "Как связаны между собой методы equals и hashCode?", "topicId": 21, "quotesId": ""},
+  {"text": "Что будет, если переопределить equals не переопределяя hashCode?", "topicId": 21, "quotesId": ""},
+  {"text": "Что будет, если у объекта-ключа HashMap изменится хэш-код?", "topicId": 21, "quotesId": ""},
+  {"text": "Какие могут возникнуть проблемы?", "topicId": 21, "quotesId": ""},
+  {"text": "Метод finalize, для чего нужен?", "topicId": 21, "quotesId": ""}
+]
