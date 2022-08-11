@@ -15,7 +15,8 @@
 
     <!--    ERROR     -->
     <string name="button_retry">повторить</string>
-    <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="error_inner">произошла внутренняя ошибка</string>
+    <string name="error_unknown">произошла неизвестная ошибка</string>
 
     <string name="settings">Настройки</string>
     <string name="add">Добавить</string>

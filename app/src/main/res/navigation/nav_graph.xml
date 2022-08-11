@@ -47,10 +47,12 @@
         tools:layout="@layout/fragment_topic_editor">
         <argument
             android:name="topicId"
-            app:argType="long" />
+            app:argType="long"
+            android:defaultValue="0L" />
         <argument
             android:name="parentTopicId"
-            app:argType="long" />
+            app:argType="long"
+            android:defaultValue="0L" />
     </fragment>
     <fragment
         android:id="@+id/content"

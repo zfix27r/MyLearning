@@ -7,11 +7,11 @@
 
         <variable
             name="quote"
-            type="ru.zfix27r.data.model.db.Quote" />
+            type="ru.zfix27r.domain.model.quote.QuoteModel" />
 
         <variable
             name="source"
-            type="ru.zfix27r.data.model.db.Source" />
+            type="ru.zfix27r.domain.model.source.SourceModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

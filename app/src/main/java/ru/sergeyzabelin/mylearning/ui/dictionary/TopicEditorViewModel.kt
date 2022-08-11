@@ -1,77 +1,65 @@
 package ru.sergeyzabelin.mylearning.ui.dictionary
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.Flow
+import ru.sergeyzabelin.mylearning.ui.dictionary.common.InputStatus
 import ru.sergeyzabelin.mylearning.ui.dictionary.common.InputStatus.EMPTY
 import ru.sergeyzabelin.mylearning.ui.dictionary.common.InputStatus.SUCCESS
+import ru.zfix27r.domain.model.CommonReqModel
+import ru.zfix27r.domain.model.CommonResModel
+import ru.zfix27r.domain.model.SaveTopicReqModel
+import ru.zfix27r.domain.model.TopicResModel
 import ru.zfix27r.domain.usecases.AddTopicUseCase
-import ru.zfix27r.domain.usecases.GetTopicByIdUseCase
+import ru.zfix27r.domain.usecases.GetTopicUseCase
 import ru.zfix27r.domain.usecases.SaveTopicUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class TopicEditorViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    getTopicUseCase: GetTopicByIdUseCase,
+    private val getTopicUseCase: GetTopicUseCase,
     private val addTopicUseCase: AddTopicUseCase,
     private val saveTopicUseCase: SaveTopicUseCase
 ) : ViewModel() {
-
     private val topicId: Long = savedStateHandle.get<Long>(TOPIC_ID) ?: 0
     private val parentTopicId: Long = savedStateHandle.get<Long>(PARENT_TOPIC_ID) ?: 0
 
-    val data: LiveData<Resource<Topic>>? =
-        if (topicId > 0) getTopicUseCase.execute(topicId) else null
+    private var title: String = ""
+    private var subTitle: String = ""
 
-    var title: String = ""
-        set(value) {
-            checkInput(value)
-            if (inputTitleStatus == SUCCESS) field = value
-        }
+    var topic: TopicResModel? = null
 
-    private var _inputTitleStatus = EMPTY
-    val inputTitleStatus
-        get() = _inputTitleStatus
+    fun isSaveMode() = topicId > 0
 
-    var subTitle: String = ""
-        set(value) {
-            checkInput(value)
-            if (inputSubTitleStatus == SUCCESS) field = value
-        }
-
-    private var _inputSubTitleStatus = SUCCESS
-    val inputSubTitleStatus
-        get() = _inputSubTitleStatus
-
-    init {
-
+    suspend fun getTopic(): Flow<TopicResModel> {
+        return getTopicUseCase.execute(CommonReqModel(topicId))
     }
 
-
-    fun isInputCorrectly(): Boolean {
-        return (SUCCESS == inputTitleStatus)
-    }
-
-    fun save() = viewModelScope.launch {
-        val topic = Topic(
-            id = data?.value?.data?.id ?: 0,
-            parentTopicId = parentTopicId,
+    suspend fun save(): Flow<CommonResModel?> {
+        val topic = SaveTopicReqModel(
+            id = topicId,
             title = title,
             subTitle = subTitle,
-            difficulty = data?.value?.data?.difficulty ?: 0
         )
-        updateModelUseCase.execute(topic)
-        saveTopicUseCase.execute(topic)
+        return saveTopicUseCase.execute(topic)
     }
 
-    private fun checkInput(s: String) {
-        _inputTitleStatus =
-            if (s.isEmpty()) EMPTY
-            else SUCCESS
+    fun trySetTitle(title: String): InputStatus {
+        if (title.isEmpty()) return EMPTY
+        this.title = title
+        return SUCCESS
+    }
+
+    fun trySetSubTitle(subTitle: String): InputStatus {
+        if (subTitle.isEmpty()) return EMPTY
+        this.subTitle = subTitle
+        return SUCCESS
+    }
+
+    fun isInputConditionsCorrectly(): Boolean {
+        return (trySetTitle(title) == SUCCESS)
     }
 
     companion object {

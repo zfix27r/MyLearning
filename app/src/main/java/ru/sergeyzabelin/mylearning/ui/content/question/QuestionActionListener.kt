@@ -1,12 +1,10 @@
 package ru.sergeyzabelin.mylearning.ui.content.question
 
-import ru.zfix27r.data.model.db.Question
-
 interface QuestionActionListener {
 
-    fun onAdd(question: Question)
+/*    fun onAdd(question: QuestionDbEntity)
 
-    fun onEdit(question: Question)
+    fun onEdit(question: QuestionDbEntity)
 
-    fun onDelete(question: Question)
+    fun onDelete(question: QuestionDbEntity)*/
 }

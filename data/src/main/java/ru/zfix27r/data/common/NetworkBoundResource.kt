@@ -16,12 +16,6 @@
 
 package ru.zfix27r.data.common
 
-import androidx.annotation.MainThread
-import androidx.annotation.WorkerThread
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
-import ru.zfix27r.data.AppExecutors
-
 /**
  * A generic class that can provide a resource backed by both the sqlite database and the network.
  *
@@ -31,6 +25,7 @@ import ru.zfix27r.data.AppExecutors
  * @param <ResultType>
  * @param <RequestType>
 </RequestType></ResultType> */
+/*
 abstract class NetworkBoundResource<ResultType, RequestType>
 @MainThread constructor(private val appExecutors: AppExecutors) {
 
@@ -127,4 +122,4 @@ abstract class NetworkBoundResource<ResultType, RequestType>
 
     @MainThread
     protected abstract fun createCall(): LiveData<ApiResponse<RequestType>>?
-}
+}*/

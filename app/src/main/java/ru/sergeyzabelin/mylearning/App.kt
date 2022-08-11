@@ -1,6 +1,7 @@
 package ru.sergeyzabelin.mylearning
 
 import android.app.Application
+import androidx.databinding.ktx.BuildConfig
 import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.Configuration
 import dagger.hilt.android.HiltAndroidApp

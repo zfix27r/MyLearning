@@ -1,22 +1,6 @@
 package ru.sergeyzabelin.mylearning.ui.content.quote
 
-import android.content.Intent
-import android.net.Uri
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import dagger.hilt.android.AndroidEntryPoint
-import ru.zfix27r.data.model.db.Quote
-import ru.zfix27r.data.model.db.Source
-import ru.sergeyzabelin.mylearning.databinding.FragmentQuoteBinding
-import ru.sergeyzabelin.mylearning.ui.content.ContentFragmentDirections
-import ru.sergeyzabelin.mylearning.ui.content.ContentViewModel
-import ru.sergeyzabelin.mylearning.utils.autoCleared
-
-
+/*
 @AndroidEntryPoint
 class QuoteFragment(private val viewModel: ContentViewModel) : Fragment() {
 
@@ -38,50 +22,53 @@ class QuoteFragment(private val viewModel: ContentViewModel) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         adapter = QuoteAdapter(object : QuoteActionListener {
-            override fun onUrlOpen(source: Source) {
+            override fun onUrlOpen(source: SourceModel) {
                 val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(source.url))
                 startActivity(browserIntent)
             }
 
-            override fun onQuoteAdd(quote: Quote) {
+            override fun onQuoteAdd(quote: QuoteModel) {
                 findNavController().navigate(
                     ContentFragmentDirections.actionContentToQuoteEditor(quote.id)
                 )
             }
 
-            override fun onSourceAdd(source: Source) {
+            override fun onSourceAdd(source: SourceModel) {
                 findNavController().navigate(
                     ContentFragmentDirections.actionContentToSourceEditor(source.id)
                 )
             }
 
-            override fun onQuoteEdit(quote: Quote) {
+            override fun onQuoteEdit(quote: QuoteModel) {
                 findNavController().navigate(
                     ContentFragmentDirections.actionContentToQuoteEditor(quote.id)
                 )
             }
 
-            override fun onSourceEdit(source: Source) {
+            override fun onSourceEdit(source: SourceModel) {
                 findNavController().navigate(
                     ContentFragmentDirections.actionContentToSourceEditor(source.id)
                 )
             }
 
-            override fun onQuoteDelete(quote: Quote) {
+            override fun onQuoteDelete(quote: QuoteModel) {
 
             }
 
-            override fun onSourceDelete(source: Source) {
+            override fun onSourceDelete(source: SourceModel) {
 
             }
         })
         binding.recycler.adapter = adapter
 
         viewModel.content.observe(viewLifecycleOwner) { content ->
-            content.data?.let {
-                adapter.submitList(it.quotes)
+            when(content) {
+                is ContentResModel.Success -> {
+                    adapter.submitList(content.quotes)
+                }
+                is ContentResModel.Fail -> {}
             }
         }
     }
 
-}
+}*/

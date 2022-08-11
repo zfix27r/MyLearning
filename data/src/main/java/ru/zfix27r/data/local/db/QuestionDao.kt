@@ -1,15 +1,13 @@
 package ru.zfix27r.data.local.db
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Update
-import ru.zfix27r.data.model.db.Question
+import androidx.room.Dao
 
+@Dao
 interface QuestionDao {
-    @Insert
-    suspend fun insert(question: Question): Long
+/*    @Insert
+    suspend fun insert(question: QuestionDbEntity): Long
     @Update
-    suspend fun update(question: Question): Int
+    suspend fun update(question: QuestionDbEntity): Int
     @Delete
-    suspend fun delete(question: Question): Int
+    suspend fun delete(question: QuestionDbEntity): Int*/
 }

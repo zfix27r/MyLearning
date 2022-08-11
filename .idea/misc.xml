@@ -35,9 +35,11 @@
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_lesson_detail.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_main.xml" value="0.27923976608187134" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_question.xml" value="0.2975630611372381" />
+        <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_question_editor.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_quote.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_quote_editor.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_source.xml" value="0.15220179563916203" />
+        <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_source_editor.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_topic_add.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_topic_edit.xml" value="0.2975630611372381" />
         <entry key="..\:/Android Project/MyLearning/app/src/main/res/layout/fragment_topic_editor.xml" value="0.5" />

@@ -24,8 +24,7 @@ android {
 }
 
 dependencies {
+    implementation "javax.inject:javax.inject:1"
 
-    implementation "androidx.core:core-ktx:$rootProject.androidxCoreVersion"
-
-    implementation "com.google.dagger:hilt-android:$rootProject.hiltVesrion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.kotlinCoroutinesVersion"
 }

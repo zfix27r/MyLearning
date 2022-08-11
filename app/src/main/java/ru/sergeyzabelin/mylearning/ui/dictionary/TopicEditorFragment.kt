@@ -9,13 +9,18 @@ import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import ru.sergeyzabelin.mylearning.R
 import ru.sergeyzabelin.mylearning.databinding.FragmentTopicEditorBinding
 import ru.sergeyzabelin.mylearning.ui.dictionary.common.InputStatus
 import ru.sergeyzabelin.mylearning.utils.autoCleared
+import ru.zfix27r.domain.model.TopicResModel
+import ru.zfix27r.domain.model.common.ErrorType
 
 @AndroidEntryPoint
 class TopicEditorFragment : Fragment() {
@@ -32,6 +37,8 @@ class TopicEditorFragment : Fragment() {
         dataBinding.viewModel = viewModel
         actionBar()
 
+        if (viewModel.isSaveMode()) loadTopic()
+
         binding = dataBinding
         return dataBinding.root
     }
@@ -45,13 +52,37 @@ class TopicEditorFragment : Fragment() {
 
             override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
                 when (menuItem.itemId) {
-                    R.id.done -> done()
+                    R.id.done -> onClickDone()
                     android.R.id.home -> findNavController().popBackStack()
                 }
 
                 return true
             }
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+    }
+
+    private fun onClickDone() {
+        if (viewModel.isInputConditionsCorrectly()) {
+            binding.titleLayout.isEnabled = false
+            binding.subTitleLayout.isEnabled = false
+
+            lifecycleScope.launch {
+                viewModel.save().collect {
+                    if (it == null) findNavController().popBackStack()
+                    when (it?.errorType) {
+                        ErrorType.UNKNOWN_ERROR -> viewSnackBar(getString(R.string.error_unknown))
+                        else -> {}
+                    }
+                }
+            }
+        }
+
+        binding.titleLayout.isEnabled = true
+        binding.subTitleLayout.isEnabled = true
+    }
+
+    private fun viewSnackBar(msg: String) {
+        Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT).show()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -61,14 +92,31 @@ class TopicEditorFragment : Fragment() {
         binding.subTitleLayout.editText?.addTextChangedListener { onSubTitleChanged(it) }
     }
 
+    private fun loadTopic() {
+        lifecycleScope.launch {
+            viewModel.getTopic().collect {
+                when (it) {
+                    // TODO #5 При загрузке с сети добавить лоадинг, записывать ошибку в какой то логгер
+                    is TopicResModel.Success -> {
+                        viewModel.topic = it
+                        binding.title.setText(it.title)
+                        binding.subTitle.setText(it.subTitle)
+                    }
+                    is TopicResModel.Fail -> {
+                        viewSnackBar(getString(R.string.error_inner))
+                        findNavController().popBackStack()
+                    }
+                }
+            }
+        }
+    }
+
     private fun onTitleChanged(editText: Editable?) {
-        viewModel.title = editText.toString()
-        updateInputStatus(binding.titleLayout, viewModel.inputTitleStatus)
+        updateInputStatus(binding.titleLayout, viewModel.trySetTitle(editText.toString()))
     }
 
     private fun onSubTitleChanged(editText: Editable?) {
-        viewModel.subTitle = editText.toString()
-        updateInputStatus(binding.subTitleLayout, viewModel.inputSubTitleStatus)
+        updateInputStatus(binding.subTitleLayout, viewModel.trySetSubTitle(editText.toString()))
     }
 
     private fun updateInputStatus(layout: TextInputLayout, status: InputStatus) {
@@ -80,17 +128,5 @@ class TopicEditorFragment : Fragment() {
                 layout.helperText = null
             }
         }
-    }
-
-    private fun done() {
-        if (viewModel.isInputCorrectly()) {
-            binding.titleLayout.isEnabled = false
-            binding.subTitleLayout.isEnabled = false
-
-            viewModel.save()
-        }
-
-        binding.titleLayout.isEnabled = true
-        binding.subTitleLayout.isEnabled = true
     }
 }

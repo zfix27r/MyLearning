@@ -1,8 +1,6 @@
 package ru.sergeyzabelin.mylearning.ui.content
 
-import androidx.fragment.app.Fragment
-import androidx.viewpager2.adapter.FragmentStateAdapter
-
+/*
 class ContentPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     private val fragments: MutableList<Fragment> = ArrayList()
     private val fragmentIcons: MutableList<Int> = ArrayList()
@@ -21,4 +19,4 @@ class ContentPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     override fun createFragment(position: Int): Fragment {
         return fragments[position]
     }
-}
+}*/

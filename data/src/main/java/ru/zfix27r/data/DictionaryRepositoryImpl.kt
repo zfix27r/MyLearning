@@ -1,71 +1,58 @@
 package ru.zfix27r.data
 
-import androidx.lifecycle.LiveData
-import ru.zfix27r.data.common.ApiResponse
-import ru.zfix27r.data.common.NetworkBoundResource
-import ru.zfix27r.data.common.RateLimiter
-import ru.zfix27r.data.common.Resource
+import android.util.Log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import ru.zfix27r.data.local.db.DictionaryDao
-import ru.zfix27r.data.model.db.Dictionary
+import ru.zfix27r.domain.model.*
+import ru.zfix27r.domain.model.common.ErrorType
 import ru.zfix27r.domain.repository.DictionaryRepository
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
-class DictionaryRepositoryImpl @Inject constructor(
-    private val appExecutors: AppExecutors,
-    private val dao: DictionaryDao
-) : DictionaryRepository {
+class DictionaryRepositoryImpl @Inject constructor(private val dao: DictionaryDao) :
+    DictionaryRepository {
+    override fun getDictionary(commonReqModel: CommonReqModel): Flow<DictionaryResModel> {
+        return flow {
+            val dictionary = dao.getDictionary(commonReqModel.id)
+            if (dictionary == null) emit(DictionaryResModel.Fail(ErrorType.UNKNOWN_ERROR))
+            else emit(dictionary.toDictionary())
+        }.flowOn(Dispatchers.IO)
+    }
 
-    private val repoListRateLimit = RateLimiter<String>(10, TimeUnit.MINUTES)
+    override fun getTopic(commonReqModel: CommonReqModel): Flow<TopicResModel> {
+        return flow {
+            val topic = dao.getTopic(commonReqModel.id)
+            if (topic == null) emit(TopicResModel.Fail(ErrorType.UNKNOWN_ERROR))
+            else emit(topic)
+        }.flowOn(Dispatchers.IO)
+    }
 
-    override fun getDictionary(id: Long): LiveData<Resource<Dictionary>> {
-        return object : NetworkBoundResource<Dictionary, Dictionary>(appExecutors) {
-/*            override fun saveCallResult(item: List<Topic>) {
-                //repoDao.insertRepos(item) TODO why
-            }*/
+    override suspend fun addTopic(addTopicReqModel: AddTopicReqModel): Flow<CommonResModel?> {
+        return flow {
+            val result = dao.insert(addTopicReqModel)
+            Log.e("dictionaryRepository add", result.toString())
+            if (result == 1) emit(CommonResModel.Fail(ErrorType.UNKNOWN_ERROR))
+            else emit(null)
+        }.flowOn(Dispatchers.IO)
+    }
 
-            override fun shouldFetch(data: Dictionary?): Boolean {
-                return data == null /*|| repoListRateLimit.shouldFetch(id.toString())*/
-            }
+    override suspend fun saveTopic(saveTopicReqModel: SaveTopicReqModel): Flow<CommonResModel?> {
+        return flow {
+            val result = dao.update(saveTopicReqModel)
+            Log.e("dictionaryRepository save", result.toString())
+            if (result == 1) emit(CommonResModel.Fail(ErrorType.UNKNOWN_ERROR))
+            else emit(null)
+        }.flowOn(Dispatchers.IO)
+    }
 
-            override fun loadFromDb(): LiveData<Dictionary> {
-
-                // TODO либо переделать на сырой зарос с исключением текущего топика, либо я хз
-/*                return dao.getDictionaryDataById(id).let { liveData ->
-                    liveData.value?.let { dictionaryData ->
-                        dictionaryData.articles.forEach { articleWithTopicLabels ->
-                            val topicLabelList =
-                                articleWithTopicLabels.topics as MutableList<TopicLabel>
-
-                            for (i in topicLabelList.indices) {
-                                if (topicLabelList[i].id == dictionaryData.topic.id) {
-                                    topicLabelList.removeAt(i)
-                                    break
-                                }
-                            }
-
-                            Log.e("dd", articleWithTopicLabels.topics.toString())
-                            articleWithTopicLabels.topics = topicLabelList
-                            Log.e("dd", articleWithTopicLabels.topics.toString())
-                        }
-                    }
-                } as LiveData<DictionaryData>*/
-                return dao.getDictionary(id)
-            }
-
-            //override fun createCall() = githubService.getRepos(owner)
-
-            override fun onFetchFailed() {
-                repoListRateLimit.reset(id.toString())
-            }
-
-            override fun saveCallResult(item: Dictionary) {
-            }
-
-            override fun createCall(): LiveData<ApiResponse<Dictionary>>? {
-                return null
-            }
-
-        }.asLiveData()
+    override suspend fun deleteTopic(commonReqModel: CommonReqModel): Flow<CommonResModel?> {
+        return flow {
+            val result = dao.delete(commonReqModel)
+            Log.e("dictionaryRepository delete", result.toString())
+            if (result == 1) emit(CommonResModel.Fail(ErrorType.UNKNOWN_ERROR))
+            else emit(null)
+        }.flowOn(Dispatchers.IO)
     }
 }

@@ -8,14 +8,18 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import ru.sergeyzabelin.mylearning.R
-import ru.zfix27r.data.common.Status
-import ru.zfix27r.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryBinding
-import ru.sergeyzabelin.mylearning.ui.common.RetryCallback
 import ru.sergeyzabelin.mylearning.utils.autoCleared
+import ru.zfix27r.domain.model.DictionaryResModel
+
+typealias TopicMain = DictionaryResModel.Success.TopicMain
+typealias TopicSub = DictionaryResModel.Success.TopicSub
 
 @AndroidEntryPoint
 class DictionaryFragment : Fragment() {
@@ -23,6 +27,7 @@ class DictionaryFragment : Fragment() {
     private val viewModel by viewModels<DictionaryViewModel>()
     private var binding by autoCleared<FragmentDictionaryBinding>()
     private var adapter by autoCleared<DictionaryAdapter>()
+    private val args by navArgs<DictionaryFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,11 +36,11 @@ class DictionaryFragment : Fragment() {
     ): View {
         val dataBinding = FragmentDictionaryBinding.inflate(inflater, container, false)
         dataBinding.lifecycleOwner = viewLifecycleOwner
-        dataBinding.retryCallback = object : RetryCallback {
+/*        dataBinding.retryCallback = object : RetryCallback {
             override fun retry() {
                 // TODO #1 Повторная попытка загрузки данных. Пока не ясно как ее реализовать, приложение рабоает только с внутренней БД.
             }
-        }
+        }*/
 
         binding = dataBinding
         return dataBinding.root
@@ -43,10 +48,9 @@ class DictionaryFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         actionBar()
         adapter()
-        dataObserver()
+        loadDictionary()
     }
 
     private fun actionBar() {
@@ -60,7 +64,7 @@ class DictionaryFragment : Fragment() {
                 when (menuItem.itemId) {
                     R.id.add -> findNavController().navigate(
                         DictionaryFragmentDirections
-                            .actionDictionaryToTopicEditor(0, viewModel.topicId)
+                            .actionDictionaryToTopicEditor(topicId = args.topicId)
                     )
                     android.R.id.home -> findNavController().popBackStack()
                 }
@@ -71,40 +75,26 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun adapter() {
-        adapter = DictionaryAdapter(object : TopicActionListener {
-            override fun onSelf(topic: Topic) {
+        adapter = DictionaryAdapter(object : DictionaryActionListener {
+            override fun onSelf(topicId: Long) {
                 findNavController().navigate(
-                    DictionaryFragmentDirections.actionDictionaryToDictionary(topic.id)
+                    DictionaryFragmentDirections.actionDictionaryToDictionary(topicId = topicId)
                 )
             }
 
-            override fun onDetails(topic: Topic) {
+            override fun onDetails(topicId: Long) {
                 findNavController().navigate(
-                    DictionaryFragmentDirections.actionDictionaryToContent(topic.id)
+                    DictionaryFragmentDirections.actionDictionaryToContent(topicId = topicId)
                 )
             }
 
-            override fun onAdd(topic: Topic) {
+            override fun onEdit(topicId: Long) {
                 findNavController().navigate(
-                    DictionaryFragmentDirections
-                        .actionDictionaryToTopicEditor(
-                            topic.id,
-                            topic.parentTopicId
-                        )
+                    DictionaryFragmentDirections.actionDictionaryToTopicEditor(topicId = topicId)
                 )
             }
 
-            override fun onEdit(topic: Topic) {
-                findNavController().navigate(
-                    DictionaryFragmentDirections
-                        .actionDictionaryToTopicEditor(
-                            topic.id,
-                            topic.parentTopicId
-                        )
-                )
-            }
-
-            override fun onDelete(topic: Topic) {
+            override fun onDelete(topicId: Long) {
 
             }
         })
@@ -112,27 +102,27 @@ class DictionaryFragment : Fragment() {
         binding.recycler.adapter = adapter
     }
 
-    private fun dataObserver() {
-        viewModel.data.observe(viewLifecycleOwner) { list ->
-            when (list.status) {
-                Status.LOADING -> {}
-                Status.ERROR -> {}
-                Status.SUCCESS -> {
-                    list.data?.topics?.let { topics ->
-                        if (topics.isEmpty()) {
-                            binding.recycler.visibility = View.GONE
-                            binding.noResult.visibility = View.VISIBLE
-                        } else {
-                            (activity as AppCompatActivity).supportActionBar?.let {
-                                it.title = list.data.topic.title
-                                it.subtitle = list.data.topic.subTitle
-                            }
-
-                            adapter.submitList(list.data.topics)
-                        }
+    private fun loadDictionary() {
+        lifecycleScope.launch {
+            viewModel.getDictionary(args.topicId).collect {
+                when (it) {
+                    is DictionaryResModel.Success -> {
+                        setToolbarTitles(it.topic)
+                        adapter.submitList(it.topics)
+                    }
+                    is DictionaryResModel.Fail -> {
+                        binding.recycler.visibility = View.GONE
+                        binding.noResult.visibility = View.VISIBLE
                     }
                 }
             }
+        }
+    }
+
+    private fun setToolbarTitles(topic: TopicMain) {
+        (activity as AppCompatActivity).supportActionBar?.let { actionBar ->
+            actionBar.title = topic.title
+            actionBar.subtitle = topic.subTitle
         }
     }
 

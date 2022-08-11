@@ -8,7 +8,7 @@
 
         <variable
             name="topic"
-            type="ru.zfix27r.data.model.db.Topic" />
+            type="ru.zfix27r.domain.model.DictionaryResModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

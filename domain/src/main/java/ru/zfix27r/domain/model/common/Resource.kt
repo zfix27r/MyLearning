@@ -21,7 +21,7 @@ package ru.zfix27r.domain.model.common
  * A generic class that holds a value with its loading status.
  * @param <T>
 </T> */
-// TODO #3 Дублирование классов в data, domain
+
 data class Resource<out T>(val status: Status, val data: T?, val message: String?) {
     companion object {
         fun <T> success(data: T?): Resource<T> {

@@ -1,8 +1,9 @@
 package ru.zfix27r.domain.usecases
 
-import ru.zfix27r.domain.repository.TopicRepository
+import ru.zfix27r.domain.model.CommonReqModel
+import ru.zfix27r.domain.repository.DictionaryRepository
 import javax.inject.Inject
 
-class DeleteTopicUseCase @Inject constructor(private val repository: TopicRepository) {
-    suspend fun execute(id: Long) = repository.delete(id)
+class DeleteTopicUseCase @Inject constructor(private val repository: DictionaryRepository) {
+    suspend fun execute(model: CommonReqModel) = repository.deleteTopic(model)
 }

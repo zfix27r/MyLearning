@@ -1,14 +1,11 @@
 package ru.sergeyzabelin.mylearning.di
 
-import android.app.Application
+import android.content.Context
 import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import ru.zfix27r.data.local.db.*
 import javax.inject.Singleton
@@ -19,17 +16,23 @@ object DataModule {
 
     @Singleton
     @Provides
-    fun provideDb(app: Application): AppDatabase {
+    fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
+        //val request = OneTimeWorkRequestBuilder<AppDatabaseWorker>().build()
+        //WorkManager.getInstance(context).enqueue(request)
+
         return Room.databaseBuilder(
-            app, AppDatabase::class.java,
+            context, AppDatabase::class.java,
             "my_learning"
-        ).addCallback(object : RoomDatabase.Callback() {
-            override fun onCreate(db: SupportSQLiteDatabase) {
-                super.onCreate(db)
-                val request = OneTimeWorkRequestBuilder<AppDatabaseWorker>().build()
-                WorkManager.getInstance(app).enqueue(request)
+        ).createFromAsset("my_learning.db").build()
+
+        /*.addCallback(object : RoomDatabase.Callback() {
+        override fun onOpen(db: SupportSQLiteDatabase) {
+            super.onOpen(db)
+            MainScope().launch(Dispatchers.Main) {
+
             }
-        }).fallbackToDestructiveMigration().build()
+        }
+    }).fallbackToDestructiveMigration()*/
     }
 
     @Singleton

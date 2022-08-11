@@ -7,13 +7,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import ru.sergeyzabelin.mylearning.R
-import ru.zfix27r.data.model.db.Topic
 import ru.sergeyzabelin.mylearning.databinding.ItemDictionaryBinding
 import ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryAdapter.TopicsViewHolder
 
-
-class DictionaryAdapter(private val topicActionListener: TopicActionListener) :
-    ListAdapter<Topic, TopicsViewHolder>(DiffCallback()),
+class DictionaryAdapter(private val actionListener: DictionaryActionListener) :
+    ListAdapter<TopicSub, TopicsViewHolder>(DiffCallback()),
     View.OnClickListener,
     View.OnLongClickListener {
 
@@ -42,24 +40,24 @@ class DictionaryAdapter(private val topicActionListener: TopicActionListener) :
     class TopicsViewHolder(val binding: ItemDictionaryBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    class DiffCallback : DiffUtil.ItemCallback<Topic>() {
-        override fun areItemsTheSame(old: Topic, new: Topic): Boolean = old.id == new.id
-        override fun areContentsTheSame(old: Topic, new: Topic): Boolean = old == new
+    class DiffCallback : DiffUtil.ItemCallback<TopicSub>() {
+        override fun areItemsTheSame(old: TopicSub, new: TopicSub): Boolean = old.id == new.id
+        override fun areContentsTheSame(old: TopicSub, new: TopicSub): Boolean = old == new
     }
 
     override fun onClick(v: View) {
-        val topic = v.tag as Topic
+        val topic = v.tag as TopicSub
         when (v.id) {
-            R.id.headerLayout -> topicActionListener.onSelf(topic)
-            R.id.contentLayout -> topicActionListener.onDetails(topic)
+            R.id.headerLayout -> actionListener.onSelf(topic.id)
+            R.id.contentLayout -> actionListener.onDetails(topic.id)
         }
     }
 
     override fun onLongClick(v: View): Boolean {
-        val topic = v.tag as Topic
+        val topic = v.tag as TopicSub
         when (v.id) {
             R.id.headerLayout -> {
-                topicActionListener.onEdit(topic)
+                actionListener.onEdit(topic.id)
                 return true
             }
         }

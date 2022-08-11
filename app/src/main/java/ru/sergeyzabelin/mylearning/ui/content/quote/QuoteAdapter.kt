@@ -1,18 +1,9 @@
 package ru.sergeyzabelin.mylearning.ui.content.quote
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import ru.sergeyzabelin.mylearning.R
-import ru.zfix27r.data.model.db.QuoteWithSource
-import ru.sergeyzabelin.mylearning.databinding.ItemQuoteBinding
-import ru.sergeyzabelin.mylearning.ui.content.quote.QuoteAdapter.QuoteViewHolder
+/*
 
 class QuoteAdapter(private val actionListener: QuoteActionListener) :
-    ListAdapter<QuoteWithSource, QuoteViewHolder>(DiffCallback()), View.OnClickListener,
+    ListAdapter<ContentQuoteWithSource, QuoteViewHolder>(DiffCallback()), View.OnClickListener,
     View.OnLongClickListener {
 
     override fun getItemCount() = currentList.size
@@ -40,23 +31,23 @@ class QuoteAdapter(private val actionListener: QuoteActionListener) :
 
     class QuoteViewHolder(val binding: ItemQuoteBinding) : RecyclerView.ViewHolder(binding.root)
 
-    class DiffCallback : DiffUtil.ItemCallback<QuoteWithSource>() {
-        override fun areItemsTheSame(old: QuoteWithSource, new: QuoteWithSource) =
+    class DiffCallback : DiffUtil.ItemCallback<ContentQuoteWithSource>() {
+        override fun areItemsTheSame(old: ContentQuoteWithSource, new: ContentQuoteWithSource) =
             old.quote.id == new.quote.id
 
-        override fun areContentsTheSame(old: QuoteWithSource, new: QuoteWithSource) =
+        override fun areContentsTheSame(old: ContentQuoteWithSource, new: ContentQuoteWithSource) =
             old.quote == new.quote
     }
 
     override fun onClick(v: View) {
-        val quoteWithSource = v.tag as QuoteWithSource
+        val quoteWithSource = v.tag as ContentQuoteWithSource
         when(v.id) {
             R.id.sourceLayout -> actionListener.onUrlOpen(quoteWithSource.source)
         }
     }
 
     override fun onLongClick(v: View): Boolean {
-        val quoteWithSource = v.tag as QuoteWithSource
+        val quoteWithSource = v.tag as ContentQuoteWithSource
         when(v.id) {
             R.id.item -> actionListener.onQuoteEdit(quoteWithSource.quote)
             R.id.sourceLayout -> actionListener.onSourceEdit(quoteWithSource.source)
@@ -65,3 +56,4 @@ class QuoteAdapter(private val actionListener: QuoteActionListener) :
         return false
     }
 }
+*/

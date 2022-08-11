@@ -1,23 +1,6 @@
 package ru.sergeyzabelin.mylearning.ui.content
 
-import android.os.Bundle
-import android.view.*
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.MenuHost
-import androidx.core.view.MenuProvider
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.navigation.fragment.findNavController
-import com.google.android.material.tabs.TabLayoutMediator
-import dagger.hilt.android.AndroidEntryPoint
-import ru.sergeyzabelin.mylearning.R
-import ru.sergeyzabelin.mylearning.databinding.FragmentContentBinding
-import ru.sergeyzabelin.mylearning.ui.content.question.QuestionFragment
-import ru.sergeyzabelin.mylearning.ui.content.quote.QuoteFragment
-import ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryFragmentDirections
-import ru.sergeyzabelin.mylearning.utils.autoCleared
-
+/*
 @AndroidEntryPoint
 class ContentFragment : Fragment() {
 
@@ -38,14 +21,14 @@ class ContentFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         actionBar()
         adapter()
         dataObserver()
     }
 
     private fun actionBar() {
-        val menuHost: MenuHost = requireActivity()
+*/
+/*        val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
                 menuInflater.inflate(R.menu.content_app_bar, menu)
@@ -62,7 +45,8 @@ class ContentFragment : Fragment() {
 
                 return true
             }
-        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)*//*
+
     }
 
     private fun adapter() {
@@ -81,16 +65,19 @@ class ContentFragment : Fragment() {
 
     private fun dataObserver() {
         viewModel.content.observe(viewLifecycleOwner) { content ->
-            content.data?.let { data ->
-                setToolbarTitles(data.topic)
+            when (content) {
+                is ContentResModel.Success -> {
+                    setToolbarTitles(content.topic)
+                }
+                is ContentResModel.Fail -> {}
             }
         }
     }
 
-    private fun setToolbarTitles(topic: Topic) {
+    private fun setToolbarTitles(topic: ContentTopicModel) {
         (activity as AppCompatActivity).supportActionBar?.let { actionBar ->
             actionBar.title = topic.title
             actionBar.subtitle = topic.subTitle
         }
     }
-}
+}*/

@@ -1,17 +1,18 @@
 package ru.sergeyzabelin.mylearning.ui.content.quote
 
-import ru.zfix27r.data.model.db.Quote
-import ru.zfix27r.data.model.db.Source
+
+import ru.zfix27r.domain.model.quote.QuoteModel
+import ru.zfix27r.domain.model.source.SourceModel
 
 interface QuoteActionListener {
-    fun onUrlOpen(source: Source)
+    fun onUrlOpen(source: SourceModel)
 
-    fun onQuoteAdd(quote: Quote)
-    fun onSourceAdd(source: Source)
+    fun onQuoteAdd(quote: QuoteModel)
+    fun onSourceAdd(source: SourceModel)
 
-    fun onQuoteEdit(quote: Quote)
-    fun onSourceEdit(source: Source)
+    fun onQuoteEdit(quote: QuoteModel)
+    fun onSourceEdit(source: SourceModel)
 
-    fun onQuoteDelete(quote: Quote)
-    fun onSourceDelete(source: Source)
+    fun onQuoteDelete(quote: QuoteModel)
+    fun onSourceDelete(source: SourceModel)
 }

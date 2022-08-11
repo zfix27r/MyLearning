@@ -1,15 +1,15 @@
 package ru.zfix27r.data.local.db
 
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Update
-import ru.zfix27r.data.model.db.Quote
+import androidx.room.Dao
 
+@Dao
 interface QuoteDao {
-    @Insert
-    suspend fun insert(quote: Quote): Long
-    @Update
-    suspend fun update(quote: Quote): Int
+/*    @Insert
+    suspend fun insert(quoteDbEntity: QuoteDbEntity)
+
+    @Update(entity = QuoteDbEntity::class)
+    suspend fun update(saveQuoteModel: SaveQuoteModel)
+
     @Delete
-    suspend fun delete(quote: Quote): Int
+    suspend fun delete(deleteQuoteModel: DeleteQuoteModel)*/
 }

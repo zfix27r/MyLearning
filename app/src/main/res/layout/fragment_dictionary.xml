@@ -5,27 +5,6 @@
 
     <data>
 
-        <import type="ru.zfix27r.data.common.Status" />
-
-        <import type="ru.zfix27r.data.common.Resource" />
-
-        <import type="androidx.lifecycle.LiveData" />
-
-        <import type="java.util.List" />
-
-        <import type="ru.zfix27r.data.model.db.Dictionary" />
-
-        <variable
-            name="topics"
-            type="ru.zfix27r.data.model.db.Dictionary" />
-
-        <variable
-            name="contributorStatus"
-            type="ru.zfix27r.data.common.Status" />
-
-        <variable
-            name="retryCallback"
-            type="ru.sergeyzabelin.mylearning.ui.common.RetryCallback" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -55,7 +34,7 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
-        <include
+<!--        <include
             android:id="@+id/include"
             layout="@layout/loading_state"
             android:layout_width="wrap_content"
@@ -66,7 +45,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:resource="@{(Resource) topics}"
-            tools:visibility="gone" />
+            tools:visibility="gone" />-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
