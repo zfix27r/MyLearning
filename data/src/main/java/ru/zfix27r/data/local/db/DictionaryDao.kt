@@ -11,7 +11,7 @@ import ru.zfix27r.domain.model.TopicResModel
 @Dao
 interface DictionaryDao {
     @Transaction
-    @Query("SELECT * FROM topic WHERE id = :id LIMIT 1")
+    @Query("SELECT id, title, subTitle FROM topic WHERE id = :id LIMIT 1")
     fun getDictionary(id: Long): DictionaryDb?
 
     @Query("SELECT title, subTitle FROM topic WHERE id = :id LIMIT 1")
@@ -21,8 +21,8 @@ interface DictionaryDao {
     suspend fun insert(addTopicReqModel: AddTopicReqModel): Long
 
     @Update(entity = TopicDbEntity::class)
-    suspend fun update(saveTopicReqModel: SaveTopicReqModel): Long
+    suspend fun update(saveTopicReqModel: SaveTopicReqModel): Int
 
     @Delete(entity = TopicDbEntity::class)
-    suspend fun delete(commonReqModel: CommonReqModel): Long
+    suspend fun delete(commonReqModel: CommonReqModel): Int
 }

@@ -17,7 +17,6 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun workerDao(): WorkerDao
     abstract fun dictionaryDao(): DictionaryDao
     abstract fun contentDao(): ContentDao
-    abstract fun topicDao(): TopicDao
     abstract fun quoteDao(): QuoteDao
     abstract fun sourceDao(): SourceDao
     abstract fun questionDao(): QuestionDao

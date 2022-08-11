@@ -33,7 +33,7 @@ class DictionaryRepositoryImpl @Inject constructor(private val dao: DictionaryDa
         return flow {
             val result = dao.insert(addTopicReqModel)
             Log.e("dictionaryRepository add", result.toString())
-            if (result == 1) emit(CommonResModel.Fail(ErrorType.UNKNOWN_ERROR))
+            if (result == 1) emit(CommonResModel(ErrorType.UNKNOWN_ERROR))
             else emit(null)
         }.flowOn(Dispatchers.IO)
     }
@@ -42,7 +42,7 @@ class DictionaryRepositoryImpl @Inject constructor(private val dao: DictionaryDa
         return flow {
             val result = dao.update(saveTopicReqModel)
             Log.e("dictionaryRepository save", result.toString())
-            if (result == 1) emit(CommonResModel.Fail(ErrorType.UNKNOWN_ERROR))
+            if (result == 1) emit(CommonResModel(ErrorType.UNKNOWN_ERROR))
             else emit(null)
         }.flowOn(Dispatchers.IO)
     }
@@ -51,7 +51,7 @@ class DictionaryRepositoryImpl @Inject constructor(private val dao: DictionaryDa
         return flow {
             val result = dao.delete(commonReqModel)
             Log.e("dictionaryRepository delete", result.toString())
-            if (result == 1) emit(CommonResModel.Fail(ErrorType.UNKNOWN_ERROR))
+            if (result == 1) emit(CommonResModel(ErrorType.UNKNOWN_ERROR))
             else emit(null)
         }.flowOn(Dispatchers.IO)
     }
