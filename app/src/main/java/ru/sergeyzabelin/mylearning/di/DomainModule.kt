@@ -6,10 +6,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import ru.zfix27r.data.DictionaryRepositoryImpl
-import ru.zfix27r.domain.usecases.AddTopicUseCase
-import ru.zfix27r.domain.usecases.DeleteTopicUseCase
-import ru.zfix27r.domain.usecases.GetDictionaryUseCase
-import ru.zfix27r.domain.usecases.SaveTopicUseCase
+import ru.zfix27r.domain.usecases.*
 
 @Module
 @InstallIn(ViewModelComponent::class)
@@ -26,6 +23,11 @@ object DomainModule {
         return GetContentUseCase(repository)
     }
 */
+
+    @Provides
+    fun provideGetTopicUseCase(repository: DictionaryRepositoryImpl): GetTopicUseCase {
+        return GetTopicUseCase(repository)
+    }
 
     @Provides
     fun provideAddTopicUseCase(repository: DictionaryRepositoryImpl): AddTopicUseCase {
