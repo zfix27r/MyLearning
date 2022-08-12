@@ -1,10 +1,10 @@
 package ru.sergeyzabelin.mylearning.di
 
-
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
+import ru.zfix27r.data.ContentRepositoryImpl
 import ru.zfix27r.data.DictionaryRepositoryImpl
 import ru.zfix27r.domain.usecases.*
 
@@ -16,13 +16,6 @@ object DomainModule {
     fun provideGetDictionaryUseCase(repository: DictionaryRepositoryImpl): GetDictionaryUseCase {
         return GetDictionaryUseCase(repository)
     }
-
-/*
-    @Provides
-    fun provideGetContentUseCase(repository: ContentRepositoryImpl): GetContentUseCase {
-        return GetContentUseCase(repository)
-    }
-*/
 
     @Provides
     fun provideGetTopicUseCase(repository: DictionaryRepositoryImpl): GetTopicUseCase {
@@ -44,4 +37,8 @@ object DomainModule {
         return DeleteTopicUseCase(repository)
     }
 
+    @Provides
+    fun provideGetContentUseCase(repository: ContentRepositoryImpl): GetContentUseCase {
+        return GetContentUseCase(repository)
+    }
 }

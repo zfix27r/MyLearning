@@ -50,7 +50,7 @@
             app:argType="long"
             android:defaultValue="0L" />
         <argument
-            android:name="parentTopicId"
+            android:name="parentId"
             app:argType="long"
             android:defaultValue="0L" />
     </fragment>

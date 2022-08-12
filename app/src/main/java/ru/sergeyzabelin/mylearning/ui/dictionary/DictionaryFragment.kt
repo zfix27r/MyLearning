@@ -11,11 +11,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import ru.sergeyzabelin.mylearning.R
 import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryBinding
-import ru.sergeyzabelin.mylearning.utils.autoCleared
 import ru.zfix27r.domain.model.DictionaryResModel
 
 typealias TopicMain = DictionaryResModel.Success.TopicMain
@@ -25,8 +25,7 @@ typealias TopicSub = DictionaryResModel.Success.TopicSub
 class DictionaryFragment : Fragment() {
 
     private val viewModel by viewModels<DictionaryViewModel>()
-    private var binding by autoCleared<FragmentDictionaryBinding>()
-    private var adapter by autoCleared<DictionaryAdapter>()
+    private val binding by viewBinding(FragmentDictionaryBinding::bind)
     private val args by navArgs<DictionaryFragmentArgs>()
 
     override fun onCreateView(
@@ -34,23 +33,14 @@ class DictionaryFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val dataBinding = FragmentDictionaryBinding.inflate(inflater, container, false)
-        dataBinding.lifecycleOwner = viewLifecycleOwner
-/*        dataBinding.retryCallback = object : RetryCallback {
-            override fun retry() {
-                // TODO #1 Повторная попытка загрузки данных. Пока не ясно как ее реализовать, приложение рабоает только с внутренней БД.
-            }
-        }*/
-
-        binding = dataBinding
-        return dataBinding.root
+        return inflater.inflate(R.layout.fragment_dictionary, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.lifecycleOwner = viewLifecycleOwner
         actionBar()
         adapter()
-        loadDictionary()
     }
 
     private fun actionBar() {
@@ -64,7 +54,7 @@ class DictionaryFragment : Fragment() {
                 when (menuItem.itemId) {
                     R.id.add -> findNavController().navigate(
                         DictionaryFragmentDirections
-                            .actionDictionaryToTopicEditor(topicId = args.topicId)
+                            .actionDictionaryToTopicEditor(parentId = args.topicId)
                     )
                     android.R.id.home -> findNavController().popBackStack()
                 }
@@ -75,7 +65,7 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun adapter() {
-        adapter = DictionaryAdapter(object : DictionaryActionListener {
+        val adapter = DictionaryAdapter(object : DictionaryActionListener {
             override fun onSelf(topicId: Long) {
                 findNavController().navigate(
                     DictionaryFragmentDirections.actionDictionaryToDictionary(topicId = topicId)
@@ -100,9 +90,7 @@ class DictionaryFragment : Fragment() {
         })
 
         binding.recycler.adapter = adapter
-    }
 
-    private fun loadDictionary() {
         lifecycleScope.launch {
             viewModel.getDictionary(args.topicId).collect {
                 when (it) {
