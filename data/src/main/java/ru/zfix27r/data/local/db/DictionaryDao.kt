@@ -12,10 +12,10 @@ import ru.zfix27r.domain.model.TopicResModel
 interface DictionaryDao {
     @Transaction
     @Query("SELECT id, title, subTitle FROM topic WHERE id = :id LIMIT 1")
-    fun getDictionary(id: Long): DictionaryDb?
+    fun getDictionary(id: Long): DictionaryDb
 
     @Query("SELECT title, subTitle FROM topic WHERE id = :id LIMIT 1")
-    fun getTopic(id: Long): TopicResModel.Success?
+    fun getTopic(id: Long): TopicResModel.Data
 
     @Insert(entity = TopicDbEntity::class)
     suspend fun insert(addTopicReqModel: AddTopicReqModel): Long

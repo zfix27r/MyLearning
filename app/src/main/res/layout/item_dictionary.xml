@@ -8,7 +8,7 @@
 
         <variable
             name="topic"
-            type="ru.zfix27r.domain.model.DictionaryResModel.Success.TopicSub" />
+            type="ru.zfix27r.domain.model.DictionaryResModel.Data.TopicSub" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

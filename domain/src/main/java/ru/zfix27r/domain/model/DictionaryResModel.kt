@@ -1,9 +1,9 @@
 package ru.zfix27r.domain.model
 
-import ru.zfix27r.domain.model.common.ErrorType
+import ru.zfix27r.domain.model.common.ResponseType
 
 sealed class DictionaryResModel {
-    data class Success(
+    data class Data(
         val topic: TopicMain,
         val topics: List<TopicSub>
     ) : DictionaryResModel() {
@@ -21,5 +21,5 @@ sealed class DictionaryResModel {
         )
     }
 
-    data class Fail(val errorType: ErrorType) : DictionaryResModel()
+    data class Fail(val errorType: ResponseType) : DictionaryResModel()
 }

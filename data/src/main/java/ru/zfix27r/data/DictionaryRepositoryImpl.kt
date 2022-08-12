@@ -1,57 +1,45 @@
 package ru.zfix27r.data
 
-import android.util.Log
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import ru.zfix27r.data.local.db.DictionaryDao
 import ru.zfix27r.domain.model.*
-import ru.zfix27r.domain.model.common.ErrorType
+import ru.zfix27r.domain.model.common.ResponseType
 import ru.zfix27r.domain.repository.DictionaryRepository
 import javax.inject.Inject
 
 class DictionaryRepositoryImpl @Inject constructor(private val dao: DictionaryDao) :
     DictionaryRepository {
-    override fun getDictionary(commonReqModel: CommonReqModel): Flow<DictionaryResModel> {
-        return flow {
+    override fun getDictionary(commonReqModel: CommonReqModel): Flow<DictionaryResModel> =
+        flow {
             val dictionary = dao.getDictionary(commonReqModel.id)
-            if (dictionary == null) emit(DictionaryResModel.Fail(ErrorType.UNKNOWN_ERROR))
-            else emit(dictionary.toDictionary())
-        }.flowOn(Dispatchers.IO)
-    }
+            emit(dictionary.toDictionary())
+        }
 
-    override fun getTopic(commonReqModel: CommonReqModel): Flow<TopicResModel> {
-        return flow {
+    override fun getTopic(commonReqModel: CommonReqModel): Flow<TopicResModel> =
+        flow {
             val topic = dao.getTopic(commonReqModel.id)
-            if (topic == null) emit(TopicResModel.Fail(ErrorType.UNKNOWN_ERROR))
-            else emit(topic)
-        }.flowOn(Dispatchers.IO)
-    }
+            emit(topic)
+        }
 
-    override suspend fun addTopic(addTopicReqModel: AddTopicReqModel): Flow<CommonResModel?> {
-        return flow {
+    override suspend fun addTopic(addTopicReqModel: AddTopicReqModel): Flow<ResponseModel> =
+        flow {
             val result = dao.insert(addTopicReqModel)
-            Log.e("dictionaryRepository add", result.toString())
-            if (result > 0) emit(CommonResModel(ErrorType.UNKNOWN_ERROR))
-            else emit(null)
-        }.flowOn(Dispatchers.IO)
-    }
+            if (result > 0) emit(ResponseModel(ResponseType.SUCCESS))
+            else emit(ResponseModel(ResponseType.UNKNOWN_ERROR))
+        }
 
-    override suspend fun saveTopic(saveTopicReqModel: SaveTopicReqModel): Flow<CommonResModel?> {
-        return flow {
+    override suspend fun saveTopic(saveTopicReqModel: SaveTopicReqModel): Flow<ResponseModel> =
+        flow {
             val result = dao.update(saveTopicReqModel)
-            if (result == 1) emit(null)
-            else emit(CommonResModel(ErrorType.UNKNOWN_ERROR))
-        }.flowOn(Dispatchers.IO)
-    }
+            if (result == 1) emit(ResponseModel(ResponseType.SUCCESS))
+            else emit(ResponseModel(ResponseType.UNKNOWN_ERROR))
+        }
 
-    override suspend fun deleteTopic(commonReqModel: CommonReqModel): Flow<CommonResModel?> {
-        return flow {
+    override suspend fun deleteTopic(commonReqModel: CommonReqModel): Flow<ResponseModel> =
+        flow {
             val result = dao.delete(commonReqModel)
-            Log.e("dictionaryRepository delete", result.toString())
-            if (result == 1) emit(CommonResModel(ErrorType.UNKNOWN_ERROR))
-            else emit(null)
-        }.flowOn(Dispatchers.IO)
-    }
+            if (result == 1) emit(ResponseModel(ResponseType.UNKNOWN_ERROR))
+            else emit(ResponseModel(ResponseType.SUCCESS))
+        }
 }

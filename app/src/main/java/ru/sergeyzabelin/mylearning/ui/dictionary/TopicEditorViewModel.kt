@@ -1,12 +1,17 @@
 package ru.sergeyzabelin.mylearning.ui.dictionary
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import ru.sergeyzabelin.mylearning.ui.BaseViewModel
 import ru.sergeyzabelin.mylearning.ui.dictionary.common.InputStatus
 import ru.sergeyzabelin.mylearning.ui.dictionary.common.InputStatus.EMPTY
 import ru.sergeyzabelin.mylearning.ui.dictionary.common.InputStatus.SUCCESS
+import ru.sergeyzabelin.mylearning.ui.dictionary.common.RawTopicModel
 import ru.zfix27r.domain.model.*
 import ru.zfix27r.domain.usecases.AddTopicUseCase
 import ru.zfix27r.domain.usecases.GetTopicUseCase
@@ -19,53 +24,92 @@ class TopicEditorViewModel @Inject constructor(
     private val getTopicUseCase: GetTopicUseCase,
     private val addTopicUseCase: AddTopicUseCase,
     private val saveTopicUseCase: SaveTopicUseCase
-) : ViewModel() {
-    private val topicId: Long = savedStateHandle.get<Long>(TOPIC_ID) ?: 0
-    private val parentId: Long = savedStateHandle.get<Long>(PARENT_ID) ?: 0
+) : BaseViewModel() {
 
-    private var title: String = ""
-    private var subTitle: String = ""
+    val topic: MutableLiveData<RawTopicModel> = MutableLiveData(
+        RawTopicModel(
+            id = savedStateHandle.get<Long>(TOPIC_ID) ?: 0,
+            parentId = savedStateHandle.get<Long>(PARENT_ID) ?: 0
+        )
+    )
 
-    var topic: TopicResModel.Success? = null
-
-    fun isSaveMode() = topicId > 0
-
-    suspend fun getTopic(): Flow<TopicResModel> {
-        return getTopicUseCase.execute(CommonReqModel(topicId))
+    fun isSaveMode(): Boolean {
+        topic.value?.let { return it.id > 0 }
+        return false
     }
 
-    suspend fun save(): Flow<CommonResModel?> {
-        val topic = SaveTopicReqModel(
-            id = topicId,
-            title = title,
-            subTitle = subTitle,
-        )
-        return saveTopicUseCase.execute(topic)
+    fun loadTopic(): Boolean {
+        topic.value?.let { if (it.id < 1) return false }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            topic.value?.let { topic ->
+                getTopicUseCase.execute(CommonReqModel(topic.id)).collect {
+                    when (it) {
+                        is TopicResModel.Data -> {
+                            topic.title = it.title
+                            topic.subTitle = it.subTitle
+                        }
+                        is TopicResModel.Fail -> {
+                            _result.postValue(ResponseModel(it.errorType))
+                        }
+                    }
+                }
+            }
+        }
+        return true
     }
 
-    suspend fun add(): Flow<CommonResModel?> {
-        val topic = AddTopicReqModel(
-            parentId = parentId,
-            title = title,
-            subTitle = subTitle,
-            difficulty = 0
-        )
-        return addTopicUseCase.execute(topic)
+    fun tryDone(): Boolean {
+        if (isDoneInProgress.value == false && isInputConditionsCorrectly()) {
+            isDoneInProgress.value = true
+            viewModelScope.launch {
+                withContext(Dispatchers.IO) { if (isSaveMode()) save() else add() }
+                isDoneInProgress.value = false
+            }
+            return true
+        }
+        return false
+    }
+
+    private suspend fun save() {
+        topic.value?.let { topic ->
+            val saveModel = SaveTopicReqModel(
+                id = topic.id,
+                title = topic.title,
+                subTitle = topic.subTitle,
+            )
+
+            saveTopicUseCase.execute(saveModel).collect { _result.postValue(it) }
+        }
+    }
+
+    private suspend fun add() {
+        topic.value?.let { topic ->
+            val addModel = AddTopicReqModel(
+                parentId = topic.parentId,
+                title = topic.title,
+                subTitle = topic.subTitle,
+                difficulty = topic.difficulty
+            )
+
+            addTopicUseCase.execute(addModel).collect { _result.postValue(it) }
+        }
     }
 
     fun trySetTitle(title: String): InputStatus {
         if (title.isEmpty()) return EMPTY
-        this.title = title
+        topic.value?.title = title
         return SUCCESS
     }
 
     fun trySetSubTitle(subTitle: String): InputStatus {
-        this.subTitle = subTitle
+        topic.value?.subTitle = subTitle
         return SUCCESS
     }
 
-    fun isInputConditionsCorrectly(): Boolean {
-        return (trySetTitle(title) == SUCCESS)
+    private fun isInputConditionsCorrectly(): Boolean {
+        topic.value?.let { return trySetTitle(it.title) == SUCCESS }
+        return false
     }
 
     companion object {

@@ -8,18 +8,16 @@ import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
 import ru.sergeyzabelin.mylearning.R
 import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryBinding
 import ru.zfix27r.domain.model.DictionaryResModel
 
-typealias TopicMain = DictionaryResModel.Success.TopicMain
-typealias TopicSub = DictionaryResModel.Success.TopicSub
+typealias TopicMain = DictionaryResModel.Data.TopicMain
+typealias TopicSub = DictionaryResModel.Data.TopicSub
 
 @AndroidEntryPoint
 class DictionaryFragment : Fragment() {
@@ -27,6 +25,11 @@ class DictionaryFragment : Fragment() {
     private val viewModel by viewModels<DictionaryViewModel>()
     private val binding by viewBinding(FragmentDictionaryBinding::bind)
     private val args by navArgs<DictionaryFragmentArgs>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel.loadTopic()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -91,19 +94,12 @@ class DictionaryFragment : Fragment() {
 
         binding.recycler.adapter = adapter
 
-        lifecycleScope.launch {
-            viewModel.getDictionary(args.topicId).collect {
-                when (it) {
-                    is DictionaryResModel.Success -> {
-                        setToolbarTitles(it.topic)
-                        adapter.submitList(it.topics)
-                    }
-                    is DictionaryResModel.Fail -> {
-                        binding.recycler.visibility = View.GONE
-                        binding.noResult.visibility = View.VISIBLE
-                    }
-                }
-            }
+        viewModel.topic.observe(viewLifecycleOwner) {
+            setToolbarTitles(it.topic)
+            if (it.topics.isEmpty()) {
+                binding.recycler.visibility = View.GONE
+                binding.noResult.visibility = View.VISIBLE
+            } else adapter.submitList(it.topics)
         }
     }
 
@@ -113,5 +109,4 @@ class DictionaryFragment : Fragment() {
             actionBar.subtitle = topic.subTitle
         }
     }
-
 }

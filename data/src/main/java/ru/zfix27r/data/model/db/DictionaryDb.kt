@@ -23,13 +23,13 @@ data class DictionaryDb(
     )
 
     fun toDictionary(): DictionaryResModel {
-        val topic = DictionaryResModel.Success.TopicMain(
+        val topic = DictionaryResModel.Data.TopicMain(
             title = this.topic.title,
             subTitle = this.topic.subTitle
         )
 
         val topics = this.topics.map {
-            DictionaryResModel.Success.TopicSub(
+            DictionaryResModel.Data.TopicSub(
                 id = it.id,
                 parentId = it.parentId,
                 title = it.title,
@@ -38,6 +38,6 @@ data class DictionaryDb(
             )
         }
 
-        return DictionaryResModel.Success(topic = topic, topics = topics)
+        return DictionaryResModel.Data(topic = topic, topics = topics)
     }
 }
