@@ -2,6 +2,7 @@ package ru.zfix27r.data
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import ru.zfix27r.data.local.db.DictionaryDao
 import ru.zfix27r.domain.model.*
 import ru.zfix27r.domain.model.common.ResponseType
@@ -11,10 +12,7 @@ import javax.inject.Inject
 class DictionaryRepositoryImpl @Inject constructor(private val dao: DictionaryDao) :
     DictionaryRepository {
     override fun getDictionary(commonReqModel: CommonReqModel): Flow<DictionaryResModel> =
-        flow {
-            val dictionary = dao.getDictionary(commonReqModel.id)
-            emit(dictionary.toDictionary())
-        }
+        dao.getDictionary(commonReqModel.id).map { it.toDictionary() }
 
     override fun getTopic(commonReqModel: CommonReqModel): Flow<TopicResModel> =
         flow {

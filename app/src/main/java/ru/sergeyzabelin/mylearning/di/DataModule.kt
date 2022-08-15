@@ -2,6 +2,8 @@ package ru.sergeyzabelin.mylearning.di
 
 import android.content.Context
 import androidx.room.Room
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,22 +19,16 @@ object DataModule {
     @Singleton
     @Provides
     fun provideDatabase(@ApplicationContext context: Context): AppDatabase {
-        //val request = OneTimeWorkRequestBuilder<AppDatabaseWorker>().build()
-        //WorkManager.getInstance(context).enqueue(request)
+        val q = 0
+        if (q == 1) {
+            val request = OneTimeWorkRequestBuilder<AppDatabaseWorker>().build()
+            WorkManager.getInstance(context).enqueue(request)
+        }
 
         return Room.databaseBuilder(
             context, AppDatabase::class.java,
             "my_learning"
         ).createFromAsset("my_learning.db").build()
-
-        /*.addCallback(object : RoomDatabase.Callback() {
-        override fun onOpen(db: SupportSQLiteDatabase) {
-            super.onOpen(db)
-            MainScope().launch(Dispatchers.Main) {
-
-            }
-        }
-    }).fallbackToDestructiveMigration()*/
     }
 
     @Singleton

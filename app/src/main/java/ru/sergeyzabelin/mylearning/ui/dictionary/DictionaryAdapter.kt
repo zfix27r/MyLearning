@@ -10,10 +10,11 @@ import ru.sergeyzabelin.mylearning.R
 import ru.sergeyzabelin.mylearning.databinding.ItemDictionaryBinding
 import ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryAdapter.TopicsViewHolder
 
-class DictionaryAdapter(private val actionListener: DictionaryActionListener) :
+class DictionaryAdapter(
+    private val actionListener: DictionaryActionListener,
+    private val contextListener: View.OnCreateContextMenuListener) :
     ListAdapter<TopicSub, TopicsViewHolder>(DiffCallback()),
-    View.OnClickListener,
-    View.OnLongClickListener {
+    View.OnClickListener {
 
     override fun getItemCount() = currentList.size
 
@@ -22,10 +23,11 @@ class DictionaryAdapter(private val actionListener: DictionaryActionListener) :
         val binding = ItemDictionaryBinding.inflate(inflater, parent, false)
 
         binding.headerLayout.setOnClickListener(this)
-        binding.headerLayout.setOnLongClickListener(this)
         binding.contentLayout.setOnClickListener(this)
+        val holder = TopicsViewHolder(binding)
+        binding.headerLayout.setOnCreateContextMenuListener(contextListener)
 
-        return TopicsViewHolder(binding)
+        return holder
     }
 
     override fun onBindViewHolder(holder: TopicsViewHolder, position: Int) {
@@ -51,16 +53,5 @@ class DictionaryAdapter(private val actionListener: DictionaryActionListener) :
             R.id.headerLayout -> actionListener.onSelf(topic.id)
             R.id.contentLayout -> actionListener.onDetails(topic.id)
         }
-    }
-
-    override fun onLongClick(v: View): Boolean {
-        val topic = v.tag as TopicSub
-        when (v.id) {
-            R.id.headerLayout -> {
-                actionListener.onEdit(topic.id)
-                return true
-            }
-        }
-        return false
     }
 }

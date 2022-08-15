@@ -8,6 +8,6 @@ import ru.zfix27r.data.model.db.ContentDb
 @Dao
 interface ContentDao {
     @Transaction
-    @Query("SELECT id, title, subTitle FROM topic WHERE id = :id LIMIT 1")
+    @Query("SELECT id, title, subtitle FROM topic WHERE id = :id LIMIT 1")
     fun getContent(id: Long): ContentDb
 }

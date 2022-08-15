@@ -9,8 +9,8 @@ data class QuoteWithSourceDb(
 
     @Relation(
         entity = SourceDbEntity::class,
-        parentColumn = "sourceId",
-        entityColumn = "id"
+        parentColumn = QuoteDbEntity.SOURCE_ID,
+        entityColumn = SourceDbEntity.ID
     )
     val source: SourceDbEntity
 )

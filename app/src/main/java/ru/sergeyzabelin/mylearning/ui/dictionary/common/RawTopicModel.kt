@@ -4,6 +4,6 @@ data class RawTopicModel(
     val id: Long,
     val parentId: Long,
     var title: String = "",
-    var subTitle: String = "",
+    var subtitle: String = "",
     var difficulty: Int = 0
 )

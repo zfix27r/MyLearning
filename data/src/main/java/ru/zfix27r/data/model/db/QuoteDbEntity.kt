@@ -1,23 +1,25 @@
 package ru.zfix27r.data.model.db
 
+import androidx.annotation.NonNull
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import ru.zfix27r.domain.model.quote.AddQuoteModel
+import ru.zfix27r.data.model.db.QuoteDbEntity.Companion.TABLE_NAME
 
-@Entity(tableName = "quote")
+@Entity(tableName = TABLE_NAME)
 data class QuoteDbEntity(
     @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = ID)
     val id: Long,
+    @NonNull
     val text: String,
+    @ColumnInfo(name = SOURCE_ID)
     val sourceId: Long,
     val usability: Int // 0-10
 ) {
     companion object {
-        fun fromQuote(model: AddQuoteModel): QuoteDbEntity = QuoteDbEntity(
-            id = 0,
-            text = model.text,
-            sourceId = model.sourceId,
-            usability = model.usability
-        )
+        const val TABLE_NAME = "quote"
+        const val ID = "id"
+        const val SOURCE_ID = "sourceId"
     }
 }

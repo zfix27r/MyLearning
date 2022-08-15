@@ -10,22 +10,21 @@ data class DictionaryDb(
 
     @Relation(
         entity = TopicDbEntity::class,
-        parentColumn = "id",
-        entityColumn = "parentId",
-        projection = ["id", "parentId", "title", "subTitle", "difficulty"]
+        parentColumn = TopicDbEntity.ID,
+        entityColumn = TopicDbEntity.PARENT_ID
     )
     val topics: List<TopicDbEntity>
 ) {
     data class Topic(
         val id: Long,
         val title: String,
-        val subTitle: String,
+        val subtitle: String,
     )
 
     fun toDictionary(): DictionaryResModel {
         val topic = DictionaryResModel.Data.TopicMain(
             title = this.topic.title,
-            subTitle = this.topic.subTitle
+            subTitle = this.topic.subtitle
         )
 
         val topics = this.topics.map {
@@ -33,7 +32,7 @@ data class DictionaryDb(
                 id = it.id,
                 parentId = it.parentId,
                 title = it.title,
-                subTitle = it.subTitle,
+                subTitle = it.subtitle,
                 difficulty = it.difficulty
             )
         }

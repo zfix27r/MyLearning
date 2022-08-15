@@ -23,6 +23,8 @@
     <string name="edit">Изменить</string>
     <string name="delete">Удалить</string>
     <string name="done">Готово</string>
+    <string name="delete_confirmed">Удаление…</string>
+    <string name="undo">Отменить</string>
     <string name="view_extended">расширенный вид</string>
     <string name="editor">редактор</string>
     <string name="quote">цитата</string>

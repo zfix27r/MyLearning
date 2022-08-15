@@ -47,7 +47,7 @@ class TopicEditorViewModel @Inject constructor(
                     when (it) {
                         is TopicResModel.Data -> {
                             topic.title = it.title
-                            topic.subTitle = it.subTitle
+                            topic.subtitle = it.subtitle
                         }
                         is TopicResModel.Fail -> {
                             _result.postValue(ResponseModel(it.errorType))
@@ -76,7 +76,7 @@ class TopicEditorViewModel @Inject constructor(
             val saveModel = SaveTopicReqModel(
                 id = topic.id,
                 title = topic.title,
-                subTitle = topic.subTitle,
+                subtitle = topic.subtitle,
             )
 
             saveTopicUseCase.execute(saveModel).collect { _result.postValue(it) }
@@ -88,7 +88,7 @@ class TopicEditorViewModel @Inject constructor(
             val addModel = AddTopicReqModel(
                 parentId = topic.parentId,
                 title = topic.title,
-                subTitle = topic.subTitle,
+                subtitle = topic.subtitle,
                 difficulty = topic.difficulty
             )
 
@@ -102,8 +102,8 @@ class TopicEditorViewModel @Inject constructor(
         return SUCCESS
     }
 
-    fun trySetSubTitle(subTitle: String): InputStatus {
-        topic.value?.subTitle = subTitle
+    fun trySetSubTitle(subtitle: String): InputStatus {
+        topic.value?.subtitle = subtitle
         return SUCCESS
     }
 

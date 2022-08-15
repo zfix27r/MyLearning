@@ -11,21 +11,20 @@ data class ContentDb(
 
     @Relation(
         entity = QuoteDbEntity::class,
-        parentColumn = "id",
-        entityColumn = "id",
+        parentColumn = TopicDbEntity.ID,
+        entityColumn = QuoteDbEntity.ID,
         associateBy = Junction(
             value = TopicQuoteCrossRefDbEntity::class,
-            parentColumn = "topicId",
-            entityColumn = "quoteId"
+            parentColumn = TopicQuoteCrossRefDbEntity.TOPIC_ID,
+            entityColumn = TopicQuoteCrossRefDbEntity.QUOTE_ID
         )
     )
     val quotes: List<QuoteWithSourceDb>,
 
     @Relation(
         entity = QuestionDbEntity::class,
-        parentColumn = "id",
-        entityColumn = "topicId",
-        projection = ["id", "text"]
+        parentColumn = TopicDbEntity.ID,
+        entityColumn = QuestionDbEntity.TOPIC_ID
     )
     val questions: List<ContentResModel.Success.Question>
 )

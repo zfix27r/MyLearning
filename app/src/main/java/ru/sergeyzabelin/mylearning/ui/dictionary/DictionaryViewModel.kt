@@ -11,14 +11,15 @@ import ru.sergeyzabelin.mylearning.ui.BaseViewModel
 import ru.zfix27r.domain.model.CommonReqModel
 import ru.zfix27r.domain.model.DictionaryResModel
 import ru.zfix27r.domain.model.ResponseModel
+import ru.zfix27r.domain.usecases.DeleteTopicUseCase
 import ru.zfix27r.domain.usecases.GetDictionaryUseCase
 import javax.inject.Inject
 
 @HiltViewModel
 class DictionaryViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle,
-    private val getDictionaryUseCase: GetDictionaryUseCase
-/*    private val deleteTopicUseCase: DeleteTopicUseCase*/
+    private val getDictionaryUseCase: GetDictionaryUseCase,
+    private val deleteTopicUseCase: DeleteTopicUseCase
 ) : BaseViewModel() {
     private val topicId: Long = savedStateHandle[TOPIC_ID] ?: 0
 
@@ -38,11 +39,14 @@ class DictionaryViewModel @Inject constructor(
         }
     }
 
-    /*    fun delete(model: DeleteTopicReqModel) {
-            viewModelScope.launch(Dispatchers.IO) {
-                deleteTopicUseCase.execute(model)
+    fun delete(id: Long) {
+        viewModelScope.launch(Dispatchers.IO) {
+            deleteTopicUseCase.execute(CommonReqModel(id)).collect {
+                _result.postValue(it)
             }
-        }*/
+        }
+    }
+
     companion object {
         const val TOPIC_ID = "topicId"
     }

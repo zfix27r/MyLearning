@@ -9,7 +9,7 @@ sealed class ContentResModel {
         data class Topic(
             val id: Long,
             val title: String,
-            val subTitle: String
+            val subtitle: String
         )
 
         data class QuoteWithSource(

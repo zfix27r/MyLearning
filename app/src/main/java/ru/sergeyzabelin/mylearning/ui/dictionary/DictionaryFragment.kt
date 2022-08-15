@@ -11,10 +11,13 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import ru.sergeyzabelin.mylearning.R
 import ru.sergeyzabelin.mylearning.databinding.FragmentDictionaryBinding
 import ru.zfix27r.domain.model.DictionaryResModel
+import ru.zfix27r.domain.model.common.ResponseType
+
 
 typealias TopicMain = DictionaryResModel.Data.TopicMain
 typealias TopicSub = DictionaryResModel.Data.TopicSub
@@ -44,6 +47,7 @@ class DictionaryFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         actionBar()
         adapter()
+        //observeResponseResult()
     }
 
     private fun actionBar() {
@@ -68,7 +72,22 @@ class DictionaryFragment : Fragment() {
     }
 
     private fun adapter() {
-        val adapter = DictionaryAdapter(object : DictionaryActionListener {
+        val adapter = DictionaryAdapter(onActionListenersAdapter(), onCreateAdapterContextMenu())
+
+        binding.recycler.adapter = adapter
+        registerForContextMenu(binding.recycler)
+
+        viewModel.topic.observe(viewLifecycleOwner) {
+            setToolbarTitles(it.topic)
+            if (it.topics.isEmpty()) {
+                binding.recycler.visibility = View.GONE
+                binding.noResult.visibility = View.VISIBLE
+            } else adapter.submitList(it.topics)
+        }
+    }
+
+    private fun onActionListenersAdapter(): DictionaryActionListener {
+        return object : DictionaryActionListener {
             override fun onSelf(topicId: Long) {
                 findNavController().navigate(
                     DictionaryFragmentDirections.actionDictionaryToDictionary(topicId = topicId)
@@ -80,27 +99,46 @@ class DictionaryFragment : Fragment() {
                     DictionaryFragmentDirections.actionDictionaryToContent(topicId = topicId)
                 )
             }
+        }
+    }
 
-            override fun onEdit(topicId: Long) {
-                findNavController().navigate(
-                    DictionaryFragmentDirections.actionDictionaryToTopicEditor(topicId = topicId)
-                )
+    private fun onCreateAdapterContextMenu(): View.OnCreateContextMenuListener {
+        return View.OnCreateContextMenuListener { menu, v, _ ->
+            menu?.let {
+                v?.let {
+                    val topic = v.tag as TopicSub
+
+                    val edit = menu.add(0, v.id, 0, getString(R.string.edit))
+                    val delete = menu.add(0, v.id, 0, getString(R.string.delete))
+
+                    edit.setOnMenuItemClickListener {
+                        findNavController().navigate(
+                            DictionaryFragmentDirections
+                                .actionDictionaryToTopicEditor(topicId = topic.id)
+                        )
+                        return@setOnMenuItemClickListener true
+                    }
+
+                    delete.setOnMenuItemClickListener {
+                        onDeleteTopic(v)
+                        return@setOnMenuItemClickListener true
+                    }
+                }
             }
+        }
+    }
 
-            override fun onDelete(topicId: Long) {
-
+    private fun onDeleteTopic(v: View) {
+        val topic = v.tag as TopicSub
+        val snackBar = Snackbar.make(v, getString(R.string.delete_confirmed), Snackbar.LENGTH_LONG)
+        snackBar.setAction(getString(R.string.undo)) { snackBar.dismiss() }
+        snackBar.addCallback(object : Snackbar.Callback() {
+            override fun onDismissed(transientBottomBar: Snackbar?, event: Int) {
+                super.onDismissed(transientBottomBar, event)
+                if (event == DISMISS_EVENT_TIMEOUT) viewModel.delete(topic.id)
             }
         })
-
-        binding.recycler.adapter = adapter
-
-        viewModel.topic.observe(viewLifecycleOwner) {
-            setToolbarTitles(it.topic)
-            if (it.topics.isEmpty()) {
-                binding.recycler.visibility = View.GONE
-                binding.noResult.visibility = View.VISIBLE
-            } else adapter.submitList(it.topics)
-        }
+        snackBar.show()
     }
 
     private fun setToolbarTitles(topic: TopicMain) {
@@ -108,5 +146,21 @@ class DictionaryFragment : Fragment() {
             actionBar.title = topic.title
             actionBar.subtitle = topic.subTitle
         }
+    }
+
+    private fun observeResponseResult() {
+        viewModel.result.observe(viewLifecycleOwner) {
+            when (it.type) {
+                ResponseType.SUCCESS -> {
+                    findNavController().popBackStack()
+                }
+                ResponseType.UNKNOWN_ERROR -> notifyMessageOnUI(getString(R.string.error_unknown))
+                else -> {}
+            }
+        }
+    }
+
+    private fun notifyMessageOnUI(msg: String) {
+        Snackbar.make(binding.root, msg, Snackbar.LENGTH_SHORT).show()
     }
 }
