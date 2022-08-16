@@ -24,6 +24,7 @@ interface DictionaryDao {
     @Update(entity = TopicDbEntity::class)
     suspend fun update(saveTopicReqModel: SaveTopicReqModel): Int
 
+    @Transaction
     @Delete(entity = TopicDbEntity::class)
     suspend fun delete(commonReqModel: CommonReqModel): Int
 }

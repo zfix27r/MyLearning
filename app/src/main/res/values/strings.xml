@@ -28,6 +28,7 @@
     <string name="view_extended">расширенный вид</string>
     <string name="editor">редактор</string>
     <string name="quote">цитата</string>
+    <string name="source">ссылки</string>
     <string name="content_tabs">контент</string>
 
     <string name="dictionary_add_title">название</string>

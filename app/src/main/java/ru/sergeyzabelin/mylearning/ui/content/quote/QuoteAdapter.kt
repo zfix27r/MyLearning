@@ -1,59 +1,57 @@
 package ru.sergeyzabelin.mylearning.ui.content.quote
 
-/*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
+import ru.sergeyzabelin.mylearning.R
+import ru.sergeyzabelin.mylearning.databinding.ItemQuoteBinding
+import ru.sergeyzabelin.mylearning.ui.content.quote.QuoteAdapter.QuotesViewHolder
 
-class QuoteAdapter(private val actionListener: QuoteActionListener) :
-    ListAdapter<ContentQuoteWithSource, QuoteViewHolder>(DiffCallback()), View.OnClickListener,
-    View.OnLongClickListener {
+class QuoteAdapter(
+    private val actionListener: QuoteActionListener,
+    private val contextListener: View.OnCreateContextMenuListener
+) :
+    ListAdapter<QuoteWithSource, QuotesViewHolder>(DiffCallback()),
+    View.OnClickListener {
 
     override fun getItemCount() = currentList.size
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuoteViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): QuotesViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemQuoteBinding.inflate(inflater, parent, false)
 
-        binding.item.setOnLongClickListener(this)
         binding.sourceLayout.setOnClickListener(this)
-        binding.sourceLayout.setOnLongClickListener(this)
+        binding.item.setOnCreateContextMenuListener(contextListener)
 
-        return QuoteViewHolder(binding)
+        return QuotesViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: QuoteViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: QuotesViewHolder, position: Int) {
         val quoteWithSource = currentList[position]
         with(holder.binding) {
-            item.tag = quoteWithSource
-            sourceLayout.tag = quoteWithSource
+            sourceLayout.tag = quoteWithSource.source
             this.quote = quoteWithSource.quote
             this.source = quoteWithSource.source
         }
     }
 
-    class QuoteViewHolder(val binding: ItemQuoteBinding) : RecyclerView.ViewHolder(binding.root)
+    class QuotesViewHolder(val binding: ItemQuoteBinding) : RecyclerView.ViewHolder(binding.root)
 
-    class DiffCallback : DiffUtil.ItemCallback<ContentQuoteWithSource>() {
-        override fun areItemsTheSame(old: ContentQuoteWithSource, new: ContentQuoteWithSource) =
+    class DiffCallback : DiffUtil.ItemCallback<QuoteWithSource>() {
+        override fun areItemsTheSame(old: QuoteWithSource, new: QuoteWithSource) =
             old.quote.id == new.quote.id
 
-        override fun areContentsTheSame(old: ContentQuoteWithSource, new: ContentQuoteWithSource) =
+        override fun areContentsTheSame(old: QuoteWithSource, new: QuoteWithSource) =
             old.quote == new.quote
     }
 
     override fun onClick(v: View) {
-        val quoteWithSource = v.tag as ContentQuoteWithSource
-        when(v.id) {
-            R.id.sourceLayout -> actionListener.onUrlOpen(quoteWithSource.source)
+        val source = v.tag as Source
+        when (v.id) {
+            R.id.sourceLayout -> actionListener.onUrlOpen(source)
         }
-    }
-
-    override fun onLongClick(v: View): Boolean {
-        val quoteWithSource = v.tag as ContentQuoteWithSource
-        when(v.id) {
-            R.id.item -> actionListener.onQuoteEdit(quoteWithSource.quote)
-            R.id.sourceLayout -> actionListener.onSourceEdit(quoteWithSource.source)
-        }
-
-        return false
     }
 }
-*/

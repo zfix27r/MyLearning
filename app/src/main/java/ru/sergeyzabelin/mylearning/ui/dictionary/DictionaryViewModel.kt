@@ -9,7 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.sergeyzabelin.mylearning.ui.BaseViewModel
 import ru.zfix27r.domain.model.CommonReqModel
-import ru.zfix27r.domain.model.DictionaryResModel
+import ru.zfix27r.domain.model.DictionaryDataModel
+import ru.zfix27r.domain.model.DictionaryFailModel
 import ru.zfix27r.domain.model.ResponseModel
 import ru.zfix27r.domain.usecases.DeleteTopicUseCase
 import ru.zfix27r.domain.usecases.GetDictionaryUseCase
@@ -23,16 +24,20 @@ class DictionaryViewModel @Inject constructor(
 ) : BaseViewModel() {
     private val topicId: Long = savedStateHandle[TOPIC_ID] ?: 0
 
-    private val _topic: MutableLiveData<DictionaryResModel.Data> = MutableLiveData()
-    val topic: LiveData<DictionaryResModel.Data> = _topic
+    private val _topic: MutableLiveData<DictionaryDataModel> = MutableLiveData()
+    val topic: LiveData<DictionaryDataModel> = _topic
 
-    fun loadTopic() = viewModelScope.launch(Dispatchers.IO) {
+    init {
+        loadTopic()
+    }
+
+    private fun loadTopic() = viewModelScope.launch(Dispatchers.IO) {
         getDictionaryUseCase.execute(CommonReqModel(topicId)).collect {
             when (it) {
-                is DictionaryResModel.Data -> {
+                is DictionaryDataModel -> {
                     _topic.postValue(it)
                 }
-                is DictionaryResModel.Fail -> {
+                is DictionaryFailModel -> {
                     _result.postValue(ResponseModel(it.errorType))
                 }
             }

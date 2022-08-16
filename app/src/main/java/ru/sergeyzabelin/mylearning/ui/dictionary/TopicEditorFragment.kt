@@ -16,7 +16,7 @@ import com.google.android.material.textfield.TextInputLayout
 import dagger.hilt.android.AndroidEntryPoint
 import ru.sergeyzabelin.mylearning.R
 import ru.sergeyzabelin.mylearning.databinding.FragmentTopicEditorBinding
-import ru.sergeyzabelin.mylearning.ui.dictionary.common.InputStatus
+import ru.sergeyzabelin.mylearning.ui.common.InputStatus
 import ru.zfix27r.domain.model.common.ResponseType.SUCCESS
 import ru.zfix27r.domain.model.common.ResponseType.UNKNOWN_ERROR
 
@@ -83,7 +83,7 @@ class TopicEditorFragment : Fragment() {
 
     private fun observeResponseResult() {
         viewModel.result.observe(viewLifecycleOwner) {
-            when (it.type) {
+            when (it.responseType) {
                 SUCCESS -> {
 
                     findNavController().popBackStack()

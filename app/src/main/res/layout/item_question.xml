@@ -5,9 +5,9 @@
 
     <data>
 
-<!--        <variable
+        <variable
             name="question"
-            type="ru.zfix27r.data.model.db.QuestionDbEntity" />-->
+            type="ru.zfix27r.domain.model.content.ContentDataModel.Question" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +23,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="16dp"
-
+            android:text="@{question.text}"
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

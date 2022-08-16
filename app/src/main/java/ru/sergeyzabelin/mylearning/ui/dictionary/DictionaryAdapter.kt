@@ -12,7 +12,8 @@ import ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryAdapter.TopicsViewHol
 
 class DictionaryAdapter(
     private val actionListener: DictionaryActionListener,
-    private val contextListener: View.OnCreateContextMenuListener) :
+    private val contextListener: View.OnCreateContextMenuListener
+) :
     ListAdapter<TopicSub, TopicsViewHolder>(DiffCallback()),
     View.OnClickListener {
 
@@ -24,10 +25,9 @@ class DictionaryAdapter(
 
         binding.headerLayout.setOnClickListener(this)
         binding.contentLayout.setOnClickListener(this)
-        val holder = TopicsViewHolder(binding)
         binding.headerLayout.setOnCreateContextMenuListener(contextListener)
 
-        return holder
+        return TopicsViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: TopicsViewHolder, position: Int) {

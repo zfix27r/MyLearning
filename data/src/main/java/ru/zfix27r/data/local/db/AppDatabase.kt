@@ -11,7 +11,8 @@ import ru.zfix27r.data.model.db.*
         SourceDbEntity::class,
         QuestionDbEntity::class,
         TopicQuoteCrossRefDbEntity::class],
-    version = 1
+    version = 1,
+    exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun workerDao(): WorkerDao

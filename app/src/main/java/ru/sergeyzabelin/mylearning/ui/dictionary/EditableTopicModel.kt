@@ -1,6 +1,6 @@
-package ru.sergeyzabelin.mylearning.ui.dictionary.common
+package ru.sergeyzabelin.mylearning.ui.dictionary
 
-data class RawTopicModel(
+data class EditableTopicModel(
     val id: Long,
     val parentId: Long,
     var title: String = "",

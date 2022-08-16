@@ -8,10 +8,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import ru.sergeyzabelin.mylearning.ui.BaseViewModel
-import ru.sergeyzabelin.mylearning.ui.dictionary.common.InputStatus
-import ru.sergeyzabelin.mylearning.ui.dictionary.common.InputStatus.EMPTY
-import ru.sergeyzabelin.mylearning.ui.dictionary.common.InputStatus.SUCCESS
-import ru.sergeyzabelin.mylearning.ui.dictionary.common.RawTopicModel
+import ru.sergeyzabelin.mylearning.ui.common.InputStatus
+import ru.sergeyzabelin.mylearning.ui.common.InputStatus.EMPTY
+import ru.sergeyzabelin.mylearning.ui.common.InputStatus.SUCCESS
 import ru.zfix27r.domain.model.*
 import ru.zfix27r.domain.usecases.AddTopicUseCase
 import ru.zfix27r.domain.usecases.GetTopicUseCase
@@ -26,8 +25,8 @@ class TopicEditorViewModel @Inject constructor(
     private val saveTopicUseCase: SaveTopicUseCase
 ) : BaseViewModel() {
 
-    val topic: MutableLiveData<RawTopicModel> = MutableLiveData(
-        RawTopicModel(
+    val topic: MutableLiveData<EditableTopicModel> = MutableLiveData(
+        EditableTopicModel(
             id = savedStateHandle.get<Long>(TOPIC_ID) ?: 0,
             parentId = savedStateHandle.get<Long>(PARENT_ID) ?: 0
         )

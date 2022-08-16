@@ -2,6 +2,7 @@ package ru.zfix27r.data.model.db
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import ru.zfix27r.domain.model.DictionaryDataModel
 import ru.zfix27r.domain.model.DictionaryResModel
 
 data class DictionaryDb(
@@ -22,13 +23,13 @@ data class DictionaryDb(
     )
 
     fun toDictionary(): DictionaryResModel {
-        val topic = DictionaryResModel.Data.TopicMain(
+        val topic = DictionaryDataModel.TopicMain(
             title = this.topic.title,
             subTitle = this.topic.subtitle
         )
 
         val topics = this.topics.map {
-            DictionaryResModel.Data.TopicSub(
+            DictionaryDataModel.TopicSub(
                 id = it.id,
                 parentId = it.parentId,
                 title = it.title,
@@ -37,6 +38,6 @@ data class DictionaryDb(
             )
         }
 
-        return DictionaryResModel.Data(topic = topic, topics = topics)
+        return DictionaryDataModel(topic = topic, topics = topics)
     }
 }

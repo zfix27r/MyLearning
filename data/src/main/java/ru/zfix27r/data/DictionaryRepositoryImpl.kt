@@ -36,6 +36,13 @@ class DictionaryRepositoryImpl @Inject constructor(private val dao: DictionaryDa
 
     override suspend fun deleteTopic(commonReqModel: CommonReqModel): Flow<ResponseModel> =
         flow {
+            // TODO удаление. Поиск всех вложенных тем, выдача как оповещение пользователю, после его подтверждения уже удаление всего пачкой.
+/*            val set = HashSet<Long>()
+            while (true) {
+                val result = dao.getTopic()
+            }
+            */
+
             val result = dao.delete(commonReqModel)
             if (result == 1) emit(ResponseModel(ResponseType.UNKNOWN_ERROR))
             else emit(ResponseModel(ResponseType.SUCCESS))
