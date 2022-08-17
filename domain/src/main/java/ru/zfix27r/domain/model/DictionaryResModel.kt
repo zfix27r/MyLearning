@@ -5,15 +5,15 @@ import ru.zfix27r.domain.model.common.ResponseType
 sealed class DictionaryResModel
 
 data class DictionaryDataModel(
-    val topic: TopicMain,
-    val topics: List<TopicSub>
+    val topic: Topic,
+    val topics: List<Topics>
 ) : DictionaryResModel() {
-    data class TopicMain(
+    data class Topic(
         val title: String,
         val subTitle: String
     )
 
-    data class TopicSub(
+    data class Topics(
         val id: Long,
         val parentId: Long,
         val title: String,

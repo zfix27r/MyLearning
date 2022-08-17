@@ -19,6 +19,7 @@
     <string name="error_unknown">произошла неизвестная ошибка</string>
 
     <string name="settings">Настройки</string>
+
     <string name="add">Добавить</string>
     <string name="edit">Изменить</string>
     <string name="delete">Удалить</string>
@@ -38,7 +39,7 @@
     <string name="message_delete_order_confirmation">подтвердите удаление</string>
 
     <string name="tint_input_field">заполните поле</string>
-    <string name="message_no_result">не удалось получить информацию</string>
+    <string name="msg_response_empty">пустовато</string>
     <string name="helper_not_changed">необходимо ввести новое название</string>
     <string name="error_empty">необходимо заполнить</string>
 

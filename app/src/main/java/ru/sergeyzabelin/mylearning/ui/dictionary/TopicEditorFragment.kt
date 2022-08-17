@@ -82,8 +82,8 @@ class TopicEditorFragment : Fragment() {
     }
 
     private fun observeResponseResult() {
-        viewModel.result.observe(viewLifecycleOwner) {
-            when (it.responseType) {
+        viewModel.response.observe(viewLifecycleOwner) {
+            when (it) {
                 SUCCESS -> {
 
                     findNavController().popBackStack()

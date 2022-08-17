@@ -17,15 +17,15 @@ import ru.sergeyzabelin.mylearning.ui.BaseFragment
 import ru.zfix27r.domain.model.DictionaryDataModel
 import ru.zfix27r.domain.model.common.ResponseType
 
-
-typealias TopicMain = DictionaryDataModel.TopicMain
-typealias TopicSub = DictionaryDataModel.TopicSub
+typealias Topic = DictionaryDataModel.Topic
+typealias Topics = DictionaryDataModel.Topics
 
 @AndroidEntryPoint
 class DictionaryFragment : BaseFragment() {
 
     private val viewModel by viewModels<DictionaryViewModel>()
     private val binding by viewBinding(FragmentDictionaryBinding::bind)
+    private val adapter = DictionaryAdapter(onListenAction(), onListenContextMenu())
     private val args by navArgs<DictionaryFragmentArgs>()
 
     override fun onCreateView(
@@ -39,12 +39,15 @@ class DictionaryFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.lifecycleOwner = viewLifecycleOwner
-        actionBar()
-        adapter()
-        //observeResponseResult()
+        binding.recycler.adapter = adapter
+
+        setActionBar()
+        setTopicObserver()
+        setTopicsObserver()
+        setResponseObserver()
     }
 
-    private fun actionBar() {
+    private fun setActionBar() {
         val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(object : MenuProvider {
             override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
@@ -65,22 +68,31 @@ class DictionaryFragment : BaseFragment() {
         }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
-    private fun adapter() {
-        val adapter = DictionaryAdapter(onListenActionFromAdapter(), onListenContextMenuFromAdapter())
-
-        binding.recycler.adapter = adapter
-        registerForContextMenu(binding.recycler)
-
+    private fun setTopicObserver() {
         viewModel.topic.observe(viewLifecycleOwner) {
-            setToolbarTitles(it.topic.title, it.topic.subTitle)
-            if (it.topics.isEmpty()) {
-                binding.recycler.visibility = View.GONE
-                binding.noResult.visibility = View.VISIBLE
-            } else adapter.submitList(it.topics)
+            setToolbarTitles(it.title, it.subTitle)
         }
     }
 
-    private fun onListenActionFromAdapter(): DictionaryActionListener {
+    private fun setTopicsObserver() {
+        viewModel.topics.observe(viewLifecycleOwner) {
+            hideResponseMessage()
+            adapter.submitList(it)
+        }
+    }
+
+    private fun setResponseObserver() {
+        viewModel.response.observe(viewLifecycleOwner) {
+            when (it) {
+                ResponseType.RESPONSE_EMPTY -> showResponseMessage()
+                ResponseType.SUCCESS -> findNavController().popBackStack()
+                ResponseType.UNKNOWN_ERROR -> notifyMessageOnUI(getString(R.string.error_unknown))
+                else -> {}
+            }
+        }
+    }
+
+    private fun onListenAction(): DictionaryActionListener {
         return object : DictionaryActionListener {
             override fun onSelf(topicId: Long) {
                 findNavController().navigate(
@@ -96,11 +108,11 @@ class DictionaryFragment : BaseFragment() {
         }
     }
 
-    private fun onListenContextMenuFromAdapter(): View.OnCreateContextMenuListener {
+    private fun onListenContextMenu(): View.OnCreateContextMenuListener {
         return View.OnCreateContextMenuListener { menu, v, _ ->
             menu?.let {
                 v?.let {
-                    val topic = v.tag as TopicSub
+                    val topic = v.tag as Topics
 
                     val edit = menu.add(0, v.id, 0, getString(R.string.edit))
                     val delete = menu.add(0, v.id, 0, getString(R.string.delete))
@@ -123,7 +135,7 @@ class DictionaryFragment : BaseFragment() {
     }
 
     private fun onDeleteTopic(v: View) {
-        val topic = v.tag as TopicSub
+        val topic = v.tag as Topics
         val snackBar = Snackbar.make(v, getString(R.string.delete_confirmed), Snackbar.LENGTH_LONG)
         snackBar.setAction(getString(R.string.undo)) { snackBar.dismiss() }
         snackBar.addCallback(object : Snackbar.Callback() {
@@ -135,16 +147,12 @@ class DictionaryFragment : BaseFragment() {
         snackBar.show()
     }
 
-    private fun observeResponseResult() {
-        viewModel.result.observe(viewLifecycleOwner) {
-            when (it.responseType) {
-                ResponseType.SUCCESS -> {
-                    findNavController().popBackStack()
-                }
-                ResponseType.UNKNOWN_ERROR -> notifyMessageOnUI(getString(R.string.error_unknown))
-                else -> {}
-            }
-        }
+    private fun showResponseMessage() {
+        binding.empty.visibility = View.VISIBLE
+    }
+
+    private fun hideResponseMessage() {
+        binding.empty.visibility = View.GONE
     }
 
     private fun notifyMessageOnUI(msg: String) {

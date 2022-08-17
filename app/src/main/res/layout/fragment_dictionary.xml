@@ -11,18 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/no_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="128dp"
-            android:text="@string/topics_empty"
-            android:textSize="18sp"
-            android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
@@ -34,18 +22,19 @@
 
         </androidx.recyclerview.widget.RecyclerView>
 
-<!--        <include
-            android:id="@+id/include"
-            layout="@layout/loading_state"
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/empty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:callback="@{() -> retryCallback.retry()}"
+            android:layout_marginBottom="96dp"
+            android:text="@string/msg_response_empty"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:resource="@{(Resource) topics}"
-            tools:visibility="gone" />-->
+            tools:visibility="visible" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

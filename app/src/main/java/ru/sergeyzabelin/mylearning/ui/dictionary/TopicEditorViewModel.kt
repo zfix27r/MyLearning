@@ -11,7 +11,10 @@ import ru.sergeyzabelin.mylearning.ui.BaseViewModel
 import ru.sergeyzabelin.mylearning.ui.common.InputStatus
 import ru.sergeyzabelin.mylearning.ui.common.InputStatus.EMPTY
 import ru.sergeyzabelin.mylearning.ui.common.InputStatus.SUCCESS
-import ru.zfix27r.domain.model.*
+import ru.zfix27r.domain.model.AddTopicReqModel
+import ru.zfix27r.domain.model.CommonReqModel
+import ru.zfix27r.domain.model.SaveTopicReqModel
+import ru.zfix27r.domain.model.TopicResModel
 import ru.zfix27r.domain.usecases.AddTopicUseCase
 import ru.zfix27r.domain.usecases.GetTopicUseCase
 import ru.zfix27r.domain.usecases.SaveTopicUseCase
@@ -49,7 +52,7 @@ class TopicEditorViewModel @Inject constructor(
                             topic.subtitle = it.subtitle
                         }
                         is TopicResModel.Fail -> {
-                            _result.postValue(ResponseModel(it.errorType))
+                            _response.postValue(it.errorType)
                         }
                     }
                 }
@@ -78,7 +81,7 @@ class TopicEditorViewModel @Inject constructor(
                 subtitle = topic.subtitle,
             )
 
-            saveTopicUseCase.execute(saveModel).collect { _result.postValue(it) }
+            saveTopicUseCase.execute(saveModel).collect { _response.postValue(it.responseType) }
         }
     }
 
@@ -91,7 +94,7 @@ class TopicEditorViewModel @Inject constructor(
                 difficulty = topic.difficulty
             )
 
-            addTopicUseCase.execute(addModel).collect { _result.postValue(it) }
+            addTopicUseCase.execute(addModel).collect { _response.postValue(it.responseType) }
         }
     }
 

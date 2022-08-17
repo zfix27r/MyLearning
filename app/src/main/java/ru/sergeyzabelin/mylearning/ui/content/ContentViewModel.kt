@@ -9,7 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import ru.sergeyzabelin.mylearning.ui.BaseViewModel
 import ru.zfix27r.domain.model.CommonReqModel
-import ru.zfix27r.domain.model.ResponseModel
 import ru.zfix27r.domain.model.common.ResponseType
 import ru.zfix27r.domain.model.content.ContentDataModel
 import ru.zfix27r.domain.model.content.ContentFailModel
@@ -24,7 +23,7 @@ class ContentViewModel @Inject constructor(
     private val topicId: Long = savedStateHandle.get<Long>(TOPIC_ID) ?: 0
 
     init {
-        if (topicId == 0L) _result.value = ResponseModel(ResponseType.INIT_DATA_EMPTY_ERROR)
+        if (topicId == 0L) _response.value = ResponseType.INIT_DATA_EMPTY
     }
 
     private val _content = MutableLiveData<ContentDataModel>()
@@ -41,7 +40,7 @@ class ContentViewModel @Inject constructor(
                     _content.postValue(it)
                 }
                 is ContentFailModel -> {
-                    _result.postValue(ResponseModel(it.responseType))
+                    _response.postValue(it.responseType)
                 }
             }
         }

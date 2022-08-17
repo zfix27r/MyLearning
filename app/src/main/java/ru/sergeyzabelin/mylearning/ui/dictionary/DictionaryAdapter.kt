@@ -14,7 +14,7 @@ class DictionaryAdapter(
     private val actionListener: DictionaryActionListener,
     private val contextListener: View.OnCreateContextMenuListener
 ) :
-    ListAdapter<TopicSub, TopicsViewHolder>(DiffCallback()),
+    ListAdapter<Topics, TopicsViewHolder>(DiffCallback()),
     View.OnClickListener {
 
     override fun getItemCount() = currentList.size
@@ -42,13 +42,13 @@ class DictionaryAdapter(
     class TopicsViewHolder(val binding: ItemDictionaryBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    class DiffCallback : DiffUtil.ItemCallback<TopicSub>() {
-        override fun areItemsTheSame(old: TopicSub, new: TopicSub): Boolean = old.id == new.id
-        override fun areContentsTheSame(old: TopicSub, new: TopicSub): Boolean = old == new
+    class DiffCallback : DiffUtil.ItemCallback<Topics>() {
+        override fun areItemsTheSame(old: Topics, new: Topics): Boolean = old.id == new.id
+        override fun areContentsTheSame(old: Topics, new: Topics): Boolean = old == new
     }
 
     override fun onClick(v: View) {
-        val topic = v.tag as TopicSub
+        val topic = v.tag as Topics
         when (v.id) {
             R.id.headerLayout -> actionListener.onSelf(topic.id)
             R.id.contentLayout -> actionListener.onDetails(topic.id)
