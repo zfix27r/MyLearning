@@ -1,14 +1,6 @@
 package ru.zfix27r.data
 
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
-import ru.zfix27r.data.local.db.DictionaryDao
-import ru.zfix27r.domain.model.*
-import ru.zfix27r.domain.model.common.ResponseType
-import ru.zfix27r.domain.repository.DictionaryRepository
-import javax.inject.Inject
-
+/*
 class DictionaryRepositoryImpl @Inject constructor(private val dao: DictionaryDao) :
     DictionaryRepository {
     override fun getDictionary(commonReqModel: CommonReqModel): Flow<DictionaryResModel> =
@@ -37,14 +29,16 @@ class DictionaryRepositoryImpl @Inject constructor(private val dao: DictionaryDa
     override suspend fun deleteTopic(commonReqModel: CommonReqModel): Flow<ResponseModel> =
         flow {
             // TODO удаление. Поиск всех вложенных тем, выдача как оповещение пользователю, после его подтверждения уже удаление всего пачкой.
+*/
 /*            val set = HashSet<Long>()
             while (true) {
                 val result = dao.getTopic()
             }
-            */
+            *//*
+
 
             val result = dao.delete(commonReqModel)
             if (result == 1) emit(ResponseModel(ResponseType.UNKNOWN_ERROR))
             else emit(ResponseModel(ResponseType.SUCCESS))
         }
-}
+}*/

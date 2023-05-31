@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="ru.sergeyzabelin.mylearning.ui.content.quote.QuoteEditorViewModel" />
+            type="ru.sergeyzabelin.zfix27r.ui.content.quote.QuoteEditorViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -16,14 +16,17 @@
 
 package ru.zfix27r.data.common
 
+/*
 import android.util.Log
 import retrofit2.Response
 import java.util.regex.Pattern
 
+*/
 /**
  * Common class used by API responses.
  * @param <T> the type of the response object
-</T> */
+</T> *//*
+
 @Suppress("unused") // T is used in extending classes
 sealed class ApiResponse<T> {
     companion object {
@@ -55,9 +58,11 @@ sealed class ApiResponse<T> {
     }
 }
 
+*/
 /**
  * separate class for HTTP 204 responses so that we can make ApiSuccessResponse's body non-null.
- */
+ *//*
+
 class ApiEmptyResponse<T> : ApiResponse<T>()
 
 data class ApiSuccessResponse<T>(
@@ -106,4 +111,4 @@ data class ApiSuccessResponse<T>(
     }
 }
 
-data class ApiErrorResponse<T>(val errorMessage: String) : ApiResponse<T>()
+data class ApiErrorResponse<T>(val errorMessage: String) : ApiResponse<T>()*/

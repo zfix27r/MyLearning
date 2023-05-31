@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/dictionary"
-        android:name="ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryFragment"
+        android:name="ru.sergeyzabelin.zfix27r.ui.dictionary.DictionaryFragment"
         tools:layout="@layout/fragment_dictionary">
         <action
             android:id="@+id/action_dictionary_to_dictionary"
@@ -25,7 +25,7 @@
     </fragment>
     <fragment
         android:id="@+id/dictionaryRecursive"
-        android:name="ru.sergeyzabelin.mylearning.ui.dictionary.DictionaryFragment"
+        android:name="ru.sergeyzabelin.zfix27r.ui.dictionary.DictionaryFragment"
         tools:layout="@layout/fragment_dictionary">
         <action
             android:id="@+id/action_dictionary_to_dictionary"
@@ -43,7 +43,7 @@
     </fragment>
     <fragment
         android:id="@+id/topicEditor"
-        android:name="ru.sergeyzabelin.mylearning.ui.dictionary.TopicEditorFragment"
+        android:name="ru.sergeyzabelin.zfix27r.ui.dictionary.TopicEditorFragment"
         tools:layout="@layout/fragment_topic_editor">
         <argument
             android:name="topicId"
@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/content"
-        android:name="ru.sergeyzabelin.mylearning.ui.content.ContentFragment"
+        android:name="ru.sergeyzabelin.zfix27r.ui.content.ContentFragment"
         tools:layout="@layout/fragment_content">
         <argument
             android:name="topicId"
@@ -73,7 +73,7 @@
     </fragment>
     <fragment
         android:id="@+id/quoteEditor"
-        android:name="ru.sergeyzabelin.mylearning.ui.content.quote.QuoteEditorFragment"
+        android:name="ru.sergeyzabelin.zfix27r.ui.content.quote.QuoteEditorFragment"
         tools:layout="@layout/fragment_quote_editor">
         <argument
             android:name="quoteId"
@@ -81,7 +81,7 @@
     </fragment>
     <fragment
         android:id="@+id/sourceEditor"
-        android:name="ru.sergeyzabelin.mylearning.ui.content.quote.SourceEditorFragment"
+        android:name="ru.sergeyzabelin.zfix27r.ui.content.quote.SourceEditorFragment"
         tools:layout="@layout/fragment_source_editor">
         <argument
             android:name="sourceId"
@@ -89,7 +89,7 @@
     </fragment>
     <fragment
         android:id="@+id/questionEditor"
-        android:name="ru.sergeyzabelin.mylearning.ui.content.question.QuestionEditorFragment"
+        android:name="ru.sergeyzabelin.zfix27r.ui.content.question.QuestionEditorFragment"
         android:label="fragment_question_editor"
         tools:layout="@layout/fragment_question_editor">
         <argument

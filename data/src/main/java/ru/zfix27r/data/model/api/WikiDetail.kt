@@ -1,7 +1,7 @@
 package ru.zfix27r.data.model.api
 
-import com.google.gson.annotations.SerializedName
 
+/*
 data class WikiDetail(
     @SerializedName("batchcomplete") var batchcomplete: Boolean = false,
     @SerializedName("query") var query: Query = Query()
@@ -19,3 +19,4 @@ data class WikiDetail(
 }
 
 
+*/

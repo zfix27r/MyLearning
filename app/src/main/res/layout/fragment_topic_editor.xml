@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="ru.sergeyzabelin.mylearning.ui.dictionary.TopicEditorViewModel" />
+            type="ru.sergeyzabelin.zfix27r.ui.dictionary.TopicEditorViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

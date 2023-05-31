@@ -1,6 +1,6 @@
-package ru.zfix27r.domain.model
+package ru.zfix27r.domain.dictionary
 
-data class AddTopicReqModel(
+data class AddDictionaryRequestModel(
     val parentId: Long,
     val title: String,
     val subtitle: String,

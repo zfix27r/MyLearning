@@ -1,3 +1,0 @@
-package ru.sergeyzabelin.mylearning.ui.content.question
-
-interface QuestionActionListener
