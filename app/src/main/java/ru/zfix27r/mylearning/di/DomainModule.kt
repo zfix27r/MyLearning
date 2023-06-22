@@ -1,48 +1,42 @@
-package ru.sergeyzabelin.zfix27r.di
+package ru.zfix27r.mylearning.di
 
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
-import ru.zfix27r.data.ContentRepositoryImpl
-import ru.zfix27r.data.DictionaryRepositoryImpl
-import ru.zfix27r.domain.dictionary.AddDictionaryUseCase
-import ru.zfix27r.domain.dictionary.DeleteDictionaryUseCase
-import ru.zfix27r.domain.dictionary.GetDictionaryUseCase
-import ru.zfix27r.domain.dictionary.SaveDictionaryUseCase
-import ru.zfix27r.domain.usecases.*
+import ru.zfix27r.data.MainRepositoryImpl
+import ru.zfix27r.data.TopicEditorRepositoryImpl
+import ru.zfix27r.domain.main.DeleteTopicUseCase
+import ru.zfix27r.domain.main.GetTopicsByParentIdUseCase
+import ru.zfix27r.domain.topicEditor.GetTopic4TopicEditorUseCase
+import ru.zfix27r.domain.topicEditor.GetTopicsByTopicId4TopicEditorUseCase
+import ru.zfix27r.domain.topicEditor.GetTopicsByTopicParentId4TopicEditorUseCase
+import ru.zfix27r.domain.topicEditor.SaveTopic4TopicEditorUseCase
 
 @Module
 @InstallIn(ViewModelComponent::class)
 object DomainModule {
+    @Provides
+    fun provideGetTopicsByParentIdUseCase(repository: MainRepositoryImpl) =
+        GetTopicsByParentIdUseCase(repository)
 
     @Provides
-    fun provideGetDictionaryUseCase(repository: DictionaryRepositoryImpl): GetDictionaryUseCase {
-        return GetDictionaryUseCase(repository)
-    }
+    fun provideDeleteTopicUseCase(repository: MainRepositoryImpl) =
+        DeleteTopicUseCase(repository)
 
     @Provides
-    fun provideGetTopicUseCase(repository: DictionaryRepositoryImpl): GetTopicUseCase {
-        return GetTopicUseCase(repository)
-    }
+    fun provideGetTopicUseCase(repository: TopicEditorRepositoryImpl) =
+        GetTopic4TopicEditorUseCase(repository)
 
     @Provides
-    fun provideAddTopicUseCase(repository: DictionaryRepositoryImpl): AddDictionaryUseCase {
-        return AddDictionaryUseCase(repository)
-    }
+    fun provideGetTopicsByTopicId4TopicEditorUseCase(repository: TopicEditorRepositoryImpl) =
+        GetTopicsByTopicId4TopicEditorUseCase(repository)
 
     @Provides
-    fun provideSaveTopicUseCase(repository: DictionaryRepositoryImpl): SaveDictionaryUseCase {
-        return SaveDictionaryUseCase(repository)
-    }
+    fun provideGetTopicsByTopicParentId4TopicEditorUseCase(repository: TopicEditorRepositoryImpl) =
+        GetTopicsByTopicParentId4TopicEditorUseCase(repository)
 
     @Provides
-    fun provideDeleteTopicUseCase(repository: DictionaryRepositoryImpl): DeleteDictionaryUseCase {
-        return DeleteDictionaryUseCase(repository)
-    }
-
-    @Provides
-    fun provideGetContentUseCase(repository: ContentRepositoryImpl): GetContentUseCase {
-        return GetContentUseCase(repository)
-    }
+    fun provideSaveTopicUseCase(repository: TopicEditorRepositoryImpl) =
+        SaveTopic4TopicEditorUseCase(repository)
 }

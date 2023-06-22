@@ -9,7 +9,7 @@ import ru.zfix27r.data.local.entity.SourceEntity.Companion.TABLE_SOURCE_NAME
 data class SourceEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ID_NAME)
-    val id: Long,
+    val id: Int,
     @ColumnInfo(name = TITLE_NAME)
     val title: String,
     @ColumnInfo(name = URL_NAME)

@@ -1,10 +1,11 @@
 package ru.zfix27r.domain
 
-/*
-interface QuoteRepository {
-*/
-/*    suspend fun insert(addQuoteModel: AddQuoteModel)
-    suspend fun update(saveQuoteModel: SaveQuoteModel)
-    suspend fun delete(deleteQuoteModel: DeleteQuoteModel)*//*
+import kotlinx.coroutines.flow.Flow
+import ru.zfix27r.domain.quote.AddQuoteModel
+import ru.zfix27r.domain.quote.SaveQuoteModel
 
-}*/
+interface QuoteRepository {
+    fun addQuote(addQuoteModel: AddQuoteModel): Flow<Unit>
+    fun saveQuote(saveQuoteModel: SaveQuoteModel): Flow<Unit>
+    fun deleteQuote(id: Int): Flow<Unit>
+}

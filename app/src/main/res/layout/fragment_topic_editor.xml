@@ -1,65 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <data>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/topic_editor_title"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/offset_small"
+        android:layout_marginTop="@dimen/offset_medium"
+        android:layout_marginEnd="@dimen/offset_small"
+        android:hint="@string/title_name"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <variable
-            name="viewModel"
-            type="ru.sergeyzabelin.zfix27r.ui.dictionary.TopicEditorViewModel" />
-    </data>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/topic_editor_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/topic_editor_subtitle"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/offset_small"
+        android:layout_marginTop="@dimen/offset_small"
+        android:layout_marginEnd="@dimen/offset_small"
+        android:hint="@string/subtitle_name"
+        app:errorEnabled="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topic_editor_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/topic_editor_subtitle_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:id="@+id/topic_editor_parent_topic"
+        android:background="?attr/selectableItemBackground"
+        android:layout_width="@dimen/zero"
+        android:layout_height="@dimen/item_size_default_medium"
+        android:layout_marginTop="@dimen/offset_small"
+        app:layout_constraintEnd_toEndOf="@+id/topic_editor_title"
+        app:layout_constraintStart_toStartOf="@+id/topic_editor_title"
+        app:layout_constraintTop_toBottomOf="@+id/topic_editor_subtitle">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/titleLayout"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/topic_editor_parent_topic_title"
+            android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"
-            android:hint="@string/dictionary_add_title"
-            app:errorEnabled="true"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/offset_medium"
+            android:layout_marginEnd="@dimen/offset_small"
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+            app:layout_constraintBottom_toTopOf="@+id/topic_editor_parent_topic_subtitle"
+            app:layout_constraintEnd_toStartOf="@+id/topic_editor_parent_topic_arrow"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_chainStyle="packed"
+            tools:text="Котлин" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:text="@{viewModel.topic.title}"
-                android:maxHeight="110dp"
-                android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/subTitleLayout"
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/topic_editor_parent_topic_subtitle"
+            android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:hint="@string/dictionary_add_label"
-            app:errorEnabled="true"
+            android:layout_marginStart="@dimen/offset_small"
+            android:gravity="center_vertical"
+            android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/topic_editor_parent_topic_title"
+            app:layout_constraintStart_toStartOf="@+id/topic_editor_parent_topic_title"
+            app:layout_constraintTop_toBottomOf="@+id/topic_editor_parent_topic_title"
+            tools:text="Kotlin" />
+
+        <ImageView
+            android:id="@+id/topic_editor_parent_topic_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleLayout">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/subTitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textMultiLine"
-                android:text="@{viewModel.topic.subtitle}"
-                android:maxHeight="110dp"
-                android:textAppearance="@style/TextAppearance.Material3.BodySmall" />
-
-        </com.google.android.material.textfield.TextInputLayout>
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/baseline_arrow_forward_24" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</layout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

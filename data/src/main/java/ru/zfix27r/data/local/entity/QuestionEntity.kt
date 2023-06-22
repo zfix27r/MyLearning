@@ -9,20 +9,20 @@ import ru.zfix27r.data.local.entity.QuestionEntity.Companion.TABLE_QUESTION
 data class QuestionEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ID)
-    val id: Long,
-    @ColumnInfo(name = TEXT)
-    val text: String,
+    val id: Int,
+    @ColumnInfo(name = DESCRIPTION)
+    val description: String,
     @ColumnInfo(name = TOPIC_ID)
-    val topicId: Long,
-    @ColumnInfo(name = QUOTES_ID)
-    val quotesId: String
+    val topicId: Int,
+    @ColumnInfo(name = QUOTE_IDS)
+    val quoteIds: String
 ) {
     companion object {
         const val TABLE_QUESTION = "question"
 
         const val ID = "id"
-        const val TEXT = "text"
+        const val DESCRIPTION = "description"
         const val TOPIC_ID = "topic_id"
-        const val QUOTES_ID = "quotes_id"
+        const val QUOTE_IDS = "quote_ids"
     }
 }

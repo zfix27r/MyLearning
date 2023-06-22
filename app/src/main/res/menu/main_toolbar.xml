@@ -1,0 +1,17 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/toolbar_search"
+        android:icon="@drawable/baseline_search_24"
+        android:title="@string/search_name"
+        android:visible="true"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/toolbar_done"
+        android:icon="@drawable/ic_baseline_done_24"
+        android:title="@string/done_name"
+        android:visible="false"
+        app:showAsAction="always" />
+</menu>

@@ -1,16 +1,4 @@
 <resources>
-    <string name="app_name">My Learning</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-    <string name="main_fragment"></string>
-    <string name="dictionary_fragment"></string>
-    <string name="dictionary_topic_add_fragment"></string>
-    <string name="dictionary_topic_edit_fragment"></string>
-    <string name="dictionary_article_fragment"></string>
-    <string name="quote_fragment">Quote</string>
-    <string name="source_fragment">Source</string>
-    <string name="question_fragment">Question</string>
 
 
     <!--    ERROR     -->
@@ -18,12 +6,10 @@
     <string name="error_inner">произошла внутренняя ошибка</string>
     <string name="error_unknown">произошла неизвестная ошибка</string>
 
-    <string name="settings">Настройки</string>
+    <string name="settings_name">Настройки</string>
 
-    <string name="add">Добавить</string>
-    <string name="edit">Изменить</string>
     <string name="delete">Удалить</string>
-    <string name="done">Готово</string>
+    <string name="done_name">Готово</string>
     <string name="delete_confirmed">Удаление…</string>
     <string name="undo">Отменить</string>
     <string name="view_extended">расширенный вид</string>
@@ -32,16 +18,49 @@
     <string name="source">ссылки</string>
     <string name="content_tabs">контент</string>
 
-    <string name="dictionary_add_title">название</string>
-    <string name="dictionary_add_label">дополнительное название</string>
+    <string name="main_name">Главная</string>
+    <string name="title_name">Заголовок</string>
+    <string name="subtitle_name">Подзаголовок</string>
+    <string name="add_name">Добавить</string>
+
+    <string name="topics_name">Темы</string>
+    <string name="questions_name">Вопросы</string>
+
+    <string name="topic_2_name">Тем</string>
+    <string name="quote_2_name">Цитат</string>
+    <string name="question_2_name">Вопросов</string>
+    <string name="source_2_name">Источников</string>
 
     <string name="topics_empty">Вложенных тем нет</string>
     <string name="message_delete_order_confirmation">подтвердите удаление</string>
 
     <string name="tint_input_field">заполните поле</string>
     <string name="msg_response_empty">пустовато</string>
-    <string name="helper_not_changed">необходимо ввести новое название</string>
+
     <string name="error_empty">необходимо заполнить</string>
+    <string name="empty" />
+    <string name="loading_retry">Повторить</string>
 
+    <string name="delete_name">Удаление</string>
+    <string name="main_adapter_item_menu_delete_message">Также будут удалены связанные с темой цитаты, вопросы и источники. Подтвердите удаление.</string>
 
+    <string name="topic_editor_parent_id_null">Без темы</string>
+
+    <string name="edit_action_name">Изменить</string>
+    <string name="delete_action_name">Удалить</string>
+    <string name="cancel_action_name">Отменить</string>
+    <string name="continue_action_name">Продолжить</string>
+
+    <string name="content_description_icon">Icon</string>
+    <string name="content_description_more">More</string>
+
+    <string name="error_not_found">ничего не найдено</string>
+    <string name="zero">0</string>
+
+    <string name="main_adapter_modal_dialog_alert">Подтвердите удаление связанных данных</string>
+    <string name="app_name">Книжка</string>
+
+    <string name="ui_result_ok">OK</string>
+    <string name="ui_result_field_empty">Необходимо заполнить поле</string>
+    <string name="search_name">Search</string>
 </resources>

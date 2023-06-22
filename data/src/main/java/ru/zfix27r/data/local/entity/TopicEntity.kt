@@ -9,15 +9,15 @@ import ru.zfix27r.data.local.entity.TopicEntity.Companion.TABLE_TOPIC
 data class TopicEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = ID)
-    val id: Long,
+    val id: Int,
     @ColumnInfo(name = PARENT_ID)
-    val parentId: Long,
+    val parentId: Int?,
     @ColumnInfo(name = TITLE)
     val title: String,
     @ColumnInfo(name = SUBTITLE)
-    val subtitle: String,
+    val subtitle: String?,
     @ColumnInfo(name = DIFFICULTY)
-    val difficulty: Int
+    val difficulty: Int?
 ) {
     companion object {
         const val TABLE_TOPIC = "topic"
@@ -27,6 +27,7 @@ data class TopicEntity(
 
         const val TITLE = "title"
         const val SUBTITLE = "subtitle"
+
         const val DIFFICULTY = "difficulty"
     }
 }

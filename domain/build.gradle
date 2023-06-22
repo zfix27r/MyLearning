@@ -21,11 +21,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    namespace 'ru.sergeyzabelin.domain'
 }
 
 dependencies {
     implementation "javax.inject:javax.inject:1"
 
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinCoroutinesVersion"
-
 }
