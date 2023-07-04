@@ -5,114 +5,104 @@
     android:id="@+id/nav_graph"
     app:startDestination="@+id/main">
 
-    <action
-        android:id="@+id/action_global_topic_editor"
-        app:destination="@id/topic_editor" />
-
-
     <fragment
         android:id="@+id/main"
         android:name="ru.zfix27r.mylearning.ui.main.MainFragment"
         tools:layout="@layout/fragment_main">
-        <action
-            android:id="@+id/action_main_to_self"
-            app:destination="@id/main_recursive" />
         <argument
-            android:name="topic_parent_id"
+            android:name="topic_id"
             android:defaultValue="0"
             app:argType="integer" />
         <action
-            android:id="@+id/action_main_to_main_adapter_item_menu"
-            app:destination="@id/main_adapter_item_menu" />
+            android:id="@+id/action_main_self"
+            app:destination="@id/main_reverse" />
+        <action
+            android:id="@+id/action_main_to_topic_editor"
+            app:destination="@id/topic_editor" />
+        <action
+            android:id="@+id/action_main_to_quote_editor"
+            app:destination="@id/quote_editor" />
     </fragment>
 
     <fragment
-        android:id="@+id/main_recursive"
+        android:id="@+id/main_reverse"
         android:name="ru.zfix27r.mylearning.ui.main.MainFragment"
         tools:layout="@layout/fragment_main">
-        <action
-            android:id="@+id/action_main_to_self"
-            app:destination="@id/main_recursive" />
-        <argument
-            android:name="topic_parent_id"
-            app:argType="integer" />
-        <action
-            android:id="@+id/action_main_to_main_adapter_item_menu"
-            app:destination="@id/main_adapter_item_menu" />
-    </fragment>
-
-    <dialog
-        android:id="@+id/main_adapter_item_menu"
-        android:name="ru.zfix27r.mylearning.ui.main.adapter.MainAdapterItemMenuFragment"
-        tools:layout="@layout/fragment_main_adapter_item_menu">
         <argument
             android:name="topic_id"
             app:argType="integer" />
-    </dialog>
+        <action
+            android:id="@+id/action_main_self"
+            app:destination="@id/main_reverse" />
+        <action
+            android:id="@+id/action_main_to_topic_editor"
+            app:destination="@id/topic_editor" />
+        <action
+            android:id="@+id/action_main_to_quote_editor"
+            app:destination="@id/quote_editor" />
+    </fragment>
 
     <fragment
         android:id="@+id/topic_editor"
-        android:name="ru.zfix27r.mylearning.ui.topic.TopicEditorFragment"
+        android:name="ru.zfix27r.mylearning.ui.editor.topic.TopicEditorFragment"
         tools:layout="@layout/fragment_topic_editor">
         <argument
             android:name="topic_id"
+            android:defaultValue="0"
             app:argType="integer" />
         <action
             android:id="@+id/action_topic_editor_to_topic_editor_parent"
             app:destination="@id/topic_editor_parent" />
+        <action
+            android:id="@+id/action_topic_editor_to_topic_editor_icon"
+            app:destination="@id/topic_editor_preview_icon" />
     </fragment>
 
-    <fragment
+    <dialog
         android:id="@+id/topic_editor_parent"
-        android:name="ru.zfix27r.mylearning.ui.topic.TopicEditorParentFragment"
+        android:name="ru.zfix27r.mylearning.ui.editor.topic.parent.TopicEditorParentFragment"
         tools:layout="@layout/fragment_topic_editor_parent">
         <argument
             android:name="topic_id"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="0" />
         <argument
-            android:name="topic_id_self"
-            app:argType="integer" />
-        <argument
-            android:name="topic_id_checked"
-            android:defaultValue="0"
-            app:argType="integer" />
-        <argument
-            android:name="is_topic_parent_id"
-            android:defaultValue="true"
-            app:argType="boolean" />
+            android:name="topic_parent_id"
+            app:argType="integer"
+            android:defaultValue="0" />
         <action
             android:id="@+id/action_topic_editor_parent_self"
             app:destination="@id/topic_editor_parent" />
-    </fragment>
+    </dialog>
+
+    <dialog
+        android:id="@+id/topic_editor_preview_icon"
+        android:name="ru.zfix27r.mylearning.ui.editor.topic.icon.TopicEditorIconFragment"
+        tools:layout="@layout/fragment_topic_editor_icon">
+        <argument
+            android:name="topic_icon_id"
+            android:defaultValue="0"
+            app:argType="integer" />
+    </dialog>
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="ru.zfix27r.mylearning.ui.search.SearchFragment"
+        android:label="SearchFragment" />
+    <action
+        android:id="@+id/action_global_searchFragment"
+        app:destination="@id/searchFragment" />
 
     <fragment
         android:id="@+id/quote_editor"
-        android:name="ru.zfix27r.mylearning.ui.quote.QuoteEditorFragment"
-        tools:layout="@layout/fragment_quote_editor">
+        android:name="ru.zfix27r.mylearning.ui.editor.quote.QuoteEditorFragment"
+        tools:layout="@layout/fragment_quote_editor" >
         <argument
             android:name="quote_id"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_quote_editor_to_topic_editor_parent"
+            app:destination="@id/topic_editor_parent" />
     </fragment>
 
-    <fragment
-        android:id="@+id/source_editor"
-        android:name="ru.zfix27r.mylearning.ui.quote.SourceEditorFragment"
-        tools:layout="@layout/fragment_source_editor">
-        <argument
-            android:name="source_id"
-            app:argType="integer" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/question_editor"
-        android:name="ru.zfix27r.mylearning.ui.question.QuestionEditorFragment"
-        tools:layout="@layout/fragment_question_editor">
-        <argument
-            android:name="question_id"
-            app:argType="integer" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/question"
-        android:name="ru.zfix27r.mylearning.ui.question.QuestionFragment" />
 </navigation>

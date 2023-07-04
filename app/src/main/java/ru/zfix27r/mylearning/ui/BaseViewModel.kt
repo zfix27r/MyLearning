@@ -4,32 +4,60 @@ import android.view.View
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import kotlinx.coroutines.Job
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 abstract class BaseViewModel : ViewModel(), RetryCallback {
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading: LiveData<Boolean> = _isLoading
+    protected var isBlockInput = false
+    private var isLoadingDelayTimeout = false
 
-    private val _isError = MutableLiveData<Int?>()
-    val isError: LiveData<Int?> = _isError
+    private val _event = MutableLiveData<BaseViewModelEvent>()
+    val event: LiveData<BaseViewModelEvent> = _event
 
     override fun retry(v: View) {
-        _isError.postValue(null)
-        loading()
+        _event.postValue(BaseViewModelEvent.Error(null))
     }
 
-    protected fun onStart() {
-        _isLoading.postValue(true)
+    protected fun start() {
+        isLoadingDelayTimeout = true
+        viewModelScope.launch {
+            delay(LOADING_DELAY)
+            if (isLoadingDelayTimeout)
+                _event.postValue(BaseViewModelEvent.Loading(true))
+        }
     }
 
-    protected fun onError(stringId: Int) {
-        _isError.postValue(stringId)
-        _isLoading.postValue(false)
+    protected fun error(messageId: Int) {
+        if (isLoadingDelayTimeout)
+            isLoadingDelayTimeout = false
+        else
+            _event.postValue(BaseViewModelEvent.Loading(false))
+
+        _event.postValue(BaseViewModelEvent.Error(messageId))
+        isBlockInput = false
     }
 
-    protected fun onSuccess() {
-        _isLoading.postValue(false)
+    protected fun success() {
+        if (isLoadingDelayTimeout)
+            isLoadingDelayTimeout = false
+        else
+            _event.postValue(BaseViewModelEvent.Loading(false))
+
+        updateUI()
+        isBlockInput = false
     }
 
-    abstract fun loading(id: Int = 0): Job
+    protected fun updateUI() {
+        _event.postValue(BaseViewModelEvent.UpdateUI(true))
+    }
+
+    protected fun finish() {
+        _event.postValue(BaseViewModelEvent.Finish(true))
+        isBlockInput = false
+    }
+
+    companion object {
+        private const val LOADING_DELAY = 200L
+    }
 }

@@ -31,11 +31,15 @@
     <string name="question_2_name">Вопросов</string>
     <string name="source_2_name">Источников</string>
 
+    <string name="topic_empty_name">Нет тем</string>
+
     <string name="topics_empty">Вложенных тем нет</string>
     <string name="message_delete_order_confirmation">подтвердите удаление</string>
 
     <string name="tint_input_field">заполните поле</string>
     <string name="msg_response_empty">пустовато</string>
+
+
 
     <string name="error_empty">необходимо заполнить</string>
     <string name="empty" />
@@ -63,4 +67,11 @@
     <string name="ui_result_ok">OK</string>
     <string name="ui_result_field_empty">Необходимо заполнить поле</string>
     <string name="search_name">Search</string>
+    <string name="content_description_floating_action_button">floating action button</string>
+    <string name="quotes_name">Цитаты</string>
+    <string name="book_name">Книга</string>
+    <string name="profile_name">Профиль</string>
+    <string name="content_description_topic_icon">Иконка темы</string>
+    <string name="content_description_topic_parent_arrow">выбор темы</string>
+    <string name="description_name">Описание</string>
 </resources>

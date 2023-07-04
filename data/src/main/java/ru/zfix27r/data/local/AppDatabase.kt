@@ -6,7 +6,7 @@ import ru.zfix27r.data.local.dao.MainDao
 import ru.zfix27r.data.local.dao.QuestionDao
 import ru.zfix27r.data.local.dao.QuoteDao
 import ru.zfix27r.data.local.dao.SourceDao
-import ru.zfix27r.data.local.dao.TopicEditorDao
+import ru.zfix27r.data.local.dao.TopicDao
 import ru.zfix27r.data.local.entity.QuestionEntity
 import ru.zfix27r.data.local.entity.QuoteEntity
 import ru.zfix27r.data.local.entity.SourceEntity
@@ -23,7 +23,7 @@ import ru.zfix27r.data.local.entity.TopicEntity
 )
 abstract class AppDatabase : RoomDatabase() {
     abstract fun mainDao(): MainDao
-    abstract fun topicEditorDao(): TopicEditorDao
+    abstract fun topicDao(): TopicDao
     abstract fun quoteDao(): QuoteDao
     abstract fun sourceDao(): SourceDao
     abstract fun questionDao(): QuestionDao

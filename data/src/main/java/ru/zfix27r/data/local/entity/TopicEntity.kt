@@ -12,12 +12,18 @@ data class TopicEntity(
     val id: Int,
     @ColumnInfo(name = PARENT_ID)
     val parentId: Int?,
+    @ColumnInfo(name = ICON_ID)
+    val iconId: Int?,
     @ColumnInfo(name = TITLE)
     val title: String,
     @ColumnInfo(name = SUBTITLE)
     val subtitle: String?,
     @ColumnInfo(name = DIFFICULTY)
-    val difficulty: Int?
+    val difficulty: Int?,
+    @ColumnInfo(name = VIEWS)
+    val views: Int?,
+    @ColumnInfo(name = CHILD_COUNT)
+    val childCount: Int?,
 ) {
     companion object {
         const val TABLE_TOPIC = "topic"
@@ -25,9 +31,15 @@ data class TopicEntity(
         const val ID = "id"
         const val PARENT_ID = "parent_id"
 
+        const val ICON_ID = "icon_id"
+
         const val TITLE = "title"
         const val SUBTITLE = "subtitle"
 
         const val DIFFICULTY = "difficulty"
+
+        const val VIEWS = "views"
+
+        const val CHILD_COUNT = "child_count"
     }
 }

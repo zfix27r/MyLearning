@@ -34,9 +34,11 @@
         <item name="harmonizeColor58">true</item>
 
         <item name="fontFamily">sans-serif-light</item>
-    </style>
 
-    <style name="Theme.MyLearning.Toolbar" parent="Widget.Material3.Toolbar">
-        <item name="background">?attr/colorPrimaryVariant</item>
+        <item name="windowActionModeOverlay">true</item>
+        <item name="actionModeCloseDrawable">@drawable/ic_ui_close</item>
+
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 </resources>

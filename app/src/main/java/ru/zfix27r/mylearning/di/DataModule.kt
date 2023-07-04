@@ -13,13 +13,14 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object DataModule {
+    private const val DB_NAME = "my_learning"
+    private const val DB_FILE_PATH = "$DB_NAME.db"
+
     @Singleton
     @Provides
     fun provideDatabase(@ApplicationContext context: Context) =
-        Room.databaseBuilder(
-            context, AppDatabase::class.java,
-            "my_learning"
-        ).createFromAsset("my_learning.db").build()
+        Room.databaseBuilder(context, AppDatabase::class.java, DB_NAME)
+            .createFromAsset(DB_FILE_PATH).build()
 
     @Singleton
     @Provides
@@ -27,9 +28,13 @@ object DataModule {
 
     @Singleton
     @Provides
-    fun provideTopicDao(db: AppDatabase) = db.topicEditorDao()
+    fun provideTopicDao(db: AppDatabase) = db.topicDao()
 
     @Singleton
     @Provides
     fun provideQuoteDao(db: AppDatabase) = db.quoteDao()
+
+    @Singleton
+    @Provides
+    fun provideSourceDao(db: AppDatabase) = db.sourceDao()
 }

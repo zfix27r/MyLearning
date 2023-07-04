@@ -1,11 +1,10 @@
 package ru.zfix27r.domain
 
 import kotlinx.coroutines.flow.Flow
-import ru.zfix27r.domain.quote.AddQuoteModel
-import ru.zfix27r.domain.quote.SaveQuoteModel
+import ru.zfix27r.domain.editor.quote.GetQuoteEditorModel
+import ru.zfix27r.domain.editor.quote.SaveQuoteEditorModel
 
 interface QuoteRepository {
-    fun addQuote(addQuoteModel: AddQuoteModel): Flow<Unit>
-    fun saveQuote(saveQuoteModel: SaveQuoteModel): Flow<Unit>
-    fun deleteQuote(id: Int): Flow<Unit>
+    fun getQuoteEditorModel(quoteId: Int): Flow<GetQuoteEditorModel>
+    fun saveQuoteEditorModel(saveQuoteEditorModel: SaveQuoteEditorModel): Flow<Unit>
 }

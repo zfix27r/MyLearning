@@ -3,27 +3,31 @@ package ru.zfix27r.data.local.entity
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import ru.zfix27r.data.local.entity.QuoteEntity.Companion.TABLE_QUOTE_NAME
+import ru.zfix27r.data.local.entity.QuoteEntity.Companion.TABLE_QUOTE
 
-@Entity(tableName = TABLE_QUOTE_NAME)
+@Entity(tableName = TABLE_QUOTE)
 data class QuoteEntity(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = ID_NAME)
+    @ColumnInfo(name = ID)
     val id: Int,
-    @ColumnInfo(name = SOURCE_ID_NAME)
-    val sourceId: Int,
-    @ColumnInfo(name = DESCRIPTION_NAME)
+    @ColumnInfo(name = TOPIC_ID)
+    val topicId: Int?,
+    @ColumnInfo(name = DESCRIPTION)
     val description: String,
-    @ColumnInfo(name = USABILITY_NAME)
+    @ColumnInfo(name = USABILITY)
     val usability: Int?,
+    @ColumnInfo(name = FAVORITE)
+    val favorite: Int?,
 ) {
     companion object {
-        const val TABLE_QUOTE_NAME = "quote"
+        const val TABLE_QUOTE = "quote"
 
-        const val ID_NAME = "id"
-        const val SOURCE_ID_NAME = "source_id"
+        const val ID = "id"
+        const val TOPIC_ID = "topic_id"
 
-        const val DESCRIPTION_NAME = "description"
-        const val USABILITY_NAME = "usability"
+        const val DESCRIPTION = "description"
+        const val USABILITY = "usability"
+
+        const val FAVORITE = "favorite"
     }
 }

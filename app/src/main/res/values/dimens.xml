@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="zero">0dp</dimen>
-    <dimen name="offset_small">8dp</dimen>
 
-    <dimen name="item_size_default_medium">56dp</dimen>
-
-    <dimen name="main_adapter_icon_size">56dp</dimen>
+    <dimen name="offset">8dp</dimen>
     <dimen name="offset_medium">16dp</dimen>
-    <dimen name="default_icon_size">36dp</dimen>
-    <dimen name="button_icon_size_medium">32dp</dimen>
     <dimen name="offset_big">24dp</dimen>
+
+    <dimen name="default_item_size">56dp</dimen>
+
+    <dimen name="icon_size">36dp</dimen>
+    <dimen name="icon_size_medium">56dp</dimen>
+
+    <dimen name="toolbar_margin_top">48dp</dimen>
+
 </resources>

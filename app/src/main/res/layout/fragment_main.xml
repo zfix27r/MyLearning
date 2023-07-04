@@ -5,23 +5,74 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/main_dictionary_recycler_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutManager="LinearLayoutManager"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:listitem="@layout/fragment_main_adapter_topic" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/main_bottom_nav_view"
-        android:layout_width="match_parent"
+    <androidx.constraintlayout.helper.widget.Layer
+        android:id="@+id/main_topics_header"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        app:labelVisibilityMode="unlabeled"
+        android:background="?attr/colorSecondaryContainer"
+        android:foreground="?attr/selectableItemBackground"
+        app:constraint_referenced_ids="main_topics_title,main_topics_subtitle,main_topics_expand"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/main_topics_title"
+        android:layout_width="@dimen/zero"
+        android:layout_height="0dp"
+        android:gravity="center_vertical"
+        android:paddingStart="@dimen/offset_big"
+        android:paddingEnd="@dimen/offset_big"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/main_topics_subtitle"
+        app:layout_constraintEnd_toStartOf="@+id/main_topics_expand"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/main_topics_expand"
+        tools:text="Андроид" />
+
+    <TextView
+        android:id="@+id/main_topics_subtitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:paddingStart="32dp"
+        android:paddingEnd="32dp"
+        android:paddingBottom="@dimen/offset"
+        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+        app:layout_constraintBottom_toBottomOf="@+id/main_topics_expand"
+        app:layout_constraintEnd_toEndOf="@+id/main_topics_title"
+        app:layout_constraintStart_toStartOf="@+id/main_topics_title"
+        tools:text="Android" />
+
+    <ImageView
+        android:id="@+id/main_topics_expand"
+        android:layout_width="@dimen/default_item_size"
+        android:layout_height="@dimen/default_item_size"
+        android:padding="12dp"
+        android:src="@drawable/ic_ui_expand_less"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_topics"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSecondaryContainer"
+        android:paddingTop="@dimen/offset_medium"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_topics_expand"
+        tools:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        tools:listitem="@layout/fragment_main_topics_item"
+        tools:orientation="horizontal"
+        tools:spanCount="4" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/main_quotes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/main_bottom_nav_view" />
-
+        app:layout_constraintTop_toBottomOf="@+id/main_topics"
+        tools:listitem="@layout/fragment_main_quotes_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>
