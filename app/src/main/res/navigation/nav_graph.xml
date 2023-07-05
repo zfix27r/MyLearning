@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_main_to_quote_editor"
             app:destination="@id/quote_editor" />
+        <action
+            android:id="@+id/action_main_to_main_more"
+            app:destination="@id/main_more" />
     </fragment>
 
     <fragment
@@ -40,7 +43,22 @@
         <action
             android:id="@+id/action_main_to_quote_editor"
             app:destination="@id/quote_editor" />
+        <action
+            android:id="@+id/action_main_to_main_more"
+            app:destination="@id/main_more" />
     </fragment>
+
+    <dialog
+        android:id="@+id/main_more"
+        android:name="ru.zfix27r.mylearning.ui.main.more.MainMoreFragment"
+        tools:layout="@layout/fragment_main_more">
+        <action
+            android:id="@+id/action_main_more_to_topic_editor"
+            app:destination="@id/topic_editor" />
+        <action
+            android:id="@+id/action_main_more_to_quote_editor"
+            app:destination="@id/quote_editor" />
+    </dialog>
 
     <fragment
         android:id="@+id/topic_editor"
@@ -64,12 +82,12 @@
         tools:layout="@layout/fragment_topic_editor_parent">
         <argument
             android:name="topic_id"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
         <argument
             android:name="topic_parent_id"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
         <action
             android:id="@+id/action_topic_editor_parent_self"
             app:destination="@id/topic_editor_parent" />
@@ -95,11 +113,11 @@
     <fragment
         android:id="@+id/quote_editor"
         android:name="ru.zfix27r.mylearning.ui.editor.quote.QuoteEditorFragment"
-        tools:layout="@layout/fragment_quote_editor" >
+        tools:layout="@layout/fragment_quote_editor">
         <argument
             android:name="quote_id"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
         <action
             android:id="@+id/action_quote_editor_to_topic_editor_parent"
             app:destination="@id/topic_editor_parent" />

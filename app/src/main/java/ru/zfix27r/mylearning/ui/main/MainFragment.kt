@@ -7,7 +7,6 @@ import androidx.appcompat.view.ActionMode
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import ru.zfix27r.mylearning.R
@@ -49,17 +48,34 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.attachViewModel()
+
         setToolbar()
         setView()
-        setListeners()
-        viewModel.attachViewModel()
-        viewModel.observeParent()
+
+        viewModel.observeMain()
         viewModel.observeTopics()
         viewModel.observeQuotes()
+
+        setListeners()
     }
 
     private fun setToolbar() {
-        toolbar.updateMenu(R.menu.toolbar)
+        toolbar.updateMenu(R.menu.toolbar) {
+            when (it.itemId) {
+                R.id.toolbar_filter -> {
+                    navToFilter()
+                    true
+                }
+
+                R.id.toolbar_more -> {
+                    navToMainMore()
+                    true
+                }
+
+                else -> false
+            }
+        }
     }
 
     private fun setView() {
@@ -68,26 +84,20 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
     }
 
     private fun setListeners() {
-        binding.mainTopicsHeader.setOnClickListener {
-            actionMode?.finish()
-
-            if (binding.mainTopics.isVisible) {
-                binding.mainTopics.isVisible = false
-                binding.mainTopicsExpand.setImageResource(R.drawable.ic_ui_expand_more)
-            } else {
-                binding.mainTopics.isVisible = true
-                binding.mainTopicsExpand.setImageResource(R.drawable.ic_ui_expand_less)
-            }
-        }
-
-        binding.mainTopicsHeader.setOnLongClickListener {
-            true
-        }
+        //binding.mainTopicsHeader.setOnClickListener { viewModel.expand() }
+        /*
+                binding.mainTopicsHeader.setOnLongClickListener {
+                    navToMainMenu()
+                    true
+                }
+        */
+        binding.mainTopicsMore.setOnClickListener { navToMainMore() }
     }
 
-    private fun MainViewModel.observeParent() {
+    private fun MainViewModel.observeMain() {
         parent.observe(viewLifecycleOwner) { main ->
             binding.mainTopicsTitle.text = main?.title ?: getString(R.string.main_name)
+
             main?.subtitle?.let {
                 binding.mainTopicsSubtitle.text = it
                 binding.mainTopicsSubtitle.isVisible = true
@@ -99,15 +109,9 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
 
     private fun MainViewModel.observeTopics() {
         topics.observe(viewLifecycleOwner) { topics ->
-            val span =
-                when (topics.size) {
-                    0 -> 1
-                    1, 2, 3, 4 -> topics.size
-                    else -> 4
-                }
-            val staggeredLayoutManager =
-                StaggeredGridLayoutManager(span, StaggeredGridLayoutManager.HORIZONTAL)
-            binding.mainTopics.layoutManager = staggeredLayoutManager
+            //val span = 1
+            //val staggeredLayoutManager = StaggeredGridLayoutManager(span, StaggeredGridLayoutManager.HORIZONTAL)
+            //binding.mainTopics.layoutManager = staggeredLayoutManager
             topicsAdapter.submitList(topics)
         }
     }
@@ -173,7 +177,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
         findNavController().navigate(direction)
     }
 
-    private fun navToTopicEditor(topicId: Int = 0) {
+    private fun navToTopicEditor(topicId: Int) {
         val direction = MainFragmentDirections.actionMainToTopicEditor(topicId)
         findNavController().navigate(direction)
     }
@@ -181,5 +185,13 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
     private fun navToQuoteEditor(quoteId: Int) {
         val direction = MainFragmentDirections.actionMainToQuoteEditor(quoteId)
         findNavController().navigate(direction)
+    }
+
+    private fun navToMainMore() {
+        findNavController().navigate(R.id.action_main_to_main_more)
+    }
+
+    private fun navToFilter() {
+
     }
 }

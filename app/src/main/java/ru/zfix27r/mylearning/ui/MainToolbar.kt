@@ -1,11 +1,11 @@
 package ru.zfix27r.mylearning.ui
 
 import android.view.MenuItem
-import androidx.appcompat.widget.Toolbar
+import com.google.android.material.search.SearchBar
 import ru.zfix27r.mylearning.R
 
 class MainToolbar(
-    private val toolbar: Toolbar,
+    private val toolbar: SearchBar,
 ) {
     fun updateMenu(menuId: Int, menuListener: ((MenuItem) -> Boolean)? = null) {
         toolbar.menu.clear()
@@ -15,7 +15,7 @@ class MainToolbar(
 
     fun updateToolbarHome(destinationId: Int) {
         when (destinationId) {
-            R.id.main -> toolbar.navigationIcon = null
+            R.id.main, R.id.main_menu -> toolbar.setNavigationIcon(R.drawable.ic_ui_search)
             else -> toolbar.setNavigationIcon(R.drawable.ic_ui_arrow_back)
         }
     }

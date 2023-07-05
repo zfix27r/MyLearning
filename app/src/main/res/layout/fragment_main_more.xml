@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/offset_big">
+
+    <TextView
+        android:id="@+id/main_menu_add_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_name"
+        android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/main_menu_add_topic"
+        style="@style/Theme.MyLearning.MainMenuAddButton"
+        android:layout_marginTop="16dp"
+        android:text="@string/topic_name"
+        app:icon="@drawable/ic_ui_notes"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/main_menu_add_quote"
+        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/main_menu_add_title" />
+
+    <Button
+        android:id="@+id/main_menu_add_quote"
+        style="@style/Theme.MyLearning.MainMenuAddButton"
+        android:text="@string/quote_name"
+        app:icon="@drawable/ic_ui_quote"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/main_menu_add_source"
+        app:layout_constraintStart_toEndOf="@+id/main_menu_add_topic"
+        app:layout_constraintTop_toTopOf="@+id/main_menu_add_topic" />
+
+    <Button
+        android:id="@+id/main_menu_add_source"
+        style="@style/Theme.MyLearning.MainMenuAddButton"
+        android:text="@string/source_name"
+        app:icon="@drawable/ic_ui_link"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toStartOf="@+id/main_menu_add_question"
+        app:layout_constraintStart_toEndOf="@+id/main_menu_add_quote"
+        app:layout_constraintTop_toTopOf="@+id/main_menu_add_topic" />
+
+    <Button
+        android:id="@+id/main_menu_add_question"
+        style="@style/Theme.MyLearning.MainMenuAddButton"
+        android:text="@string/question_name"
+        app:icon="@drawable/ic_ui_question"
+        app:layout_constraintDimensionRatio="1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/main_menu_add_source"
+        app:layout_constraintTop_toTopOf="@+id/main_menu_add_topic" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

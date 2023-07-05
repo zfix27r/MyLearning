@@ -6,11 +6,15 @@
     <dimen name="offset_medium">16dp</dimen>
     <dimen name="offset_big">24dp</dimen>
 
-    <dimen name="default_item_size">56dp</dimen>
+    <dimen name="corner">8dp</dimen>
+
+    <dimen name="item_size">56dp</dimen>
 
     <dimen name="icon_size">36dp</dimen>
     <dimen name="icon_size_medium">56dp</dimen>
 
     <dimen name="toolbar_margin_top">48dp</dimen>
+
+    <dimen name="main_menu_add_icon_size">40dp</dimen>
 
 </resources>

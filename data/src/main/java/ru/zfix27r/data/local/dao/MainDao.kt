@@ -8,6 +8,7 @@ import ru.zfix27r.data.local.entity.TopicEntity
 
 @Dao
 interface MainDao {
+
     @Query("SELECT * FROM topic WHERE id = :topicId LIMIT 1")
     fun getMain(topicId: Int): Flow<TopicEntity?>
 

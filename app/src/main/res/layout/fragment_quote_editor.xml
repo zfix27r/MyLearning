@@ -33,7 +33,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/quote_editor_topic"
             android:layout_width="@dimen/zero"
-            android:layout_height="@dimen/default_item_size"
+            android:layout_height="@dimen/item_size"
             android:layout_marginTop="8dp"
             android:background="?attr/selectableItemBackground"
             app:layout_constraintEnd_toEndOf="parent"
@@ -46,13 +46,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/offset"
                 android:layout_marginEnd="@dimen/offset"
+                android:text="@string/topic_editor_parent_id_null"
                 android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
                 app:layout_constraintBottom_toTopOf="@+id/quote_editor_topic_subtitle"
                 app:layout_constraintEnd_toStartOf="@+id/quote_editor_topic_arrow"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_chainStyle="packed"
-                tools:text="Котлин" />
+                app:layout_constraintVertical_chainStyle="packed" />
 
             <TextView
                 android:id="@+id/quote_editor_topic_subtitle"
@@ -61,6 +61,7 @@
                 android:layout_marginStart="@dimen/offset"
                 android:gravity="center_vertical"
                 android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/quote_editor_topic_title"
                 app:layout_constraintStart_toStartOf="@+id/quote_editor_topic_title"

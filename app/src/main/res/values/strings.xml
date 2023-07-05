@@ -66,7 +66,7 @@
 
     <string name="ui_result_ok">OK</string>
     <string name="ui_result_field_empty">Необходимо заполнить поле</string>
-    <string name="search_name">Search</string>
+    <string name="search_name">Поиск</string>
     <string name="content_description_floating_action_button">floating action button</string>
     <string name="quotes_name">Цитаты</string>
     <string name="book_name">Книга</string>
@@ -74,4 +74,11 @@
     <string name="content_description_topic_icon">Иконка темы</string>
     <string name="content_description_topic_parent_arrow">выбор темы</string>
     <string name="description_name">Описание</string>
+    <string name="content_description_add">Добавить</string>
+    <string name="topic_name">Тема</string>
+    <string name="quote_name">Цитата</string>
+    <string name="source_name">Ссылка</string>
+    <string name="question_name">Вопрос</string>
+    <string name="filter_name">Фильтр</string>
+    <string name="more_name">Дополнительные функции</string>
 </resources>

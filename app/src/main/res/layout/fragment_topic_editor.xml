@@ -15,8 +15,8 @@
 
         <ImageView
             android:id="@+id/topic_editor_preview_icon"
-            android:layout_width="@dimen/default_item_size"
-            android:layout_height="@dimen/default_item_size"
+            android:layout_width="@dimen/item_size"
+            android:layout_height="@dimen/item_size"
             android:layout_marginStart="@dimen/offset_medium"
             android:layout_marginTop="@dimen/offset"
             android:layout_marginBottom="@dimen/offset"
@@ -98,7 +98,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/topic_editor_topic_parent"
         android:layout_width="@dimen/zero"
-        android:layout_height="@dimen/default_item_size"
+        android:layout_height="@dimen/item_size"
         android:layout_marginTop="@dimen/offset"
         android:background="?attr/selectableItemBackground"
         app:layout_constraintEnd_toEndOf="@+id/topic_editor_title"
@@ -117,7 +117,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_chainStyle="packed"
-            tools:text="Котлин" />
+            tools:text="@string/topic_editor_parent_id_null" />
 
         <TextView
             android:id="@+id/topic_editor_topic_parent_subtitle"
@@ -126,6 +126,7 @@
             android:layout_marginStart="@dimen/offset"
             android:gravity="center_vertical"
             android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/topic_editor_topic_parent_title"
             app:layout_constraintStart_toStartOf="@+id/topic_editor_topic_parent_title"

@@ -5,7 +5,7 @@
     android:id="@+id/main_topics_item"
     android:layout_width="wrap_content"
     android:padding="@dimen/offset"
-    android:layout_height="@dimen/default_item_size"
+    android:layout_height="@dimen/item_size"
     android:foreground="?android:attr/selectableItemBackground">
 
     <ImageView

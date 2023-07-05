@@ -41,4 +41,13 @@
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
+
+    <style name="Theme.MyLearning.MainMenuAddButton" parent="@style/Widget.Material3.Button.IconButton.Filled.Tonal">
+        <item name="iconGravity">top</item>
+        <item name="iconSize">@dimen/main_menu_add_icon_size</item>
+        <item name="cornerRadius">@dimen/corner</item>
+        <item name="android:layout_width">@dimen/zero</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
 </resources>

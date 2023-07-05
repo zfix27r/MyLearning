@@ -72,11 +72,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/toolbar_margin_top">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <com.google.android.material.search.SearchBar
+            android:id="@+id/searchbar"
+            app:defaultMarginsEnabled="false"
+            android:layout_marginHorizontal="@dimen/offset_medium"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            tools:menu="@menu/toolbar" />
+            android:layout_height="wrap_content"
+            android:hint="@string/search_name"
+            app:menu="@menu/toolbar"
+            app:navigationIcon="@drawable/ic_ui_search" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
@@ -84,26 +88,8 @@
         android:id="@+id/search_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_anchor="@id/toolbar">
+        app:layout_anchor="@id/searchbar">
         <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
     </com.google.android.material.search.SearchView>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="@dimen/offset_big"
-        android:layout_marginBottom="@dimen/offset_big"
-        android:contentDescription="@string/content_description_floating_action_button"
-        android:visibility="gone"
-        app:srcCompat="@drawable/ic_ui_add" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottom_nav_view"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:layout_gravity="bottom"
-        app:menu="@menu/bottom_navigation" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

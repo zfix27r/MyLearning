@@ -7,6 +7,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -22,7 +23,7 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navHostFragment.navController
     }
-    val toolbar by lazy { MainToolbar(binding.toolbar) }
+    val toolbar by lazy { MainToolbar(binding.searchbar) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,16 +31,6 @@ class MainActivity : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         prepareAppTopBar()
-
-        binding.bottomNavView.setOnItemSelectedListener {
-            when (it.itemId) {
-                R.id.profile -> {
-                    navController.navigate(R.id.action_global_searchFragment)
-                    true
-                }
-                else -> false
-            }
-        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -61,9 +52,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun prepareAppTopBar() {
-        //binding.topAppBar.statusBarForeground =
-        //    MaterialShapeDrawable.createWithElevationOverlay(this)
-
+        binding.topAppBar.statusBarForeground =
+            MaterialShapeDrawable.createWithElevationOverlay(this)
 
         lifecycleScope.launch {
             navController.currentBackStackEntryFlow.collectLatest {
@@ -72,7 +62,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        binding.toolbar.setNavigationOnClickListener {
+        binding.searchbar.setNavigationOnClickListener {
             navController.popBackStack()
         }
     }
