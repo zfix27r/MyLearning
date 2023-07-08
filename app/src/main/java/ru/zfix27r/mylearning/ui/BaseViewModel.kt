@@ -9,7 +9,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 abstract class BaseViewModel : ViewModel(), RetryCallback {
-    protected var isBlockInput = false
     private var isLoadingDelayTimeout = false
 
     private val _event = MutableLiveData<BaseViewModelEvent>()
@@ -35,7 +34,6 @@ abstract class BaseViewModel : ViewModel(), RetryCallback {
             _event.postValue(BaseViewModelEvent.Loading(false))
 
         _event.postValue(BaseViewModelEvent.Error(messageId))
-        isBlockInput = false
     }
 
     protected fun success() {
@@ -45,7 +43,6 @@ abstract class BaseViewModel : ViewModel(), RetryCallback {
             _event.postValue(BaseViewModelEvent.Loading(false))
 
         updateUI()
-        isBlockInput = false
     }
 
     protected fun updateUI() {
@@ -54,7 +51,6 @@ abstract class BaseViewModel : ViewModel(), RetryCallback {
 
     protected fun finish() {
         _event.postValue(BaseViewModelEvent.Finish(true))
-        isBlockInput = false
     }
 
     companion object {

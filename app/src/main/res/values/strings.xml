@@ -81,4 +81,7 @@
     <string name="question_name">Вопрос</string>
     <string name="filter_name">Фильтр</string>
     <string name="more_name">Дополнительные функции</string>
+    <string name="edit_name">Редактор</string>
+    <string name="content_description_edit">Редактор</string>
+    <string name="content_description_navigation">Назад</string>
 </resources>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/topic_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/topic_icon"
+            android:layout_width="@dimen/item_size"
+            android:layout_height="@dimen/item_size"
+            android:layout_marginStart="@dimen/offset_big"
+            android:layout_marginTop="@dimen/offset_big"
+            android:contentDescription="@string/content_description_topic_icon"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_topic_activity" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/topic_title"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/offset_medium"
+            android:layout_marginTop="@dimen/offset_medium"
+            android:layout_marginEnd="@dimen/offset_medium"
+            android:hint="@string/title_name"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/topic_icon">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/topic_title_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/topic_subtitle"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/offset"
+            android:hint="@string/subtitle_name"
+            app:errorEnabled="true"
+            app:layout_constraintEnd_toEndOf="@+id/topic_title"
+            app:layout_constraintStart_toStartOf="@+id/topic_title"
+            app:layout_constraintTop_toBottomOf="@+id/topic_title">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/topic_subtitle_text"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:singleLine="true" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/topic_topic_parent"
+            android:layout_width="@dimen/zero"
+            android:layout_height="@dimen/item_size"
+            android:layout_marginTop="@dimen/offset"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintEnd_toEndOf="@+id/topic_title"
+            app:layout_constraintStart_toStartOf="@+id/topic_title"
+            app:layout_constraintTop_toBottomOf="@+id/topic_subtitle">
+
+            <TextView
+                android:id="@+id/topic_topic_parent_title"
+                android:layout_width="@dimen/zero"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/offset"
+                android:layout_marginEnd="@dimen/offset"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                app:layout_constraintBottom_toTopOf="@+id/topic_topic_parent_subtitle"
+                app:layout_constraintEnd_toStartOf="@+id/topic_topic_parent_arrow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                tools:text="@string/topic_editor_parent_id_null" />
+
+            <TextView
+                android:id="@+id/topic_topic_parent_subtitle"
+                android:layout_width="@dimen/zero"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/offset"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/topic_topic_parent_title"
+                app:layout_constraintStart_toStartOf="@+id/topic_topic_parent_title"
+                app:layout_constraintTop_toBottomOf="@+id/topic_topic_parent_title"
+                tools:text="Kotlin" />
+
+            <ImageView
+                android:id="@+id/topic_topic_parent_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/content_description_topic_parent_arrow"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_ui_arrow_forward" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

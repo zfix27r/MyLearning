@@ -10,8 +10,7 @@
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="?attr/actionBarSize"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        app:layout_behavior="com.google.android.material.search.SearchBar$ScrollingViewBehavior">
 
         <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/loading_progress"
@@ -69,13 +68,10 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/top_app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/toolbar_margin_top">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.search.SearchBar
             android:id="@+id/searchbar"
-            app:defaultMarginsEnabled="false"
-            android:layout_marginHorizontal="@dimen/offset_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/search_name"

@@ -3,34 +3,22 @@ package ru.zfix27r.data.local.dao
 import androidx.room.Dao
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
-import ru.zfix27r.data.local.entity.QuoteEntity
-import ru.zfix27r.data.local.entity.TopicEntity
+import ru.zfix27r.data.local.model.GetMainDataModel
 
 @Dao
 interface MainDao {
-
-    @Query("SELECT * FROM topic WHERE id = :topicId LIMIT 1")
-    fun getMain(topicId: Int): Flow<TopicEntity?>
-
     @Query(
-        "SELECT * " +
-                "FROM topic " +
-                "WHERE " +
-                "CASE " +
-                "WHEN :topicId > 0 THEN parent_id = :topicId " +
-                "ELSE parent_id IS NULL " +
-                "END"
+        "SELECT " +
+                "q.id ${GetMainDataModel.QUOTE_ID}, " +
+                "q.description ${GetMainDataModel.QUOTE_DESCRIPTION}, " +
+                "t.id ${GetMainDataModel.TOPIC_ID}, " +
+                "t.icon_id ${GetMainDataModel.TOPIC_ICON_ID}, " +
+                "t.title ${GetMainDataModel.TOPIC_TITLE}, " +
+                "t.subtitle ${GetMainDataModel.TOPIC_SUBTITLE} " +
+                "FROM quote q " +
+                "JOIN topic t ON t.id = q.topic_id " +
+                "ORDER BY q.id " +
+                "LIMIT 50"
     )
-    fun getTopics(topicId: Int): Flow<List<TopicEntity>>
-
-    @Query(
-        "SELECT * " +
-                "FROM quote " +
-                "WHERE " +
-                "CASE " +
-                "WHEN :topicId > 0 THEN topic_id = :topicId " +
-                "ELSE topic_id IS NULL " +
-                "END"
-    )
-    fun getQuotes(topicId: Int): Flow<List<QuoteEntity>>
+    fun getMain(): Flow<List<GetMainDataModel>>
 }

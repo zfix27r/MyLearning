@@ -1,12 +1,35 @@
 package ru.zfix27r.mylearning.ui
 
 import android.view.MenuItem
+import android.view.ViewGroup
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updateLayoutParams
 import com.google.android.material.search.SearchBar
 import ru.zfix27r.mylearning.R
 
 class MainToolbar(
     private val toolbar: SearchBar,
 ) {
+    val height = toolbar.minimumHeight
+    var statusBarHeight = 0
+    var isDefaultScrollFlagsEnabled
+        get() = toolbar.isDefaultScrollFlagsEnabled
+        set(value) {
+            toolbar.isDefaultScrollFlagsEnabled = value
+        }
+
+    init {
+        ViewCompat.setOnApplyWindowInsetsListener(toolbar) { view, insets ->
+            val insetsStatusBar = insets.getInsets(WindowInsetsCompat.Type.statusBars())
+            statusBarHeight = insetsStatusBar.top
+            view.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                topMargin = insetsStatusBar.top
+            }
+            WindowInsetsCompat.CONSUMED
+        }
+    }
+
     fun updateMenu(menuId: Int, menuListener: ((MenuItem) -> Boolean)? = null) {
         toolbar.menu.clear()
         toolbar.inflateMenu(menuId)
@@ -15,7 +38,7 @@ class MainToolbar(
 
     fun updateToolbarHome(destinationId: Int) {
         when (destinationId) {
-            R.id.main, R.id.main_menu -> toolbar.setNavigationIcon(R.drawable.ic_ui_search)
+            R.id.main -> toolbar.setNavigationIcon(R.drawable.ic_ui_profile)
             else -> toolbar.setNavigationIcon(R.drawable.ic_ui_arrow_back)
         }
     }

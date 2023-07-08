@@ -1,56 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/quote_container"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
-    <HorizontalScrollView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:fillViewport="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-        <com.google.android.material.chip.ChipGroup
-            style="@style/Widget.Material3.ChipGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/quote_topic"
+            android:layout_width="@dimen/zero"
+            android:layout_height="@dimen/item_size"
+            android:layout_marginTop="@dimen/offset"
+            android:background="?attr/selectableItemBackground"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/main_quotes_item_description"
-            app:singleLine="true">
+            app:layout_constraintTop_toTopOf="parent">
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip"
-                style="@style/Widget.Material3.Chip.Assist.Elevated"
-                android:layout_width="wrap_content"
+            <ImageView
+                android:id="@+id/quote_topic_icon"
+                android:layout_width="@dimen/item_size"
+                android:layout_height="@dimen/item_size"
+                android:contentDescription="@string/content_description_topic_icon"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_topic_activity" />
+
+            <TextView
+                android:id="@+id/quote_topic_title"
+                android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
-                android:text="Androiddev.com" />
+                android:layout_marginStart="@dimen/offset"
+                android:text="@string/topic_editor_parent_id_null"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+                app:layout_constraintBottom_toTopOf="@+id/quote_topic_subtitle"
+                app:layout_constraintEnd_toStartOf="@+id/quote_topic_arrow"
+                app:layout_constraintStart_toEndOf="@+id/quote_topic_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip2"
-                style="@style/Widget.Material3.Chip.Assist.Elevated"
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/quote_topic_subtitle"
+                android:layout_width="@dimen/zero"
                 android:layout_height="wrap_content"
-                android:text="Kotlin-lang.ru" />
+                android:layout_marginStart="@dimen/offset"
+                android:gravity="center_vertical"
+                android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/quote_topic_title"
+                app:layout_constraintStart_toStartOf="@+id/quote_topic_title"
+                app:layout_constraintTop_toBottomOf="@+id/quote_topic_title"
+                tools:text="Kotlin" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip3"
-                style="@style/Widget.Material3.Chip.Assist.Elevated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="gitgub.com" />
+            <ImageView
+                android:id="@+id/quote_topic_arrow"
+                android:layout_width="@dimen/item_size"
+                android:layout_height="@dimen/item_size"
+                android:contentDescription="@string/content_description_topic_parent_arrow"
+                android:padding="@dimen/offset_medium"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_ui_arrow_forward" />
 
-            <com.google.android.material.chip.Chip
-                android:id="@+id/chip4"
-                style="@style/Widget.Material3.Chip.Assist.Elevated"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Новая статья про андроид" />
-        </com.google.android.material.chip.ChipGroup>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </HorizontalScrollView>
+        <EditText
+            android:id="@+id/quote_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/offset"
+            android:background="@android:color/transparent"
+            android:inputType="textMultiLine"
+            android:padding="@dimen/offset_medium"
+            android:textAppearance="@style/TextAppearance.Material3.BodyLarge"
+            app:layout_constraintEnd_toEndOf="@+id/quote_topic"
+            app:layout_constraintStart_toStartOf="@+id/quote_topic"
+            app:layout_constraintTop_toBottomOf="@+id/quote_topic"
+            tools:text="Это элемент программного кода, который описывает то или иное действие в выражении (операцию). В большинстве языков программирования высокого уровня оператор - это символ, благодаря которому могут производиться различные виды вычислений, сравнений или присваиваний с участием одного или нескольких значений." />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <HorizontalScrollView
+            android:id="@+id/quote_sources"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/offset_medium"
+            android:fillViewport="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/quote_description" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

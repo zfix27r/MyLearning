@@ -10,9 +10,7 @@ import ru.zfix27r.data.TopicRepositoryImpl
 import ru.zfix27r.domain.editor.quote.GetQuoteEditorModelUseCase
 import ru.zfix27r.domain.editor.quote.SaveQuoteEditorModelUseCase
 import ru.zfix27r.domain.editor.topic.DeleteTopicUseCase
-import ru.zfix27r.domain.main.GetMainQuotesUseCase
-import ru.zfix27r.domain.main.GetMainTopicsUseCase
-import ru.zfix27r.domain.main.GetMainUseCase
+import ru.zfix27r.domain.main.GetMainModelsUseCase
 import ru.zfix27r.domain.search.SearchUseCase
 import ru.zfix27r.domain.editor.topic.GetTopicEditorModelUseCase
 import ru.zfix27r.domain.editor.topic.parent.GetTopicEditorParentModelByTopicIdUseCase
@@ -23,16 +21,8 @@ import ru.zfix27r.domain.editor.topic.SaveTopicEditorModelUseCase
 @InstallIn(ViewModelComponent::class)
 object DomainModule {
     @Provides
-    fun provideGetMainUseCase(repositoryImpl: MainRepositoryImpl) =
-        GetMainUseCase(repositoryImpl)
-
-    @Provides
-    fun provideGetMainTopicsUseCase(repositoryImpl: MainRepositoryImpl) =
-        GetMainTopicsUseCase(repositoryImpl)
-
-    @Provides
-    fun provideGetMainQuotesUseCase(repositoryImpl: MainRepositoryImpl) =
-        GetMainQuotesUseCase(repositoryImpl)
+    fun provideGetMainModelsUseCase(repositoryImpl: MainRepositoryImpl) =
+        GetMainModelsUseCase(repositoryImpl)
 
     @Provides
     fun provideGetTopicEditorTopicUseCase(repository: TopicRepositoryImpl) =

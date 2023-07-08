@@ -7,9 +7,4 @@
         android:title="@string/filter_name"
         app:showAsAction="ifRoom" />
 
-    <item
-        android:id="@+id/toolbar_more"
-        android:icon="@drawable/ic_ui_more_vert"
-        android:title="@string/more_name"
-        app:showAsAction="ifRoom" />
 </menu>

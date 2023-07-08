@@ -1,5 +1,5 @@
-
 <resources>
+
     <style name="Theme.MyLearning" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimary">@color/md_theme_light_primary</item>
         <item name="colorOnPrimary">@color/md_theme_light_onPrimary</item>
@@ -42,12 +42,20 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
-    <style name="Theme.MyLearning.MainMenuAddButton" parent="@style/Widget.Material3.Button.IconButton.Filled.Tonal">
+    <style name="Theme.MyLearning.MainMenuAddButton" parent="Widget.Material3.Button.IconButton.Filled.Tonal">
         <item name="iconGravity">top</item>
         <item name="iconSize">@dimen/main_menu_add_icon_size</item>
         <item name="cornerRadius">@dimen/corner</item>
         <item name="android:layout_width">@dimen/zero</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Theme.MyLearning.Button" parent="Widget.Material3.Button.IconButton">
+        <item name="android:layout_width">@dimen/item_size</item>
+        <item name="android:layout_height">@dimen/item_size</item>
+        <item name="iconSize">@dimen/icon_size</item>
+        <item name="cornerRadius">@dimen/corner</item>
+        <item name="iconPadding">@dimen/offset</item>
     </style>
 
 </resources>

@@ -8,8 +8,9 @@ open class BaseBottomSheetDialogFragment(layoutId: Int) : BottomSheetDialogFragm
     private lateinit var baseViewModel: BaseViewModel
 
     protected val prevStackSavedState by lazy { findNavController().previousBackStackEntry!!.savedStateHandle }
+    protected val toolbar by lazy { mainActivity.toolbar }
 
-    fun BaseViewModel.attachViewModel() {
+    fun BaseViewModel.attachToBaseViewModel() {
         baseViewModel = this
         baseViewModel.event.observe(viewLifecycleOwner) {
             when (it) {

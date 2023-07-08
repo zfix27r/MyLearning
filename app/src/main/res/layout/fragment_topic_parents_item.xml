@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/topic_parents_item"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_size"
+    android:foreground="?attr/selectableItemBackground">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/topic_parents_item_title"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/offset_big"
+        android:layout_marginEnd="@dimen/offset"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        app:layout_constraintBottom_toTopOf="@+id/topic_parents_item_subtitle"
+        app:layout_constraintEnd_toStartOf="@+id/topic_parents_item_edit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:text="Сокращенное логическое ИЛИ (||)" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/topic_parents_item_subtitle"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/offset"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/topic_parents_item_title"
+        app:layout_constraintStart_toStartOf="@+id/topic_parents_item_title"
+        app:layout_constraintTop_toBottomOf="@+id/topic_parents_item_title"
+        tools:text="Logical OR" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/topic_parents_item_edit"
+        style="@style/Theme.MyLearning.Button"
+        android:layout_marginEnd="@dimen/offset_medium"
+        android:contentDescription="@string/content_description_edit"
+        android:visibility="gone"
+        app:icon="@drawable/ic_ui_edit"
+        app:layout_constraintEnd_toStartOf="@+id/topic_parents_item_forward"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/topic_parents_item_forward"
+        style="@style/Widget.Material3.Button.IconButton.Filled.Tonal"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/item_size"
+        android:layout_marginEnd="@dimen/offset"
+        android:drawableEnd="@drawable/ic_ui_arrow_forward"
+        android:text="@string/zero"
+        app:cornerRadius="@dimen/corner"
+        app:iconPadding="@dimen/offset"
+        app:iconSize="@dimen/icon_size"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

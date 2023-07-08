@@ -24,7 +24,7 @@ class QuoteRepositoryImpl @Inject constructor(
     }
 
     private fun GetQuoteEditorDataModel.toGetQuoteEditorModel() =
-        GetQuoteEditorModel(description, topicId, topicTitle, topicSubtitle)
+        GetQuoteEditorModel(description, topicId, topicIconId, topicTitle, topicSubtitle)
 
     private fun SaveQuoteEditorModel.toSaveQuoteModel() = SaveQuoteModel(id, topicId, description)
 }

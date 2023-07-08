@@ -7,7 +7,6 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import by.kirich1409.viewbindingdelegate.viewBinding
-import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
@@ -18,16 +17,19 @@ import ru.zfix27r.mylearning.databinding.ActivityMainBinding
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     val binding by viewBinding(ActivityMainBinding::bind)
+
     private val navController by lazy {
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navHostFragment.navController
     }
+
     val toolbar by lazy { MainToolbar(binding.searchbar) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         WindowCompat.setDecorFitsSystemWindows(window, false)
 
         prepareAppTopBar()
@@ -52,9 +54,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun prepareAppTopBar() {
-        binding.topAppBar.statusBarForeground =
-            MaterialShapeDrawable.createWithElevationOverlay(this)
-
         lifecycleScope.launch {
             navController.currentBackStackEntryFlow.collectLatest {
                 toolbar.updateToolbarHome(it.destination.id)
@@ -63,11 +62,10 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.searchbar.setNavigationOnClickListener {
-            navController.popBackStack()
+            when (navController.currentDestination?.id) {
+                R.id.main -> navController.navigate(R.id.action_global_profile)
+                else -> navController.popBackStack()
+            }
         }
-    }
-
-    fun onClickSearchBar() {
-        binding.searchView.show()
     }
 }

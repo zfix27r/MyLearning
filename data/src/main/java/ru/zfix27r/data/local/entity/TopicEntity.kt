@@ -20,8 +20,6 @@ data class TopicEntity(
     val subtitle: String?,
     @ColumnInfo(name = DIFFICULTY)
     val difficulty: Int?,
-    @ColumnInfo(name = VIEWS)
-    val views: Int?,
     @ColumnInfo(name = CHILD_COUNT)
     val childCount: Int?,
 ) {
@@ -37,8 +35,6 @@ data class TopicEntity(
         const val SUBTITLE = "subtitle"
 
         const val DIFFICULTY = "difficulty"
-
-        const val VIEWS = "views"
 
         const val CHILD_COUNT = "child_count"
     }

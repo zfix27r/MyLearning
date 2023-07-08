@@ -6,9 +6,9 @@ import ru.zfix27r.data.local.entity.TopicEntity
 
 data class GetMainDataModel(
     @ColumnInfo(name = QUOTE_ID)
-    val id: Int,
+    val quoteId: Int,
     @ColumnInfo(name = QUOTE_DESCRIPTION)
-    val description: String,
+    val quoteDescription: String,
 
     @ColumnInfo(name = TOPIC_ID)
     val topicId: Int?,

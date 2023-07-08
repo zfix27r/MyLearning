@@ -9,14 +9,16 @@ data class GetQuoteEditorDataModel(
 
     @ColumnInfo(name = TOPIC_ID)
     val topicId: Int?,
+    @ColumnInfo(name = TOPIC_ICON_ID)
+    val topicIconId: Int?,
     @ColumnInfo(name = TOPIC_TITLE)
     val topicTitle: String?,
     @ColumnInfo(name = TOPIC_SUBTITLE)
     val topicSubtitle: String?,
 ) {
-
     companion object {
         const val TOPIC_ID = "topic_id"
+        const val TOPIC_ICON_ID = "topic_icon_id"
         const val TOPIC_TITLE = "topic_title"
         const val TOPIC_SUBTITLE = "topic_subtitle"
     }

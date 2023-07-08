@@ -18,6 +18,8 @@ data class QuoteEntity(
     val usability: Int?,
     @ColumnInfo(name = FAVORITE)
     val favorite: Int?,
+    @ColumnInfo(name = VISITS)
+    val visits: Int?,
 ) {
     companion object {
         const val TABLE_QUOTE = "quote"
@@ -29,5 +31,7 @@ data class QuoteEntity(
         const val USABILITY = "usability"
 
         const val FAVORITE = "favorite"
+
+        const val VISITS = "visits"
     }
 }

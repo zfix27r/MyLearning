@@ -1,7 +1,11 @@
 package ru.zfix27r.domain.main
 
 data class GetMainModel(
-    val id: Int,
-    val title: String,
-    val subtitle: String?,
+    val quoteId: Int,
+    val quoteDescription: String,
+
+    val topicId: Int?,
+    val topicIconId: Int?,
+    val topicTitle: String?,
+    val topicSubtitle: String?,
 )
