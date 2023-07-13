@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import ru.zfix27r.domain.editor.topic.parent.GetTopicEditorParentModel
 import ru.zfix27r.domain.editor.topic.parent.GetTopicEditorParentModelByTopicParentIdUseCase
 import ru.zfix27r.domain.editor.topic.parent.GetTopicEditorParentModelByTopicIdUseCase
-import ru.zfix27r.mylearning.ui.BaseViewModel
+import ru.zfix27r.mylearning.ui.base.BaseViewModel
 import ru.zfix27r.mylearning.ui.getErrorStringRes
 import javax.inject.Inject
 

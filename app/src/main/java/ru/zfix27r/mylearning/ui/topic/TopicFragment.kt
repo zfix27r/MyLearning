@@ -10,9 +10,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import ru.zfix27r.mylearning.R
 import ru.zfix27r.mylearning.databinding.FragmentTopicBinding
-import ru.zfix27r.mylearning.ui.BaseFragment
-import ru.zfix27r.mylearning.ui.BaseViewModelEvent
-import ru.zfix27r.mylearning.ui.KeyboardTriggerBehavior
+import ru.zfix27r.mylearning.ui.base.BaseFragment
+import ru.zfix27r.mylearning.ui.base.BaseViewModelEvent
+import ru.zfix27r.mylearning.ui.activity.KeyboardTriggerBehavior
 import ru.zfix27r.mylearning.ui.topicIcons
 
 @AndroidEntryPoint
@@ -25,7 +25,7 @@ class TopicFragment : BaseFragment(R.layout.fragment_topic) {
 
         setToolbar()
         binding.topicContainer.setInsets()
-        viewModel.attachViewModel()
+        viewModel.attachToBaseViewModel()
         viewModel.observeEvent()
         currentStackSavedState.observeIcon()
         currentStackSavedState.observeParent()
@@ -35,7 +35,7 @@ class TopicFragment : BaseFragment(R.layout.fragment_topic) {
 
     private fun setToolbar() {
         disableScrollTopAppBar()
-        toolbar.updateMenu(R.menu.toolbar_empty)
+        searchbar.updateMenu(R.menu.toolbar_empty)
     }
 
     private fun TopicViewModel.observeEvent() {
@@ -102,7 +102,7 @@ class TopicFragment : BaseFragment(R.layout.fragment_topic) {
         if (viewModel.topicParentTitle != "")
             binding.topicTopicParentTitle.text = viewModel.topicParentTitle
         else
-            binding.topicTopicParentTitle.setText(R.string.topic_editor_parent_id_null)
+            binding.topicTopicParentTitle.setText(R.string.topic_undefined_name)
     }
 
     private fun updateUIParentSubtitle() {

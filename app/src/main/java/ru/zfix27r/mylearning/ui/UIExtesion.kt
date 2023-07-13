@@ -2,7 +2,9 @@ package ru.zfix27r.mylearning.ui
 
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import ru.zfix27r.data.error.NotFoundError
 import ru.zfix27r.mylearning.R
 
@@ -38,6 +40,16 @@ fun Int?.getResIdTopicIcon(): Int = topicIcons[this ?: 0].second
 
 fun Int?.getMoreThanZeroOrNull() = if (this == null || this == 0) null else this
 fun String?.getNotEmptyOrNull() = if (this.isNullOrEmpty()) null else this
+
+fun TextView.setTextOrUndefined(newText: String?) {
+    if (!newText.isNullOrEmpty()) text = newText
+    else setText(R.string.topic_undefined_name)
+}
+
+fun TextView.setTextOrGone(newText: String?) = apply {
+    isVisible = !newText.isNullOrEmpty()
+    text = newText
+}
 
 fun View.showKeyboard() {
     val imm =

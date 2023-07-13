@@ -7,7 +7,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class QuestionEditorViewModel @Inject constructor(
-    savedStateHandle: SavedStateHandle,
+
 ) : ViewModel() {
 
 }

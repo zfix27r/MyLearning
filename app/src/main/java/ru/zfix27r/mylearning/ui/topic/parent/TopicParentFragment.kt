@@ -13,7 +13,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import dagger.hilt.android.AndroidEntryPoint
 import ru.zfix27r.mylearning.R
 import ru.zfix27r.mylearning.databinding.FragmentTopicParentBinding
-import ru.zfix27r.mylearning.ui.BaseBottomSheetDialogFragment
+import ru.zfix27r.mylearning.ui.base.BaseBottomSheetDialogFragment
 import ru.zfix27r.mylearning.ui.topic.TopicFragment
 
 
@@ -50,7 +50,7 @@ class TopicParentFragment :
                     behaviour.isDraggable = false
                     it.updateLayoutParams {
                         val displayHeight = requireActivity().resources.displayMetrics.heightPixels
-                        height = displayHeight - toolbar.height
+                        height = displayHeight - searchbar.height
                     }
                     behaviour.state = BottomSheetBehavior.STATE_EXPANDED
                 }

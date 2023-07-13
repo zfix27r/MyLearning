@@ -22,7 +22,7 @@ android {
         }
     }
 
-    namespace 'ru.sergeyzabelin.data'
+    namespace 'ru.zfix27r.data'
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17
@@ -50,7 +50,7 @@ dependencies {
 
 //    implementation "androidx.work:work-runtime-ktx:$rootProject.androidxWorkVersion"
 
-    implementation "androidx.preference:preference-ktx:$rootProject.androidxPreferencesVersion"
+//    implementation "androidx.preference:preference-ktx:$rootProject.androidxPreferenceVersion"
 
 //    implementation "com.google.code.gson:gson:$rootProject.gsonVersion"
 

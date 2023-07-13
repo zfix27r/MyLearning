@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_item"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/offset"
+    android:layout_marginTop="@dimen/offset"
+    app:cardCornerRadius="@dimen/corner">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/main_item_topic_icon"
+            android:layout_width="@dimen/zero"
+            android:layout_height="@dimen/zero"
+            android:layout_marginStart="@dimen/offset_medium"
+            android:contentDescription="@string/content_description_topic_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/main_item_topic_subtitle"
+            app:layout_constraintDimensionRatio="1:1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/main_item_topic_title"
+            app:srcCompat="@drawable/ic_topic_activity" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/main_item_topic_title"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/offset"
+            android:layout_marginTop="@dimen/offset"
+            android:layout_marginEnd="@dimen/offset_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/main_item_topic_icon"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Строитель" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/main_item_topic_subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/main_item_topic_title"
+            app:layout_constraintTop_toBottomOf="@+id/main_item_topic_title"
+            tools:text="Builder" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/main_item_quote_description"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/offset_medium"
+            android:layout_marginTop="@dimen/offset_medium"
+            android:layout_marginEnd="@dimen/offset_medium"
+            android:layout_marginBottom="@dimen/offset_medium"
+            android:ellipsize="end"
+            android:maxLines="12"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_item_topic_subtitle"
+            tools:text="Объект внешне выражает некоторое поведение, но в реальности передаёт ответственность за выполнение этого поведения связанному объекту." />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

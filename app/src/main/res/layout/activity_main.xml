@@ -47,7 +47,7 @@
             android:id="@+id/loading_retry"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/loading_retry"
+            android:text="@string/retry_name"
             app:icon="@drawable/ic_ui_refresh"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -82,10 +82,31 @@
 
     <com.google.android.material.search.SearchView
         android:id="@+id/search_view"
+        style="@style/Widget.Material3.SearchView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_anchor="@id/searchbar">
-        <!-- Search suggestions/results go here (ScrollView, RecyclerView, etc.). -->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/search_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/activity_search_adapter_topic" />
+
     </com.google.android.material.search.SearchView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        style="@style/Widget.Material3.FloatingActionButton.Secondary"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end|bottom"
+        android:layout_marginEnd="@dimen/offset_big"
+        android:layout_marginBottom="@dimen/offset_big"
+        android:contentDescription="@string/content_description_fab"
+        android:src="@drawable/ic_ui_add"
+        android:visibility="gone"
+        app:layout_behavior="com.google.android.material.behavior.HideBottomViewOnScrollBehavior" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

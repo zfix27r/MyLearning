@@ -1,87 +1,83 @@
 <resources>
+    <string name="app_name">Книжка</string>
 
-
-    <!--    ERROR     -->
-    <string name="button_retry">повторить</string>
-    <string name="error_inner">произошла внутренняя ошибка</string>
-    <string name="error_unknown">произошла неизвестная ошибка</string>
-
-    <string name="settings_name">Настройки</string>
-
-    <string name="delete">Удалить</string>
-    <string name="done_name">Готово</string>
-    <string name="delete_confirmed">Удаление…</string>
-    <string name="undo">Отменить</string>
-    <string name="view_extended">расширенный вид</string>
-    <string name="editor">редактор</string>
-    <string name="quote">цитата</string>
-    <string name="source">ссылки</string>
-    <string name="content_tabs">контент</string>
 
     <string name="main_name">Главная</string>
-    <string name="title_name">Заголовок</string>
-    <string name="subtitle_name">Подзаголовок</string>
+    <string name="settings_name">Настройки</string>
+    <string name="profile_name">Профиль</string>
+
+
     <string name="add_name">Добавить</string>
+    <string name="delete_name">Удалить</string>
+    <string name="done_name">Готово</string>
+    <string name="retry_name">Повторить</string>
+    <string name="filter_name">Фильтр</string>
 
-    <string name="topics_name">Темы</string>
-    <string name="questions_name">Вопросы</string>
-
-    <string name="topic_2_name">Тем</string>
-    <string name="quote_2_name">Цитат</string>
-    <string name="question_2_name">Вопросов</string>
-    <string name="source_2_name">Источников</string>
-
-    <string name="topic_empty_name">Нет тем</string>
-
-    <string name="topics_empty">Вложенных тем нет</string>
+    <string name="delete_confirmed">Удаление…</string>
+    <string name="undo">Отменить</string>
     <string name="message_delete_order_confirmation">подтвердите удаление</string>
-
-    <string name="tint_input_field">заполните поле</string>
-    <string name="msg_response_empty">пустовато</string>
-
-
-
-    <string name="error_empty">необходимо заполнить</string>
-    <string name="empty" />
-    <string name="loading_retry">Повторить</string>
-
-    <string name="delete_name">Удаление</string>
-    <string name="main_adapter_item_menu_delete_message">Также будут удалены связанные с темой цитаты, вопросы и источники. Подтвердите удаление.</string>
-
-    <string name="topic_editor_parent_id_null">Без темы</string>
+    <string name="zero">0</string>
 
     <string name="edit_action_name">Изменить</string>
     <string name="delete_action_name">Удалить</string>
     <string name="cancel_action_name">Отменить</string>
     <string name="continue_action_name">Продолжить</string>
 
+
+    <string name="error_inner">произошла внутренняя ошибка</string>
+    <string name="error_unknown">произошла неизвестная ошибка</string>
+    <string name="error_not_found">ничего не найдено</string>
+
+
+    <string name="search_name">Поиск</string>
+    <string name="search_response_empty">Ничего не найдено</string>
+
+
+
+
+    <string name="topic_name">Тема</string>
+    <string name="topics_name">Темы</string>
+    <string name="topic_2_name">Тем</string>
+    <string name="topic_undefined_name">Без темы</string>
+    <string name="topic_title_name">Заголовок</string>
+    <string name="topic_subtitle_name">Подзаголовок</string>
+
+
+    <string name="quote_name">Цитата</string>
+    <string name="quotes_name">Цитаты</string>
+    <string name="quote_2_name">Цитат</string>
+    <string name="quote_description_hint">Заполните описание цитаты</string>
+
+    <string name="source_name">Ссылка</string>
+    <string name="sources_name">Ссылки</string>
+    <string name="source_2_name">Ссылок</string>
+
+    <string name="question_name">Вопрос</string>
+    <string name="questions_name">Вопросы</string>
+    <string name="question_2_name">Вопросов</string>
+
+
     <string name="content_description_icon">Icon</string>
     <string name="content_description_more">More</string>
-
-    <string name="error_not_found">ничего не найдено</string>
-    <string name="zero">0</string>
-
-    <string name="main_adapter_modal_dialog_alert">Подтвердите удаление связанных данных</string>
-    <string name="app_name">Книжка</string>
-
-    <string name="ui_result_ok">OK</string>
-    <string name="ui_result_field_empty">Необходимо заполнить поле</string>
-    <string name="search_name">Поиск</string>
+    <string name="content_description_add">Добавить</string>
     <string name="content_description_floating_action_button">floating action button</string>
-    <string name="quotes_name">Цитаты</string>
-    <string name="book_name">Книга</string>
-    <string name="profile_name">Профиль</string>
     <string name="content_description_topic_icon">Иконка темы</string>
     <string name="content_description_topic_parent_arrow">выбор темы</string>
-    <string name="description_name">Описание</string>
-    <string name="content_description_add">Добавить</string>
-    <string name="topic_name">Тема</string>
-    <string name="quote_name">Цитата</string>
-    <string name="source_name">Ссылка</string>
-    <string name="question_name">Вопрос</string>
-    <string name="filter_name">Фильтр</string>
-    <string name="more_name">Дополнительные функции</string>
-    <string name="edit_name">Редактор</string>
+    <string name="content_description_profile">Профиль</string>
+    <string name="content_description_fab">FAB</string>
     <string name="content_description_edit">Редактор</string>
     <string name="content_description_navigation">Назад</string>
+
+
+    <string name="theme_title">Тема</string>
+    <string name="theme_key">settings_theme_key</string>
+    <string name="theme_light_name">Светлая</string>
+    <string name="theme_dark_name">Темная</string>
+    <string name="theme_default_name">По умолчанию</string>
+    <string-array name="theme_list">
+        <item>@string/theme_light_name</item>
+        <item>@string/theme_dark_name</item>
+        <item>@string/theme_default_name</item>
+    </string-array>
+
 </resources>

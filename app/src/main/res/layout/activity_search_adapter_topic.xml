@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_topic"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/item_size"
+    android:background="?attr/selectableItemBackground">
+
+    <ImageView
+        android:id="@+id/search_topic_icon"
+        android:layout_width="@dimen/item_size"
+        android:layout_height="@dimen/item_size"
+        android:layout_marginStart="@dimen/offset"
+        android:contentDescription="@string/content_description_topic_icon"
+        android:padding="@dimen/offset"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_topic_activity" />
+
+    <TextView
+        android:id="@+id/search_topic_title"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/offset"
+        android:layout_marginEnd="@dimen/offset"
+        android:text="@string/topic_undefined_name"
+        android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
+        app:layout_constraintBottom_toTopOf="@+id/search_topic_subtitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/search_topic_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <TextView
+        android:id="@+id/search_topic_subtitle"
+        android:layout_width="@dimen/zero"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/offset"
+        android:textAppearance="@style/TextAppearance.Material3.LabelSmall"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/search_topic_title"
+        app:layout_constraintStart_toStartOf="@+id/search_topic_title"
+        app:layout_constraintTop_toBottomOf="@+id/search_topic_title"
+        tools:text="Kotlin" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

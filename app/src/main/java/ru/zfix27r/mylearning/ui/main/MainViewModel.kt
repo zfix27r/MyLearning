@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 import ru.zfix27r.domain.main.GetMainModel
 import ru.zfix27r.domain.main.GetMainModelsUseCase
-import ru.zfix27r.mylearning.ui.BaseViewModel
+import ru.zfix27r.mylearning.ui.base.BaseViewModel
 import ru.zfix27r.mylearning.ui.getErrorStringRes
 import javax.inject.Inject
 

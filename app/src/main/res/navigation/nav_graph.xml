@@ -74,7 +74,7 @@
             app:argType="integer" />
     </dialog>
 
-    <fragment
+    <dialog
         android:id="@+id/profile"
         android:name="ru.zfix27r.mylearning.ui.profile.ProfileFragment"
         tools:layout="@layout/fragment_profile" />

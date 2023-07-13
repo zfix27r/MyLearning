@@ -8,4 +8,4 @@
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    tools:listitem="@layout/fragment_main_quotes_item" />
+    tools:listitem="@layout/fragment_main_adapter_item" />

@@ -24,6 +24,10 @@ object DataModule {
 
     @Singleton
     @Provides
+    fun provideActivityDao(db: AppDatabase) = db.activityDao()
+
+    @Singleton
+    @Provides
     fun provideMainDao(db: AppDatabase) = db.mainDao()
 
     @Singleton

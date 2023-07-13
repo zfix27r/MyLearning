@@ -23,7 +23,7 @@ buildscript {
         androidxNavigationVersion = '2.6.0'
         androidxRoomVersion = '2.5.2'
         androidxWorkVersion = '2.7.1'
-        androidxPreferencesVersion = '1.2.0'
+        androidxPreferenceVersion = '1.2.0'
         androidxPaging = '3.1.1'
         androidxSwiperefreshlayout = '1.1.0'
         // Dagger Hilt

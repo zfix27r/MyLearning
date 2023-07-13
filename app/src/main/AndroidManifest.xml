@@ -14,7 +14,7 @@
         android:theme="@style/Theme.MyLearning"
         tools:targetApi="31">
         <activity
-            android:name="ru.zfix27r.mylearning.ui.MainActivity"
+            android:name="ru.zfix27r.mylearning.ui.activity.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

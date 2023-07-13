@@ -80,6 +80,8 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:$androidxNavigationVersion"
     implementation "androidx.navigation:navigation-dynamic-features-fragment:$androidxNavigationVersion"
 
+    implementation "androidx.preference:preference-ktx:$androidxPreferenceVersion"
+
     //  implementation "androidx.paging:paging-runtime-ktx:$androidxPaging"
 
     //implementation "androidx.swiperefreshlayout:swiperefreshlayout:$androidxSwiperefreshlayout"

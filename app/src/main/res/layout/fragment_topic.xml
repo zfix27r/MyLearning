@@ -29,7 +29,7 @@
             android:layout_marginStart="@dimen/offset_medium"
             android:layout_marginTop="@dimen/offset_medium"
             android:layout_marginEnd="@dimen/offset_medium"
-            android:hint="@string/title_name"
+            android:hint="@string/topic_title_name"
             app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/offset"
-            android:hint="@string/subtitle_name"
+            android:hint="@string/topic_subtitle_name"
             app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="@+id/topic_title"
             app:layout_constraintStart_toStartOf="@+id/topic_title"
@@ -84,7 +84,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_chainStyle="packed"
-                tools:text="@string/topic_editor_parent_id_null" />
+                tools:text="@string/topic_undefined_name" />
 
             <TextView
                 android:id="@+id/topic_topic_parent_subtitle"

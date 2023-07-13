@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import ru.zfix27r.domain.editor.topic.GetTopicEditorModelUseCase
 import ru.zfix27r.domain.editor.topic.SaveTopicEditorModel
 import ru.zfix27r.domain.editor.topic.SaveTopicEditorModelUseCase
-import ru.zfix27r.mylearning.ui.BaseViewModel
+import ru.zfix27r.mylearning.ui.base.BaseViewModel
 import ru.zfix27r.mylearning.ui.getErrorStringRes
 import ru.zfix27r.mylearning.ui.getMoreThanZeroOrNull
 import ru.zfix27r.mylearning.ui.getNotEmptyOrNull

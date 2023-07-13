@@ -7,7 +7,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import ru.zfix27r.mylearning.R
 import ru.zfix27r.mylearning.databinding.FragmentMainMoreBinding
-import ru.zfix27r.mylearning.ui.BaseBottomSheetDialogFragment
+import ru.zfix27r.mylearning.ui.base.BaseBottomSheetDialogFragment
 
 @AndroidEntryPoint
 class MainMoreFragment : BaseBottomSheetDialogFragment(R.layout.fragment_main_more) {

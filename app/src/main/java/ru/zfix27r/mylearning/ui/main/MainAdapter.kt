@@ -4,14 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import ru.zfix27r.mylearning.databinding.FragmentMainQuotesItemBinding
+import ru.zfix27r.mylearning.databinding.FragmentMainAdapterItemBinding
 
 class MainAdapter(
     private val callback: () -> MainAdapterCallback,
 ) : ListAdapter<MainAdapterModel, MainAdapterViewHolder>(DiffCallback()) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainAdapterViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = FragmentMainQuotesItemBinding.inflate(inflater, parent, false)
+        val binding = FragmentMainAdapterItemBinding.inflate(inflater, parent, false)
         return MainAdapterViewHolder(binding, callback.invoke())
     }
 

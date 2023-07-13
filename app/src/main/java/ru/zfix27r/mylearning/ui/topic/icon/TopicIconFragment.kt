@@ -6,7 +6,7 @@ import androidx.fragment.app.viewModels
 import by.kirich1409.viewbindingdelegate.viewBinding
 import ru.zfix27r.mylearning.R
 import ru.zfix27r.mylearning.databinding.FragmentTopicIconBinding
-import ru.zfix27r.mylearning.ui.BaseBottomSheetDialogFragment
+import ru.zfix27r.mylearning.ui.base.BaseBottomSheetDialogFragment
 import ru.zfix27r.mylearning.ui.topic.TopicFragment
 
 class TopicIconFragment : BaseBottomSheetDialogFragment(R.layout.fragment_topic_icon) {

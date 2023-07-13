@@ -17,5 +17,7 @@
 
     <dimen name="main_menu_add_icon_size">40dp</dimen>
     <dimen name="topic_parent_height">640dp</dimen>
+    <dimen name="corner_large">32dp</dimen>
+    <dimen name="icon_size_large">80dp</dimen>
 
 </resources>

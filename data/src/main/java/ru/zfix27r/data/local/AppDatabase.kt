@@ -2,6 +2,7 @@ package ru.zfix27r.data.local
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import ru.zfix27r.data.local.dao.ActivityDao
 import ru.zfix27r.data.local.dao.MainDao
 import ru.zfix27r.data.local.dao.QuestionDao
 import ru.zfix27r.data.local.dao.QuoteDao
@@ -22,6 +23,7 @@ import ru.zfix27r.data.local.entity.TopicEntity
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
+    abstract fun activityDao(): ActivityDao
     abstract fun mainDao(): MainDao
     abstract fun topicDao(): TopicDao
     abstract fun quoteDao(): QuoteDao

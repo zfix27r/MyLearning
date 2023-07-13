@@ -22,7 +22,7 @@ android {
         }
     }
 
-    namespace 'ru.sergeyzabelin.domain'
+    namespace 'ru.zfix27r.domain'
 
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_17

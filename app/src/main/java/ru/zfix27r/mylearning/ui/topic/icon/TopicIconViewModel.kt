@@ -2,7 +2,7 @@ package ru.zfix27r.mylearning.ui.topic.icon
 
 import androidx.lifecycle.SavedStateHandle
 import dagger.hilt.android.lifecycle.HiltViewModel
-import ru.zfix27r.mylearning.ui.BaseViewModel
+import ru.zfix27r.mylearning.ui.base.BaseViewModel
 import ru.zfix27r.mylearning.ui.topicIcons
 import javax.inject.Inject
 

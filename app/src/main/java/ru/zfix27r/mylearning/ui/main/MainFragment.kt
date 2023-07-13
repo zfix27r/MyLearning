@@ -12,9 +12,9 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import ru.zfix27r.mylearning.R
 import ru.zfix27r.mylearning.databinding.FragmentMainBinding
-import ru.zfix27r.mylearning.ui.ActionModeCallback
-import ru.zfix27r.mylearning.ui.BaseFragment
-import ru.zfix27r.mylearning.ui.BaseItemDecoration
+import ru.zfix27r.mylearning.ui.base.BaseActionModeCallback
+import ru.zfix27r.mylearning.ui.base.BaseFragment
+import ru.zfix27r.mylearning.ui.base.BaseItemDecoration
 
 @AndroidEntryPoint
 class MainFragment : BaseFragment(R.layout.fragment_main) {
@@ -42,14 +42,15 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
         super.onViewCreated(view, savedInstanceState)
 
         setToolbar()
+        setFabListener()
         binding.prepView()
-        viewModel.attachViewModel()
+        viewModel.attachToBaseViewModel()
         viewModel.observeMain()
     }
 
     private fun setToolbar() {
         enableScrollTopAppBar()
-        toolbar.updateMenu(R.menu.toolbar) {
+        searchbar.updateMenu(R.menu.toolbar) {
             when (it.itemId) {
                 R.id.toolbar_filter -> {
                     navToFilter()
@@ -67,7 +68,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
 
         ViewCompat.setOnApplyWindowInsetsListener(mainRecycler) { _, insets ->
             val insetsStatusBar = insets.getInsets(WindowInsetsCompat.Type.statusBars())
-            adapterItemDecoration.topMarginFirstItem = toolbar.height + insetsStatusBar.top
+            adapterItemDecoration.topMarginFirstItem = searchbar.height + insetsStatusBar.top
             WindowInsetsCompat.CONSUMED
         }
     }
@@ -76,9 +77,19 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
         mains.observe(viewLifecycleOwner) { adapter.submitList(it) }
     }
 
+    private fun setFabListener() {
+        fab.setOnClickListener { navToQuote() }
+        fab.show()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        fab.hide()
+    }
+
     fun viewQuotesActionMode(quoteId: Int) {
         viewActionMode {
-            object : ActionModeCallback {
+            object : BaseActionModeCallback {
                 override var menuInflater = requireActivity().menuInflater
                 override var menuId = R.menu.action_bar_edit
 
@@ -102,7 +113,7 @@ class MainFragment : BaseFragment(R.layout.fragment_main) {
         }
     }
 
-    private fun navToQuote(quoteId: Int) {
+    private fun navToQuote(quoteId: Int = 0) {
         val direction = MainFragmentDirections.actionMainToQuote(quoteId)
         findNavController().navigate(direction)
     }

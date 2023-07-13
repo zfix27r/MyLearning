@@ -2,7 +2,6 @@ package ru.zfix27r.mylearning.ui.quote
 
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.SavedStateHandle
 import androidx.navigation.fragment.findNavController
@@ -10,10 +9,12 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import dagger.hilt.android.AndroidEntryPoint
 import ru.zfix27r.mylearning.R
 import ru.zfix27r.mylearning.databinding.FragmentQuoteBinding
-import ru.zfix27r.mylearning.ui.BaseFragment
-import ru.zfix27r.mylearning.ui.BaseViewModelEvent
-import ru.zfix27r.mylearning.ui.KeyboardTriggerBehavior
+import ru.zfix27r.mylearning.ui.base.BaseFragment
+import ru.zfix27r.mylearning.ui.base.BaseViewModelEvent
+import ru.zfix27r.mylearning.ui.activity.KeyboardTriggerBehavior
 import ru.zfix27r.mylearning.ui.getResIdTopicIcon
+import ru.zfix27r.mylearning.ui.setTextOrGone
+import ru.zfix27r.mylearning.ui.setTextOrUndefined
 import ru.zfix27r.mylearning.ui.topic.TopicFragment
 
 @AndroidEntryPoint
@@ -26,7 +27,7 @@ class QuoteFragment : BaseFragment(R.layout.fragment_quote) {
 
         setToolbar()
         binding.quoteContainer.setInsets()
-        viewModel.attachViewModel()
+        viewModel.attachToBaseViewModel()
         viewModel.observeEvent()
         currentStackSavedState.observeTopicParent()
         binding.setListeners()
@@ -35,7 +36,7 @@ class QuoteFragment : BaseFragment(R.layout.fragment_quote) {
 
     private fun setToolbar() {
         disableScrollTopAppBar()
-        toolbar.updateMenu(R.menu.toolbar_empty)
+        searchbar.updateMenu(R.menu.toolbar_empty)
     }
 
     private fun QuoteViewModel.observeEvent() {
@@ -53,11 +54,11 @@ class QuoteFragment : BaseFragment(R.layout.fragment_quote) {
         }
         getLiveData<String>(TopicFragment.TOPIC_PARENT_TITLE).observe(viewLifecycleOwner) {
             viewModel.topicTitle = it ?: ""
-            binding.updateUITitle()
+            binding.quoteTopicTitle.setTextOrUndefined(viewModel.topicTitle)
         }
         getLiveData<String>(TopicFragment.TOPIC_PARENT_SUBTITLE).observe(viewLifecycleOwner) {
             viewModel.topicSubtitle = it ?: ""
-            binding.updateUISubtitle()
+            binding.quoteTopicSubtitle.setTextOrGone(viewModel.topicSubtitle)
         }
     }
 
@@ -77,18 +78,8 @@ class QuoteFragment : BaseFragment(R.layout.fragment_quote) {
     private fun updateUI() {
         binding.quoteDescription.setText(viewModel.quoteDescription)
         binding.quoteTopicIcon.setImageResource(viewModel.topicIconId.getResIdTopicIcon())
-        binding.updateUITitle()
-        binding.updateUISubtitle()
-    }
-
-    private fun FragmentQuoteBinding.updateUITitle() {
-        if (viewModel.topicTitle != "") quoteTopicTitle.text = viewModel.topicTitle
-        else quoteTopicTitle.setText(R.string.topic_editor_parent_id_null)
-    }
-
-    private fun FragmentQuoteBinding.updateUISubtitle() {
-        quoteTopicSubtitle.isVisible = viewModel.topicSubtitle == ""
-        quoteTopicSubtitle.text = viewModel.topicSubtitle
+        binding.quoteTopicTitle.setTextOrUndefined(viewModel.topicTitle)
+        binding.quoteTopicSubtitle.setTextOrGone(viewModel.topicSubtitle)
     }
 
     override fun onStop() {

@@ -11,7 +11,7 @@ import kotlinx.coroutines.launch
 import ru.zfix27r.domain.editor.quote.GetQuoteEditorModelUseCase
 import ru.zfix27r.domain.editor.quote.SaveQuoteEditorModel
 import ru.zfix27r.domain.editor.quote.SaveQuoteEditorModelUseCase
-import ru.zfix27r.mylearning.ui.BaseViewModel
+import ru.zfix27r.mylearning.ui.base.BaseViewModel
 import ru.zfix27r.mylearning.ui.getErrorStringRes
 import ru.zfix27r.mylearning.ui.getMoreThanZeroOrNull
 import javax.inject.Inject
